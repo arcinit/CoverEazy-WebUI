@@ -1,0 +1,147 @@
+// ---------- tokens ----------
+$rating-navy: #0b2648;
+$rating-green: #01b637;
+$rating-star: #ddb049;
+$rating-text-muted: #586474;
+$rating-border: #e7e9ee;
+$radius-lg: 24px;
+
+.rating {
+    width: 100%;
+    padding: 56px 24px 64px;
+    background: #F7FBFD;
+
+
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__eyebrow {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: $rating-green;
+        margin-bottom: 12px;
+    }
+
+    &__heading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 1.15;
+        color: $rating-navy;
+        margin: 0 0 40px;
+
+        em {
+            color: $rating-green;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        @media (max-width: 720px) {
+            font-size: 30px;
+
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+    }
+
+    &__grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+
+        @media (max-width: 900px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__card {
+        background: #fff;
+        border: 1px solid $rating-border;
+        border-radius: $radius-lg;
+        padding: 28px 28px 24px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__stars {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 16px;
+    }
+    &__rating-star{
+        color: #ddb049;
+    }
+
+    &__quote {
+        font-size: 15.5px;
+        line-height: 1.6;
+        color: $rating-navy;
+        margin: 0 0 24px;
+        flex: 1;
+    }
+
+    &__divider {
+        height: 1px;
+        background: $rating-border;
+        margin-bottom: 20px;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__avatar {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: $rating-green;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__person {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__name {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: $rating-navy;
+    }
+
+    &__role {
+        font-size: 13px;
+        font-weight: 400;
+        color: $rating-text-muted;
+        margin-top: 2px;
+    }
+}

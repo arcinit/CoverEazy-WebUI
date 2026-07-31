@@ -1,0 +1,364 @@
+.h-hero {
+    width: 100%;
+
+    &__container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 100px;
+    }
+
+    &__content {
+        width: 55%;
+    }
+
+    &__badge {
+        max-width: 239px;
+        height: 24px;
+        background: #EDFFFA;
+        padding: 4px 12px;
+        border-radius: 33554400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--green-color);
+        gap: 6px;
+
+        .point {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green-color);
+        }
+    }
+
+    &__title {
+        font-size: 48px;
+        line-height: 60px;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-top: 30px;
+
+        .gradient-text {
+            display: inline-block;
+            background: linear-gradient(90deg,
+                    #2458b8 0%,
+                    #1f70af 35%,
+                    #178b9c 70%,
+                    #0aa675 100%);
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    &__subtitle {
+        font-size: 17px;
+        line-height: 28px;
+        font-weight: 700;
+        color: #586474;
+        margin-top: 20px;
+    }
+
+    &__action-btns {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 30px;
+    }
+
+    &__compare-btn {
+        width: 236px;
+        height: 65px;
+        background: var(--secondary-color);
+        box-shadow: 0px 1px 3px -1px #04193A0A;
+        box-shadow: 0px 2px 8px -2px #04193A0F;
+        border-radius: 66px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+
+        .icon {
+            font-size: 15px;
+        }
+    }
+
+    &__demo-btn {
+        width: 220px;
+        height: 65px;
+        background: transparent;
+        border-radius: 66px;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--green-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        border: 1px solid var(--green-color);
+
+        video {
+            width: 56px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 60px;
+        }
+    }
+
+    &__meta-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    &__meta-block {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__meta-icon-wrap {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #EDFFFA;
+
+        .icon {
+            font-size: 16px;
+            color: var(--green-color);
+        }
+    }
+
+    &__meta-title{
+        font-size: 13px;
+        color: #000000;
+        font-weight: 400;
+        line-height: 22px;
+    }
+
+    &__get-app-btns {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 40px;
+    }
+
+    &__get-app-btn {
+        width: 155px;
+        height: 45px;
+        border: none;
+        outline: none;
+        background: transparent;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        cursor: pointer;
+
+        &.app-store {
+            background-image: url("./images/app-store.png");
+        }
+
+        &.play-store {
+            background-image: url("./images/google-play.png");
+        }
+    }
+
+
+
+        &__3d-images-container {
+            position: relative;
+           flex: 1;
+            height: 580px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+    
+        &__phone-img {
+            position: absolute;
+            left: 25px;
+            top: 150px;
+            width: 466px;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+    
+        &__float-card {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 10px 16px;
+            box-shadow: 0px 8px 24px -6px rgba(4, 25, 58, 0.15);
+            z-index: 3;
+            animation: float 5s ease-in-out infinite;
+            white-space: nowrap;
+    
+            &__icon-wrap {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+    
+                .icon {
+                    font-size: 15px;
+                }
+            }
+    
+            &__text {
+                display: flex;
+                flex-direction: column;
+    
+                .title {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: var(--text-dark);
+                }
+    
+                .subtitle {
+                    font-size: 11px;
+                    color: #8a94a3;
+                }
+            }
+    
+            &--motor {
+                left: 246px;
+                top: 20px;
+                animation-delay: 0s;
+    
+                .h-hero__float-card__icon-wrap {
+                    background: #E9F1FF;
+    
+                    .icon {
+                        color: #2458b8;
+                    }
+                }
+            }
+    
+            &--travel {
+                left: 375px;
+                top: 245px;
+                animation-delay: 1.2s;
+    
+                .h-hero__float-card__icon-wrap {
+                    background: #EDFFFA;
+    
+                    .icon {
+                        color: var(--green-color);
+                    }
+                }
+            }
+    
+            &--tax {
+                left: 15px;
+                top: 305px;
+                animation-delay: 0.6s;
+    
+                .h-hero__float-card__icon-wrap {
+                    background: #E9F1FF;
+    
+                    .icon {
+                        color: #2458b8;
+                    }
+                }
+            }
+    
+            &--claims {
+                left: 385px;
+                top: 468px;
+                animation-delay: 1.8s;
+                align-items: flex-start;
+    
+                .h-hero__float-card__text {
+                    gap: 6px;
+    
+                    .title {
+                        font-size: 14px;
+                        margin-bottom: 2px;
+                    }
+    
+                    .claim-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-size: 12px;
+                        color: var(--text-dark);
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    
+        &__floating-icon {
+            position: absolute;
+            z-index: 2;
+            animation: float 5.5s ease-in-out infinite;
+            object-fit: contain;
+    
+            &--motor {
+                left: 136px;
+                top: 53px;
+                width: 110px;
+                animation-delay: 0.3s;
+            }
+    
+            &--travel {
+                left: 346px;
+                top: 140px;
+                width: 78px;
+                animation-delay: 1.5s;
+            }
+    
+            &--tax {
+                left: 82px;
+                top: 390px;
+                width: 90px;
+                animation-delay: 0.9s;
+            }
+    
+            &--claims {
+                left: 313px;
+                top: 483px;
+                width: 68px;
+                animation-delay: 2.1s;
+            }
+        }
+    
+        @keyframes float {
+    
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+    
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+    
+        @media (prefers-reduced-motion: reduce) {
+    
+            .h-hero__phone-img,
+            .h-hero__float-card,
+            .h-hero__floating-icon {
+                animation: none;
+            }
+        }
+}
