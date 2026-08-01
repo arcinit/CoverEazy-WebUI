@@ -1,0 +1,206 @@
+.verify-otp {
+    width: 500px;
+    border-radius: 24px;
+    background: #ffffff;
+    border: 1px solid var(--Stroke, #E3E8EE);
+    box-shadow: 0px 12px 18px 0px #7CADFF59;
+
+    &__container {
+        width: 100%;
+        height: 100%;
+        padding: 32px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 33px;
+        letter-spacing: 0%;
+        color: #1A2333;
+        text-align: center;
+    }
+
+    &__icon-wrap {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: #062155;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 24px;
+    }
+
+    &__icon {
+        color: #ffffff;
+        font-size: 34px;
+    }
+
+    &__desc {
+        margin-top: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #586474;
+        text-align: center;
+    }
+
+    &__phone {
+        margin-top: 4px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #1A2333;
+    }
+
+    // OTP boxes
+    &__inputs {
+        display: flex;
+        gap: 10px;
+        margin-top: 28px;
+    }
+
+    &__input {
+        width: 56px;
+        height: 60px;
+        border-radius: 14px;
+        border: 1.33px solid #E9EEF5;
+        background: #F8FAFD;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        color: #1A2333;
+        outline: none;
+        transition: border-color 0.15s ease, background 0.15s ease;
+
+        &:focus {
+            border-color: #062155;
+            background: #ffffff;
+        }
+    }
+
+    &__meta {
+        margin-top: 16px;
+        font-size: 14px;
+        color: #586474;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__timer {
+        color: #2563EB;
+        font-weight: 700;
+    }
+
+    &__dot {
+        color: #C7CFDA;
+    }
+
+    &__resend,
+    &__change {
+        color: #2563EB;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__actions {
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    &__submit-btn {
+        width: 100%;
+        height: 54px;
+        border-radius: 36px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #01B637;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease, transform 0.05s ease, opacity 0.2s ease;
+
+        &:disabled {
+            opacity: 40%;
+            cursor: not-allowed;
+        }
+
+        &:not(:disabled):hover {
+            background: #019c2f;
+        }
+
+        &:not(:disabled):active {
+            transform: scale(0.99);
+        }
+    }
+
+    // Trust badges
+    &__badges {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    &__badge {
+        border: 1px solid #E3E8EE;
+        border-radius: 12px;
+        padding: 7px 5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .icon {
+            font-size: 20px;
+            color: #2563EB;
+        }
+    }
+
+    &__badge-summary {
+        display: block;
+
+        .title {
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 18px;
+            letter-spacing: 0%;
+            color: #586474;
+        }
+
+        .val {
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 17px;
+            letter-spacing: 0%;
+        }
+    }
+
+    // Footer
+    &__footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #586474;
+
+        a {
+            color: #01B637;
+            font-weight: 700;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -5,8 +5,14 @@ import { LuSparkles } from "react-icons/lu";
 import { FaArrowRight } from "react-icons/fa";
 import { MdPerson3 } from "react-icons/md";
 import headerLogo from "./images/logo.png"
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate=useNavigate();
+
+    const handleLogin=()=>{
+        navigate("/login")
+    }
     return <>
 
         <header className="header">
@@ -27,7 +33,7 @@ const Header = () => {
                         AI MODE
                         <span>New</span>
                     </button>
-                    <button className="header__login-btn">
+                    <button className="header__login-btn" onClick={handleLogin}>
                         Login
                     </button>
                     <button className="header__get-quote-btn">
