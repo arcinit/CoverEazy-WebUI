@@ -1,0 +1,369 @@
+// ---------------------------------------------------------
+// Choose a Workshop — BEM styles
+// Block: .workshop-list
+// ---------------------------------------------------------
+
+$color-bg: #f5f7fb;
+$color-panel: #ffffff;
+$color-border: #e4e8f0;
+$color-navy: #062155;
+$color-green: #00B894;
+$color-blue: #2E65EE;
+$color-blue-bg: #eff6ff;
+$color-amber: #f59e0b;
+$color-text: #1f2937;
+$color-muted: #6b7280;
+$color-muted-light: #9aa4b8;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-pill: 999px;
+
+.workshop-list {
+
+    &__header {
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        font-size: 44px;
+        font-weight: 400;
+        color: $color-navy;
+        margin: 0 0 6px;
+
+        &--accent {
+            font-style: italic;
+            color: #01B637;
+            font-weight: 400;
+        }
+    }
+
+    &__subtitle {
+        margin: 0;
+        color: $color-muted;
+        font-size: 14px;
+    }
+
+    // --- Toolbar (search + filters) ---
+    &__toolbar {
+        background: $color-panel;
+        border: 1px solid $color-border;
+        border-radius: $radius-lg;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    &__search {
+        position: relative;
+        margin-bottom: 14px;
+    }
+
+    &__search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $color-muted-light;
+        font-size: 16px;
+    }
+
+    &__search-input {
+        width: 100%;
+        padding: 14px 16px ;
+        border: 1px solid #E9EEF5;
+        border-radius: 16px;
+        background: #F8FAFD;
+        font-size: 14px;
+        color: $color-text;
+        font-family: inherit;
+
+        &::placeholder {
+            color: $color-muted-light;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $color-navy;
+            background: $color-panel;
+        }
+    }
+
+    &__filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__filter-btn {
+        padding: 8px 16px;
+        border-radius: $radius-pill;
+        border: 1px solid $color-border;
+        background: $color-panel;
+        color: $color-text;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+        &:hover {
+            border-color: darken($color-border, 15%);
+        }
+
+        &--active {
+            background: $color-navy;
+            border-color: $color-navy;
+            color: #fff;
+        }
+    }
+
+    // --- Grid ---
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+        @media (max-width: 980px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 640px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: $color-muted;
+        font-size: 14px;
+        padding: 40px 0;
+    }
+
+    // --- Card ---
+    &__card {
+        background: $color-panel;
+        border: 1.5px solid $color-border;
+        border-radius: $radius-lg;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &--selected {
+            border-color: $color-blue;
+            box-shadow: 0 0 0 3px rgba($color-blue, 0.12);
+        }
+    }
+
+    // --- Thumbnail (placeholder, no external images) ---
+    &__thumb {
+        width: 100%;
+        position: relative;
+        height: 150px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+
+
+    &__panel-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #2E65EE;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 29826200px;
+    }
+
+    &__fav-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(#fff, 0.9);
+        border: none;
+        color: $color-muted;
+        cursor: pointer;
+        font-size: 14px;
+        transition: color 0.15s ease, transform 0.1s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &--active {
+            color: #ef4444;
+
+            svg {
+                fill: currentColor;
+            }
+        }
+    }
+
+    // --- Card body ---
+    &__body {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__name-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    &__name {
+        font-size: 15.5px;
+        font-weight: 700;
+        margin: 0;
+        color: #313131;
+    }
+
+    &__rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-text;
+        flex-shrink: 0;
+    }
+
+    &__rating-icon {
+        color: $color-amber;
+        font-size: 12px;
+    }
+
+    &__address {
+        margin: 0;
+        font-size: 12px;
+        color: #586474;
+        line-height: 1.4;
+        font-weight: 300;
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 12px;
+        color: $color-muted;
+    }
+
+    &__meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        &--open {
+            color: $color-green;
+            font-weight: 600;
+        }
+    }
+
+    &__meta-dot {
+        color: $color-muted-light;
+    }
+
+    // --- Actions row ---
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    &__action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 12px;
+        border-radius: 12px;
+border: 1px solid  #E3E8EE;
+        background: $color-panel;
+        color: $color-text;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: #f1f5f9;
+        }
+
+        &--primary {
+            flex: 1;
+            background: $color-navy;
+            border-color: #062155;
+            color: #fff;
+
+            &:hover {
+                background: lighten($color-navy, 6%);
+            }
+        }
+    }
+
+    // --- Footer ---
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 32px;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.15s ease, background 0.15s ease;
+
+        &--ghost {
+            background: $color-panel;
+            color: $color-text;
+            border: 1px solid $color-border;
+
+            &:hover {
+                background: #f1f5f9;
+            }
+        }
+
+        &--primary {
+            background: $color-navy;
+            color: #fff;
+
+            &:hover:not(:disabled) {
+                background: lighten($color-navy, 6%);
+            }
+
+            &:disabled {
+                background: #9aa4b8;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

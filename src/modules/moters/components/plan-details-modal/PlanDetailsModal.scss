@@ -1,0 +1,856 @@
+// ---------------------------------------------------------------
+// Tokens (kept local to this component, same values as ComparePlans.scss)
+// ---------------------------------------------------------------
+$text-dark: #313131;
+$text-navy: #062155;
+$text-muted: #586474;
+$text-faint: #98a2b3;
+$navy: #062155;
+$green: #01B637;
+$green-bg: #e9fbf1;
+$blue: #2563eb;
+$blue-bg: #eaf2ff;
+$orange: #f59e0b;
+$red: #e5484d;
+$red-bg: #fdecec;
+$border: #e3e8ee;
+$bg-page: #f7f9fc;
+$bg-panel: #ffffff;
+$radius-lg: 20px;
+$radius-md: 14px;
+$radius-sm: 8px;
+
+// ---------------------------------------------------------------
+// Shared visual rules — pulled in per-block via @include, never by
+// sharing a class name in markup. Each section below stays its own
+// independent BEM block.
+// ---------------------------------------------------------------
+@mixin surface-card {
+    background: $bg-panel;
+    border-radius: 24px;
+    padding: 16px;
+    border: 1px solid #E3E8EE;
+}
+
+@mixin section-heading {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $text-dark;
+}
+
+@mixin card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@mixin card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@mixin card-icon-badge {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .icon {
+        font-size: 15px;
+    }
+}
+
+@mixin card-title-text {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: $text-dark;
+}
+
+// ---------------------------------------------------------------
+// Modal shell (overlay, layout, footer)
+// ---------------------------------------------------------------
+.plan-details-modal__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 33, 85, 0.35);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+    animation: plan-details-modal-fade-in 0.25s ease;
+}
+
+.plan-details-modal {
+    width: 80%;
+    max-width: 1000px;
+    height: 100vh;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -12px 0 40px rgba(15, 23, 42, 0.18);
+    animation: plan-details-modal-slide-in 0.3s ease;
+    padding: 24px 17px;
+
+    // -----------------------------------------------------------
+    // Header now lives INSIDE __main only (see JSX). It is scoped
+    // to the left column's width and sits flush with the aside's
+    // top edge — it must never stretch across the full modal.
+    // -----------------------------------------------------------
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+        padding-bottom: 20px 16px;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid $border;
+        background: $bg-panel;
+        color: $text-muted;
+        cursor: pointer;
+        flex-shrink: 0;
+
+        .icon {
+            font-size: 15px;
+        }
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__brand-logo {
+        width: 130px;
+        height: 44px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__brand-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 400;
+        color: $text-navy;
+
+        span {
+            color: $green;
+            font-style: italic;
+        }
+    }
+
+    &__brand-subtitle {
+        margin: 2px 0 0;
+        font-size: 14px;
+        color: $text-muted;
+        font-weight: 400;
+    }
+
+    &__select-btn {
+        flex-shrink: 0;
+        border: none;
+        background: $navy;
+        color: #fff;
+        border-radius: 20px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    &__body {
+        flex: 1;
+        display: flex;
+        gap: 20px;
+        padding: 20px 24px;
+        min-height: 0; // required so children can scroll independently
+    }
+
+    &__main {
+        flex: 1.7;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-width: 0;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    &__aside {
+        flex: 1;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: auto;
+        padding-right: 2px;
+    }
+
+    &__footer {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        background: $bg-panel;
+        padding: 20px 24px;
+        flex-wrap: wrap;
+    }
+
+    &__footer-plan {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-right: 24px;
+        border-right: 1px solid $border;
+    }
+
+    &__footer-logo {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__footer-plan-label {
+        display: block;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $text-muted;
+    }
+
+    &__footer-plan-name {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
+        margin-top: 4px;
+    }
+
+    &__footer-right {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        flex-wrap: wrap;
+        margin-left: auto;
+    }
+
+    &__footer-figures {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
+    &__footer-figure {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &__footer-figure-label {
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $text-muted;
+    }
+
+    &__footer-figure-value {
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+
+        &--green {
+            color: $green;
+        }
+    }
+
+    &__footer-cta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: none;
+        background: $navy;
+        color: #fff;
+        border-radius: 24px;
+        padding: 13px 20px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+
+        .icon {
+            font-size: 14px;
+        }
+    }
+}
+
+// ---------------------------------------------------------------
+// Policy Summary — independent block
+// ---------------------------------------------------------------
+.policy-summary {
+    @include surface-card;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F4F8FF 100%),
+        radial-gradient(100% 80% at 100% 100%, rgba(43, 196, 196, 0.18) 0%, rgba(43, 196, 196, 0) 55%),
+        radial-gradient(120% 80% at -4950% -4950%, rgba(15, 91, 255, 0.18) 0%, rgba(15, 91, 255, 0) 55%);
+    border: 1px solid #2662FE26;
+    box-shadow: 0px 12px 32px -12px #0F172A1F;
+    box-shadow: 0px 1px 2px 0px #0F172A0A;
+
+    &__title {
+        @include section-heading;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: #ffffff;
+        box-shadow: 0px 8px 24px 0px #00000029;
+        border-radius: 16px;
+        padding: 16px;
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $text-muted;
+
+        .icon {
+            font-size: 11px;
+        }
+    }
+
+    &__value {
+        font-size: 18px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+}
+
+// ---------------------------------------------------------------
+// Core Coverage — independent, collapsible block
+// ---------------------------------------------------------------
+.core-coverage {
+    @include surface-card;
+
+    &__header {
+        @include card-header-row;
+        border: none;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    &__header-left {
+        @include card-header-left;
+    }
+
+    &__icon {
+        color: #0033A0;
+
+        .icon {
+            font-size: 20px
+        }
+    }
+
+    &__title {
+        @include card-title-text;
+        font-size: 18px;
+    }
+
+    &__chevron {
+        font-size: 14px;
+        color: $text-faint;
+    }
+
+    &__body {
+        margin-top: 16px;
+    }
+
+    &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    &__check {
+        font-size: 20px;
+        color: #22C55E;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    &__item-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
+    }
+
+    &__item-desc {
+        margin: 3px 0 0;
+        font-size: 13px;
+        color: $text-muted;
+        font-weight: 400
+    }
+}
+
+// ---------------------------------------------------------------
+// Recommended Add-ons — independent block
+// ---------------------------------------------------------------
+.addons-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px  solid #E3E8EE;
+    overflow: visible;
+    padding: 16px;
+
+    &__header {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            padding: 0px;
+    }
+
+    &__icon {
+        .icon{
+            color: #0033A0;
+            font-size: 18px;
+        }
+    }
+
+    &__title {
+        @include card-title-text;
+        margin-left: 10px;
+    }
+
+    &__body {
+        margin-top: 16px;
+    }
+
+    &__list {
+        width: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        border: none;
+    }
+
+    &__item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between !important;
+        padding: 12px;
+        background: #F8FAFD;
+        border: none !important;
+        border-radius: 12px;
+    }
+
+    &__item-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__item-icon {
+        font-size: 16px;
+        color: $blue;
+    }
+
+    &__item-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: $text-dark;
+    }
+
+    &__item-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+}
+
+// ---------------------------------------------------------------
+// Exclusions — independent, collapsible block
+// ---------------------------------------------------------------
+.exclusions-card {
+    @include surface-card;
+
+    &__header {
+        @include card-header-row;
+        border: none;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    &__header-left {
+        @include card-header-left;
+    }
+
+    &__icon {
+        .icon {
+            font-size: 20px;
+            color: #EF4444
+        }
+    }
+
+    &__title {
+        @include card-title-text;
+    }
+
+    &__chevron {
+        font-size: 14px;
+        color: $text-faint;
+    }
+
+    &__body {
+        margin-top: 16px;
+    }
+
+    &__list {
+        margin: 0;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__item {
+        font-size: 12px;
+        color: $text-muted;
+        line-height: 1.5;
+    }
+}
+
+// ---------------------------------------------------------------
+// Claims Process — independent block
+// ---------------------------------------------------------------
+.claims-process {
+    @include surface-card;
+    padding: 16px;
+    border-radius: 16px;
+
+    &__title {
+        @include section-heading;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    &__step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    &__icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #F8FAFD;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $green;
+
+        .icon {
+            font-size: 20px;
+        }
+    }
+
+    &__step-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__step-desc {
+        margin: 0;
+        font-size: 12px;
+        color: $text-muted;
+        line-height: 1.4;
+    }
+}
+
+// ---------------------------------------------------------------
+// Why Choose — independent aside block
+// ---------------------------------------------------------------
+.why-choose-card {
+    @include surface-card;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F4F8FF 100%),
+        radial-gradient(100% 80% at 100% 100%, rgba(43, 196, 196, 0.18) 0%, rgba(43, 196, 196, 0) 55%),
+        radial-gradient(120% 80% at -4950% -4950%, rgba(15, 91, 255, 0.18) 0%, rgba(15, 91, 255, 0) 55%) !important;
+    border: 1px solid #2662FE26;
+    box-shadow: 0px 12px 32px -12px #0F172A1F;
+    box-shadow: 0px 1px 2px 0px #0F172A0A;
+    border-radius: 16px;
+
+    &__eyebrow {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $text-muted;
+    }
+
+    &__title {
+        margin: 20px 0 16px;
+        font-size: 18px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__score {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    &__score-value {
+        font-size: 48px;
+        font-weight: 600;
+        color: #01B637;
+        line-height: 1;
+    }
+
+    &__score-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__stars {
+        display: flex;
+        gap: 1px;
+    }
+
+    &__star {
+        font-size: 12px;
+        color: $text-dark;
+
+        &--filled {
+            color: $text-dark;
+        }
+    }
+
+    &__score-label {
+        font-size: 11px;
+        color: $text-muted;
+    }
+
+    &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    &__item-icon {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $text-dark;
+        flex-shrink: 0;
+
+        .icon {
+            font-size: 18px;
+        }
+    }
+
+    &__item-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__item-desc {
+        margin: 5px 0 0;
+        font-size: 12px;
+        color: $text-dark;
+        line-height: 1.4;
+    }
+}
+
+// ---------------------------------------------------------------
+// Need Help — independent aside block
+// ---------------------------------------------------------------
+.help-card {
+    background: #F0F5FF;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 16px;
+
+    &__title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__desc {
+        margin: 6px 0 14px;
+        font-size: 12px;
+        color: $text-muted;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    &__btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: 1px solid $border;
+        background: $bg-panel;
+        color: $text-dark;
+        border-radius: 20px;
+        padding: 10px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+
+        .icon {
+            font-size: 14px;
+        }
+    }
+}
+
+// ---------------------------------------------------------------
+// Animations
+// ---------------------------------------------------------------
+@keyframes plan-details-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes plan-details-modal-slide-in {
+    from {
+        transform: translateX(32px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+// ---------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------
+@media (max-width: 960px) {
+    .plan-details-modal {
+        width: 100%;
+        max-width: 100%;
+
+        &__body {
+            flex-direction: column;
+        }
+
+        &__aside {
+            max-width: 100%;
+        }
+
+        &__footer {
+            justify-content: center;
+            text-align: center;
+        }
+
+        &__footer-plan {
+            border-right: none;
+            padding-right: 0;
+        }
+    }
+
+    .policy-summary__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .claims-process__grid {
+        grid-template-columns: 1fr;
+    }
+}

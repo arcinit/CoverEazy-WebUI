@@ -1,0 +1,430 @@
+// ---------------------------------------------------------
+// Evidence Upload — BEM styles
+// Block: .evidence-upload
+// ---------------------------------------------------------
+
+$color-bg: #f5f7fb;
+$color-panel: #ffffff;
+$color-border: #e4e8f0;
+$color-navy: #062155;
+$color-green: #01B637;
+$color-green-bg: #ecfdf5;
+$color-green-border: #01B637;
+$color-orange: #f97316;
+$color-orange-bg: #fff7ed;
+$color-orange-border: #fdba74;
+$color-text: #1f2937;
+$color-muted: #6b7280;
+$color-danger: #dc2626;
+$color-danger-bg: #fef2f2;
+
+$radius-sm: 16px;
+$radius-md: 12px;
+$radius-lg: 16px;
+
+@mixin panel {
+    background: $color-panel;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: 24px;
+}
+
+.evidence-upload {
+
+
+    &__header {
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        font-size: 32px;
+        font-weight: 700;
+        color: $color-navy;
+        margin: 0 0 6px;
+
+        &--accent {
+            font-style: italic;
+            color: #16a34a;
+            font-weight: 600;
+        }
+    }
+
+    &__subtitle {
+        margin: 0;
+        color: $color-muted;
+        font-size: 14px;
+    }
+
+    &__alert {
+        background: $color-danger-bg;
+        color: $color-danger;
+        border: 1px solid rgba($color-danger, 0.25);
+        border-radius: $radius-sm;
+        padding: 10px 14px;
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    &__panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+
+        @media (max-width: 860px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__panel {
+        @include panel;
+    }
+
+    &__panel-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 4px;
+    }
+
+    &__panel-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    &__panel-meta {
+        font-size: 12px;
+        color: $color-muted;
+    }
+
+    &__panel-instruction {
+        font-size: 12.5px;
+        color: $color-muted;
+        margin: 4px 0 16px;
+    }
+
+    // --- Vehicle Photos grid ---
+    &__photo-grid {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+
+        @media (max-width: 520px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &__photo-slot {
+        width: 180px;
+        height: 174px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        padding: 22px 16px;
+        min-height: 120px;
+        background: #f8fafc;
+        border: 1.5px dashed $color-border;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+        font: inherit;
+        color: inherit;
+
+        &:hover {
+            border-color: darken($color-border, 15%);
+            transform: translateY(-1px);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $color-navy;
+            outline-offset: 2px;
+        }
+
+        &--uploaded {
+            background:#EDFFFA;
+            border: 1.5px dashed $color-green-border;
+
+            &:hover {
+                border-color: $color-green;
+            }
+
+            .evidence-upload__photo-icon {
+                color: $color-green;
+            }
+
+            .evidence-upload__photo-label,
+            .evidence-upload__photo-hint {
+                color: #15803d;
+            }
+        }
+    }
+
+    &__photo-remove {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(#000, 0.06);
+        color: $color-muted;
+        font-size: 11px;
+
+        &:hover {
+            background: rgba($color-danger, 0.12);
+            color: $color-danger;
+        }
+    }
+
+    &__photo-icon {
+        font-size: 20px;
+        color: $color-muted;
+        display: flex;
+    }
+
+    &__photo-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    &__photo-hint {
+        font-size: 11px;
+        color: $color-muted;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    // --- Damage Map ---
+    &__damage-map {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &__damage-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+        // rows with a single centered item (Front Bumper, Windscreen, Rear Glass)
+        &:has(> :only-child) {
+            grid-template-columns: 1fr;
+
+            .evidence-upload__area-btn {
+                max-width: 220px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &__area-btn {
+        padding: 10px 8px;
+        font-size: 12.5px;
+        font-weight: 500;
+        text-align: center;
+        background: #f8fafc;
+        border: 1.5px solid $color-border;
+        border-radius: 999px;
+        color: $color-text;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            border-color: darken($color-border, 15%);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $color-navy;
+            outline-offset: 2px;
+        }
+
+        &--selected {
+            background: $color-green-bg;
+            border-color: $color-green;
+            color: $color-green;
+            font-weight: 600;
+        }
+    }
+
+    &__legend {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 16px 0 0;
+        font-size: 11.5px;
+        color: $color-muted;
+    }
+
+    &__legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $color-orange;
+        display: inline-block;
+    }
+
+    // --- Dropzone ---
+    &__dropzone {
+        margin-top: 20px;
+        border: 2px dashed $color-border;
+        border-radius: $radius-lg;
+        background: $color-panel;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: border-color 0.15s ease, background 0.15s ease;
+
+        &--active {
+            border-color: $color-navy;
+            background: #eef2ff;
+        }
+    }
+
+    &__dropzone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #EDFFFA;
+        color: $color-green;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    &__dropzone-title {
+        font-weight: 700;
+        font-size: 15px;
+        margin: 0 0 6px;
+    }
+
+    &__dropzone-hint {
+        font-size: 12px;
+        color: $color-muted;
+        margin: 0 0 16px;
+        font-weight: 400;
+    }
+
+    &__browse-btn {
+        background: #F0F5FF;
+        color: $color-navy;
+        border-radius: 20px;
+        border: none;
+        padding: 12px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: #e0e7ff;
+        }
+    }
+
+    &__file-list {
+        list-style: none;
+        margin: 20px 0 0;
+        padding: 0;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+    }
+
+    &__file-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8fafc;
+        border: 1px solid $color-border;
+        border-radius: $radius-sm;
+        padding: 8px 10px;
+        font-size: 12.5px;
+    }
+
+    &__file-icon {
+        color: $color-muted;
+        flex-shrink: 0;
+    }
+
+    &__file-name {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__file-remove {
+        color: $color-muted;
+        display: flex;
+
+        &:hover {
+            color: $color-danger;
+        }
+    }
+
+    // --- Footer ---
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 28px;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        border-radius: $radius-sm;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: opacity 0.15s ease, background 0.15s ease;
+
+        &--ghost {
+            background: $color-panel;
+            color: $color-text;
+            border: 1px solid $color-border;
+
+            &:hover {
+                background: #f1f5f9;
+            }
+        }
+
+        &--primary {
+            background: $color-navy;
+            color: #fff;
+
+            &:hover:not(:disabled) {
+                background: lighten($color-navy, 6%);
+            }
+
+            &:disabled {
+                background: #9aa4b8;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    &__hidden-input {
+        display: none;
+    }
+}

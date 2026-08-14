@@ -1,0 +1,690 @@
+// -----------------------------------------------------------------------------
+// Checkout.scss
+// BEM styling for the "Checkout" step
+// -----------------------------------------------------------------------------
+
+$co-color-bg: #eef1f6;
+$co-color-white: #ffffff;
+$co-color-border: #e5e9f0;
+$co-color-navy: #0B1F3A;
+$co-color-navy-hover: #16294d;
+$co-color-green: #16a34a;
+$co-color-green-bg: #E6FAF5;
+$co-color-blue: #2f6fed;
+$co-color-blue-bg: #e8f0fe;
+$co-color-text-primary: #313131;
+$co-color-text-secondary: #586474;
+$co-color-text-muted: #586474;
+$co-radius-lg: 16px;
+$co-radius-md: 12px;
+$co-radius-sm: 8px;
+$co-shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+
+@mixin co-card {
+    background: $co-color-white;
+    border-radius: $co-radius-lg;
+    box-shadow: $co-shadow-card;
+}
+
+@mixin co-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid $co-color-border;
+    border-radius: $co-radius-sm;
+    background: $co-color-white;
+    font-size: 13.5px;
+    color: $co-color-text-primary;
+    font-family: inherit;
+
+    &::placeholder {
+        color: $co-color-text-muted;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $co-color-navy;
+    }
+}
+
+.checkout {
+    padding: 32px;
+
+    &__header {
+        margin-bottom: 24px;
+    }
+
+    &__title {
+        margin: 0 0 6px;
+        font-size: 32px;
+        font-weight: 400;
+        color: $co-color-navy;
+        letter-spacing: -0.02em;
+    }
+
+    &__subtitle {
+        margin: 0;
+        font-size: 16px;
+        color: $co-color-text-secondary;
+    }
+
+    // ---------------------------------------------------------------------
+    // Layout
+    // ---------------------------------------------------------------------
+    &__body {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        align-items: start;
+        gap: 24px;
+
+        @media (max-width: 960px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+    }
+
+    // ---------------------------------------------------------------------
+    // Shared card
+    // ---------------------------------------------------------------------
+    &__card {
+        @include co-card;
+        padding: 24px;
+    }
+
+    &__card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+
+    &__card-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: $co-color-text-primary;
+    }
+
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+
+        &--confirmed {
+            background: $co-color-green-bg;
+            color: $co-color-green;
+        }
+
+        &--muted {
+            background: #f2f4f7;
+            color: $co-color-text-secondary;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // Trip overview grid
+    // ---------------------------------------------------------------------
+    &__overview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    // ---------------------------------------------------------------------
+    // Plan strip (below travellers table)
+    // ---------------------------------------------------------------------
+    &__plan-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 14px;
+        padding: 12px 16px;
+        border-radius: $co-radius-sm;
+        background: $co-color-green-bg;
+        font-size: 13px;
+        font-weight: 600;
+        color: $co-color-green;
+    }
+
+    &__plan-strip-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__plan-strip-value {
+        color: $co-color-text-primary;
+    }
+
+    // ---------------------------------------------------------------------
+    // Forms
+    // ---------------------------------------------------------------------
+    &__form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 4px;
+    }
+
+    // ---------------------------------------------------------------------
+    // Payment method grid
+    // ---------------------------------------------------------------------
+    &__methods-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    // ---------------------------------------------------------------------
+    // Trust badges
+    // ---------------------------------------------------------------------
+    &__trust-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 18px;
+    }
+
+    // ---------------------------------------------------------------------
+    // Terms checkbox
+    // ---------------------------------------------------------------------
+    &__terms {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+
+        input[type='checkbox'] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        a {
+            color: $co-color-green;
+            font-weight: 600;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__terms-check {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        margin-top: 1px;
+        border-radius: 5px;
+        background: $co-color-green;
+        color: $co-color-white;
+        font-size: 12px;
+    }
+
+    &__terms-text {
+        font-size: 13px;
+        color: $co-color-text-secondary;
+        line-height: 1.5;
+    }
+
+    // ---------------------------------------------------------------------
+    // Payment summary sidebar
+    // ---------------------------------------------------------------------
+    &__summary {
+        @include co-card;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 24px;
+    }
+
+    &__summary-title {
+        margin: 0 0 14px;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: $co-color-text-primary;
+    }
+
+    &__summary-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 7px 0;
+        font-size: 13px;
+        color: $co-color-text-secondary;
+
+        &--total {
+            margin-top: 6px;
+            padding-top: 12px;
+            border-top: 1px solid $co-color-border;
+            font-size: 15px;
+            font-weight: 700;
+            color: $co-color-text-primary;
+
+            span:last-child {
+                font-size: 20px;
+            }
+        }
+    }
+
+    &__summary-currency {
+        font-size: 12px;
+        font-weight: 300;
+        color: $co-color-text-secondary;
+    }
+
+    &__promo {
+        display: flex;
+        gap: 8px;
+        margin: 16px 0;
+    }
+
+    &__promo-input {
+        @include co-input;
+        flex: 1;
+        border-top: 1.33px solid #E9EEF5;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #0B1F3A80;
+    }
+
+    &__promo-btn {
+        flex-shrink: 0;
+        padding: 0 18px;
+        border: none;
+        border-radius: 20px;
+        background: #00B894;
+        color: $co-color-white;
+        font-size: 13.5px;
+        font-weight: 600;
+        cursor: pointer;
+
+
+    }
+
+    &__pay-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 20px;
+        background: #062155;
+        color: $co-color-white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.15s ease;
+
+        &:hover:not(:disabled) {
+            background: $co-color-navy-hover;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    &__summary-caption {
+        margin: 10px 0 0;
+        text-align: center;
+        font-size: 11.5px;
+        color: $co-color-text-muted;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Overview item
+// -----------------------------------------------------------------------------
+.overview-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid $co-color-border;
+    border-radius: $co-radius-md;
+
+    &__icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: $co-color-green-bg;
+        color: $co-color-green;
+        font-size: 15px;
+    }
+
+    &__copy {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__label {
+        font-size: 12px;
+        color: $co-color-text-muted;
+    }
+
+    &__value {
+        font-size: 14px;
+        font-weight: 700;
+        color: $co-color-text-primary;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Travellers table
+// -----------------------------------------------------------------------------
+.travellers-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $co-color-border;
+    border-radius: $co-radius-md;
+    overflow: hidden;
+
+    &__head,
+    &__row {
+        display: grid;
+        grid-template-columns: 2fr 0.8fr 1.1fr 1.1fr 1fr 0.9fr;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    &__head {
+        background: #f8fafc;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: $co-color-text-muted;
+    }
+
+    &__row {
+        border-top: 1px solid $co-color-border;
+        font-size: 13px;
+        color: $co-color-text-primary;
+    }
+
+    &__traveller {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    &__avatar {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: $co-color-blue-bg;
+        color: $co-color-blue;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    &__name-block {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__name {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__primary-tag {
+        font-size: 11px;
+        font-weight: 600;
+        color: $co-color-green;
+    }
+
+    &__type-pill {
+        display: inline-flex;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: $co-color-blue-bg;
+        color: $co-color-blue;
+        font-size: 11.5px;
+        font-weight: 600;
+    }
+
+    &__medical {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: $co-color-green;
+        font-weight: 600;
+        font-size: 12.5px;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Form field
+// -----------------------------------------------------------------------------
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &__label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: $co-color-text-secondary;
+    }
+
+    &__input {
+        @include co-input;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Payment method option
+// -----------------------------------------------------------------------------
+.method-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid $co-color-border;
+    border-radius: $co-radius-md;
+    background: $co-color-white;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+        border-color: #c9d2e0;
+    }
+
+    &--selected {
+        border-color: $co-color-green;
+        background: $co-color-green-bg;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: $co-color-green;
+        color: $co-color-white;
+        font-size: 15px;
+    }
+
+    &--selected &__icon {
+        background: $co-color-green;
+    }
+
+    .method-option:not(.method-option--selected) &__icon {
+        background: #eef1f6;
+        color: $co-color-text-secondary;
+    }
+
+    &__copy {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: $co-color-text-primary;
+    }
+
+    &--selected &__title {
+        color: $co-color-green;
+    }
+
+    &__subtitle {
+        font-size: 12px;
+        color: $co-color-text-secondary;
+    }
+
+    &__check {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: $co-color-green;
+        color: $co-color-white;
+        font-size: 12px;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Credit card visual preview
+// -----------------------------------------------------------------------------
+.credit-card-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 160px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    border-radius: $co-radius-lg;
+    background:
+        radial-gradient(100% 80% at 100% 100%,
+            rgba(43, 196, 196, 0.18) 0%,
+            rgba(43, 196, 196, 0) 55%),
+        radial-gradient(120% 80% at 0% 0%,
+            rgba(15, 91, 255, 0.10) 0%,
+            rgba(15, 91, 255, 0) 55%),
+        linear-gradient(180deg,
+            #FFFFFF 0%,
+            #F4F8FF 100%);
+    color: $co-color-navy;
+    border: 1px solid #2662FE26;
+    box-shadow: 0px 12px 32px -12px #0F172A1F;
+    box-shadow: 0px 1px 2px 0px #0F172A0A;
+
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__chip-dots {
+        display: flex;
+        gap: 5px;
+
+        span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(15, 31, 61, 0.35);
+        }
+    }
+
+    &__brand {
+        font-size: 15px;
+        font-weight: 700;
+        font-style: italic;
+        letter-spacing: 0.02em;
+    }
+
+    &__number {
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: rgba(15, 31, 61, 0.85);
+    }
+
+    &__bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    &__caption {
+        display: block;
+        font-size: 9.5px;
+        letter-spacing: 0.04em;
+        color: rgba(15, 31, 61, 0.55);
+        margin-bottom: 2px;
+    }
+
+    &__value {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Trust badge
+// -----------------------------------------------------------------------------
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $co-color-text-secondary;
+
+    svg {
+        color: $co-color-green;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,357 @@
+// ---------------------------------------------------------------------
+// Tokens
+// ---------------------------------------------------------------------
+$navy: #062155;
+$text-dark: #313131;
+$green: #16C47F;
+$green-bg: #e9faed;
+$blue: #2563eb;
+$blue-bg: #eaf1ff;
+$pink: #ec4899;
+$pink-bg: #fdeef5;
+$orange: #f97316;
+$orange-bg: #fff1e6;
+$red: #ef4444;
+$red-bg: #fdecec;
+$border: #e3e8ee;
+$muted: #6b7280;
+$muted-light: #9aa2ae;
+$bg: #f5f7fb;
+$card-bg: #ffffff;
+
+// brand accents
+$brand-green: #01B637;
+$brand-orange: #FF5E00;
+$warn-bg: #FFF6E8;
+
+.vehicles {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    // -------------------------------------------------------------
+    // Header
+    // -------------------------------------------------------------
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    &__heading {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__lead {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: $muted;
+    }
+
+    // -------------------------------------------------------------
+    // Buttons (shared)
+    // -------------------------------------------------------------
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 16px;
+        font-size: 13.5px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: filter 0.15s ease, transform 0.05s ease;
+
+        &:active {
+            transform: translateY(1px);
+        }
+
+        &:hover {
+            filter: brightness(0.96);
+        }
+
+        svg {
+            font-size: 15px;
+        }
+
+        &--add {
+            background: $navy;
+            color: #fff;
+        }
+
+        &--ghost {
+            background: #fff;
+            color: $text-dark;
+            border: 1px solid $border;
+        }
+
+        &--danger-ghost {
+            background: $red-bg;
+            color: $red;
+        }
+
+        &--navy {
+            background: $navy;
+            color: #fff;
+        }
+
+        &--green {
+            background: $brand-green;
+            color: #fff;
+        }
+
+        &--orange {
+            background: $brand-orange;
+            color: #fff;
+        }
+    }
+
+    // -------------------------------------------------------------
+    // Card list
+    // -------------------------------------------------------------
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__card {
+        background: $card-bg;
+        border: 1px solid $border;
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    &__card-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    // -------------------------------------------------------------
+    // Thumbnail
+    // -------------------------------------------------------------
+    &__thumb {
+        flex: 0 0 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 160px;
+            height: 96px;
+            object-fit: contain;
+        }
+    }
+
+    &__car-img {
+        width: 100%;
+        height: auto;
+    }
+
+    // -------------------------------------------------------------
+    // Details
+    // -------------------------------------------------------------
+    &__details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    &__plate {
+        margin: 0;
+        font-size: 19px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__status {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+
+        &--active {
+            background: $green-bg;
+            color: $green;
+        }
+
+        &--expiring {
+            background: $orange-bg;
+            color: $orange;
+        }
+
+        &--expired {
+            background: $red-bg;
+            color: $red;
+        }
+    }
+
+    &__subtitle {
+        margin: 4px 0 16px;
+        font-size: 13.5px;
+        color: $muted;
+    }
+
+    // -------------------------------------------------------------
+    // Coverage rows
+    // -------------------------------------------------------------
+    &__coverage-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    &__coverage {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    &__coverage-icon {
+        flex: 0 0 32px;
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+
+        &--blue {
+            background: $blue-bg;
+            color: $blue;
+        }
+
+        &--orange {
+            background: $orange-bg;
+            color: $orange;
+        }
+    }
+
+    &__coverage-body {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    &__coverage-label {
+        font-size: 12px;
+        color: $muted;
+    }
+
+    &__coverage-policy {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 1px 0 3px;
+    }
+
+    &__coverage-dates {
+        font-size: 12px;
+        color: $muted-light;
+
+        strong {
+            color: $muted;
+            font-weight: 600;
+        }
+    }
+
+    // -------------------------------------------------------------
+    // Card actions (edit / remove)
+    // -------------------------------------------------------------
+    &__actions {
+        flex: 0 0 auto;
+        display: flex;
+        gap: 10px;
+    }
+
+    // -------------------------------------------------------------
+    // Road-tax notice banner
+    // -------------------------------------------------------------
+    &__notice {
+        margin-top: 18px;
+        background: $warn-bg;
+        border-radius: 12px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    &__notice-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13.5px;
+        color: $text-dark;
+
+        strong {
+            font-weight: 700;
+        }
+    }
+
+    &__notice-icon {
+        color: $brand-orange;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    &__notice-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    // -------------------------------------------------------------
+    // Responsive
+    // -------------------------------------------------------------
+    @media (max-width: 900px) {
+        &__card-top {
+            flex-wrap: wrap;
+        }
+
+        &__thumb {
+            flex: 0 0 120px;
+        }
+
+        &__actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        &__coverage-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 560px) {
+        &__notice {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        &__notice-actions {
+            width: 100%;
+
+            .vehicles__btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    }
+}

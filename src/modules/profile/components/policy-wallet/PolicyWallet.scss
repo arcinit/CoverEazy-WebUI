@@ -1,0 +1,590 @@
+// ---------------------------------------------------------------------
+// Design tokens
+// ---------------------------------------------------------------------
+$text-dark: #313131;
+$green: #01B637;
+$green-bg: #e9faed;
+$blue: #0F5BFF;
+$blue-bg: #eaf1ff;
+$pink: #ec4899;
+$pink-bg: #fdeef5;
+$orange: #FF5E00;
+$orange-bg: #fff1e6;
+$border: #e3e8ee;
+$muted: #6b7280;
+$muted-light: #9aa2ae;
+$bg: #f5f7fb;
+$card-bg: #ffffff;
+
+$radius-sm: 8px;
+$radius-md: 10px;
+$radius-lg: 18px;
+$radius-pill: 999px;
+$shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+
+// -------------------- Page shell --------------------
+.policy-wallet {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__heading {
+        margin-bottom: 0;
+    }
+
+    &__title {
+        font-size: 26px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: 14px;
+        color: $muted;
+        margin: 4px 0 0;
+    }
+
+    // -------------------- Toolbar --------------------
+    &__toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    &__tabs {
+        width: 80%;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+        background: #F1F5FB;
+        border-radius: 20px;
+        padding: 6px;
+    }
+
+
+    &__tab {
+        border: none;
+        background: none;
+        color: $muted;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 8px 18px;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            color: $text-dark;
+        }
+
+        &--active {
+            background: #fff;
+            color: $text-dark;
+            font-weight: 600;
+        }
+    }
+
+    &__view-toggle {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding-right: 4px;
+        background: #F1F5FB;
+        border-radius: $radius-pill;
+        gap: 16px;
+        padding: 6px;
+    }
+
+    &__view-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: $bg;
+        color: $muted;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            color: $text-dark;
+        }
+
+        &--active {
+            background: $text-dark;
+            color: $card-bg;
+        }
+    }
+
+    // -------------------- Grid --------------------
+    &__grid {
+        display: grid;
+        gap: 20px;
+
+        &--grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &--list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 960px) {
+        &__grid--grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        &__toolbar {
+            flex-direction: column;
+            align-items: stretch;
+            border-radius: $radius-md;
+        }
+
+        &__view-toggle {
+            justify-content: flex-end;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------
+// Policy card
+// ---------------------------------------------------------------------
+.policy-card {
+    background: $card-bg;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-card;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: $radius-sm;
+        font-size: 18px;
+        flex-shrink: 0;
+
+        &--blue {
+            background: $blue-bg;
+            color: $blue;
+        }
+
+        &--green {
+            background: $green-bg;
+            color: $green;
+        }
+    }
+
+    &__heading-text {
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 15px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: 12px;
+        color: $muted;
+        margin: 2px 0 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__status {
+        flex-shrink: 0;
+        background: $green-bg;
+        color: $green;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: $radius-pill;
+    }
+
+    // -------------------- Stats grid (Premium / Coverage / Expires / Status) --------------------
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px 24px;
+    }
+
+    &__stat {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__stat-label {
+        font-size: 12px;
+        color: $muted-light;
+    }
+
+    &__stat-value {
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__divider {
+        height: 1px;
+        background: $border;
+    }
+
+    // -------------------- Info rows (Holder / Vehicle / dates) --------------------
+    &__info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 24px;
+    }
+
+    &__info-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-size: 13px;
+    }
+
+    &__info-label {
+        color: $muted;
+        flex-shrink: 0;
+    }
+
+    &__info-value {
+        color: $text-dark;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    // -------------------- Warnings --------------------
+    &__warnings {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__warning {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: $orange-bg;
+        color: $orange;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: $radius-sm;
+    }
+
+    &__warning-icon {
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+
+    // -------------------- Actions --------------------
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    &__action {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: $bg;
+        border: none;
+        color: $muted;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 8px 14px;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        &--blue {
+            background: #0F5BFF10;
+            color: $blue;
+        }
+
+        &--green {
+            background: $green-bg;
+            color: $green;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        &__stats,
+        &__info {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------
+// Documents modal — opened from "View Documents"
+// ---------------------------------------------------------------------
+.doc-modal {
+    width: 100%;
+    max-width: 860px;
+    max-height: 88vh;
+    background: $card-bg;
+    border-radius: $radius-lg;
+    box-shadow: 0 20px 60px rgba(6, 33, 85, 0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(6, 33, 85, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        background: $blue-bg;
+        padding: 18px 24px;
+        flex-shrink: 0;
+    }
+
+    &__heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__heading-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: $text-dark;
+        color: $card-bg;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    &__title {
+        font-size: 16px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: $text-dark;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: rgba(6, 33, 85, 0.08);
+        }
+    }
+
+    &__body {
+        padding: 20px 24px 24px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+        &__body {
+            padding: 16px;
+        }
+
+        &__header {
+            padding: 14px 16px;
+        }
+    }
+}
+
+// -------------------- Document group --------------------
+.doc-group {
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border: none;
+        background: $bg;
+        padding: 14px 18px;
+        cursor: pointer;
+    }
+
+    &__title {
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__chevron {
+        font-size: 15px;
+        color: $muted;
+        transition: transform 0.2s ease;
+
+        &--open {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__files {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+// -------------------- Document row --------------------
+.doc-file {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-top: 1px solid $border;
+    background: $card-bg;
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: $radius-sm;
+        background: $green-bg;
+        color: $green;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__name {
+        font-size: 14px;
+        font-weight: 700;
+        color: $text-dark;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__meta {
+        font-size: 12px;
+        color: $muted-light;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-shrink: 0;
+    }
+
+    &__action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 17px;
+        cursor: pointer;
+        padding: 4px;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &--print {
+            color: $text-dark;
+        }
+
+        &--download {
+            color: $orange;
+        }
+
+        &--mail {
+            color: $pink;
+        }
+
+        &--send {
+            color: $blue;
+        }
+    }
+
+    @media (max-width: 640px) {
+        flex-wrap: wrap;
+
+        &__actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+}

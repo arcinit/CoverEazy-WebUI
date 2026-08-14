@@ -1,0 +1,473 @@
+// ==========================================================================
+// Tokens (inline, single-file setup)
+// ==========================================================================
+$color-bg-page: #eef1f6;
+$color-white: #ffffff;
+$color-text-primary: #1a1f2b;
+$color-text-secondary: #6b7280;
+$color-text-muted: #9aa2b1;
+$color-border: #e8eaf0;
+$color-border-light: #f0f1f5;
+$color-primary: #3b5bfd;
+$color-primary-light: #eef1ff;
+$color-success: #16a34a;
+$color-success-bg: #e7f7ec;
+$color-danger: #ef4444;
+$color-gold-bg: #fef3dd;
+$color-teal: #14b8a6;
+$color-teal-bg: #e4f9f6;
+
+$gradient-hero: linear-gradient(120deg, #ffffff 0%, #f3f6ff 55%, #eaf3fb 100%);
+$gradient-avatar: linear-gradient(135deg, #4f6bff 0%, #3b47d6 100%);
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 18px;
+$radius-xl: 22px;
+$radius-pill: 999px;
+
+$shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+$shadow-hero: 0 4px 24px rgba(59, 91, 253, 0.06);
+
+$sidebar-width: 264px;
+
+.profile-flow {
+    max-width: 90%;
+    margin: auto;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    // -------------------- Header --------------------
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        background:
+            radial-gradient(100% 80% at 100% 100%,
+                rgba(43, 196, 196, 0.18) 0%,
+                rgba(43, 196, 196, 0) 55%),
+            radial-gradient(120% 80% at 0% 0%,
+                rgba(15, 91, 255, 0.10) 0%,
+                rgba(15, 91, 255, 0) 55%),
+            linear-gradient(180deg,
+                #FFFFFF 0%,
+                #F4F8FF 100%);
+        border: 1px solid #2662FE26;
+        box-shadow: 0px 12px 32px -12px #0F172A1F;
+
+        box-shadow: 0px 1px 2px 0px #0F172A0A;
+        border-radius: 24px;
+        border: 1px solid $color-border;
+        border-radius: $radius-xl;
+        box-shadow: $shadow-hero;
+        padding: 24px 32px;
+    }
+
+    &__identity {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        flex: 1 1 320px;
+        min-width: 280px;
+    }
+
+    &__avatar-wrap {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    &__avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 68px;
+        height: 68px;
+        border-radius: $radius-md;
+        background: $gradient-avatar;
+        color: $color-white;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    &__avatar-status {
+        position: absolute;
+        right: -2px;
+        bottom: -2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $color-success;
+        border: 3px solid $color-white;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 4px;
+    }
+
+    &__name-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    &__name {
+        font-size: 22px;
+        font-weight: 700;
+        color: $color-text-primary;
+        margin: 0;
+    }
+
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 10px;
+        border-radius: $radius-pill;
+        font-size: 11px;
+        font-weight: 400;
+        background: #FFF6E8;
+        color: #FF5E00;
+    }
+
+    &__badge-icon {
+        font-size: 11px;
+    }
+
+    &__contact {
+        font-size: 13px;
+        color: $color-text-secondary;
+        margin: 0;
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-top: 8px;
+    }
+
+    &__meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__meta-label {
+        font-size: 12px;
+        color: $color-text-muted;
+    }
+
+    &__meta-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-text-primary;
+    }
+
+    &__progress {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__progress-track {
+        width: 96px;
+        height: 6px;
+        border-radius: $radius-pill;
+        background: $color-border;
+        overflow: hidden;
+    }
+
+    &__progress-fill {
+        height: 100%;
+        background: $color-success;
+        border-radius: $radius-pill;
+    }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+        gap: 12px;
+        flex: 1 1 420px;
+    }
+
+    &__stat {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: $color-white;
+        border: 1px solid $color-border-light;
+        border-radius: $radius-md;
+        padding: 12px 16px;
+        box-shadow: $shadow-card;
+    }
+
+    &__stat-icon {
+        font-size: 16px;
+        color: $color-primary;
+        flex-shrink: 0;
+    }
+
+    &__stat-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__stat-value {
+        font-size: 15px;
+        font-weight: 700;
+        color: $color-text-primary;
+    }
+
+    &__stat-label {
+        font-size: 12px;
+        color: $color-text-muted;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__edit-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid $color-success;
+        background: $color-white;
+        color: $color-success;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 20px;
+        border-radius: $radius-pill;
+        cursor: pointer;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: $color-success-bg;
+        }
+    }
+
+    // -------------------- Body / Sidebar --------------------
+    &__body {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    &__sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: $sidebar-width;
+        flex-shrink: 0;
+        background: $color-white;
+        border: 1px solid $color-border;
+        border-radius: $radius-xl;
+        padding: 20px;
+        height: fit-content;
+    }
+
+    &__back {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        color: $color-text-secondary;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px;
+        margin-bottom: 12px;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-text-primary;
+        }
+    }
+
+    &__nav {
+        margin-bottom: 20px;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__link {
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: $radius-sm;
+        color: $color-text-secondary;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover {
+            background: $color-border-light;
+            color: $color-text-primary;
+        }
+
+        &--active {
+            background: $color-primary-light;
+            color: $color-primary;
+            font-weight: 600;
+
+            .profile-flow__link-icon {
+                color: $color-primary;
+            }
+
+            .profile-flow__link-count {
+                background: $color-primary;
+                color: $color-white;
+            }
+        }
+    }
+
+    &__link-icon {
+        font-size: 17px;
+        color: $color-text-muted;
+        flex-shrink: 0;
+    }
+
+    &__link-label {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__link-count {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        border-radius: $radius-pill;
+        background: $color-border;
+        color: $color-text-secondary;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    &__refer {
+        background: $color-teal-bg;
+        border-radius: $radius-md;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    &__refer-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    &__refer-icon {
+        color: $color-teal;
+        font-size: 15px;
+    }
+
+    &__refer-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-text-primary;
+    }
+
+    &__refer-text {
+        font-size: 12px;
+        color: $color-text-secondary;
+        line-height: 1.5;
+        margin: 0 0 12px;
+    }
+
+    &__refer-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: $color-white;
+        border: 1px solid $color-teal;
+        color: $color-teal;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: $radius-pill;
+        cursor: pointer;
+
+        &:hover {
+            background: $color-teal;
+            color: $color-white;
+        }
+    }
+
+    &__logout {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        color: $color-danger;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 12px;
+        cursor: pointer;
+    }
+
+    // -------------------- Content (Outlet target) --------------------
+    &__content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    // -------------------- Responsive --------------------
+    @media (max-width: 960px) {
+        &__stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &__body {
+            flex-direction: column;
+        }
+
+        &__sidebar {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 640px) {
+        padding: 16px;
+
+        &__header {
+            padding: 20px;
+        }
+
+        &__stats {
+            grid-template-columns: 1fr;
+        }
+    }
+}

@@ -1,0 +1,197 @@
+$primary: #062155;
+$secondary: #01b637;
+$text-dark: #313131;
+$text-muted: #7a8699;
+$border-light: #e6e9f0;
+$danger: #e6483c;
+$danger-bg-start: #ffffff;
+$danger-bg-end: #fde3e0;
+
+.basic-details {
+
+    &__title {
+        font-size: 34px;
+        font-weight: 800;
+        color: $primary;
+        margin: 0 0 12px;
+    }
+
+    &__title-accent {
+        color: $secondary;
+        font-style: italic;
+        font-weight: 700;
+    }
+
+    &__subtitle {
+        font-size: 15px;
+        color: $text-muted;
+        margin: 0 0 28px;
+    }
+
+    &__card {
+        background: #fff;
+        border: 1px solid $border-light;
+        border-radius: 16px;
+        padding: 24px;
+    }
+
+    &__search-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__search-input {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid $secondary;
+        border-radius: 999px;
+        padding: 14px 20px;
+
+        input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: $text-dark;
+            font-family: inherit;
+
+            &::placeholder {
+                color: $text-muted;
+            }
+        }
+    }
+
+    &__search-input-icon {
+        color: $text-muted;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    &__search-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: $primary;
+        color: #fff;
+        border: none;
+        padding: 15px 26px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    &__error {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-top: 20px;
+        padding: 20px 24px;
+        border-radius: 14px;
+        background: linear-gradient(90deg, $danger-bg-start 0%, $danger-bg-end 100%);
+        border: 1px solid #f7c9c4;
+    }
+
+    &__error-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        border-radius: 8px;
+        background: $danger;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    &__error-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0 0 10px;
+    }
+
+    &__error-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        li {
+            font-size: 13px;
+            color: $text-muted;
+            padding-left: 16px;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 7px;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: $text-muted;
+            }
+        }
+    }
+
+    &__footer-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 40px;
+        background: #fff;
+        border-top: 1px solid $border-light;
+    }
+
+    &__back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        background: #fff;
+        border: 1px solid $border-light;
+        color: $text-dark;
+    }
+
+    &__continue-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 16px;
+        font-weight: 700;
+        min-width: 276px;
+        font-size: 15px;
+        cursor: pointer;
+        border: none;
+        background: $primary;
+        color: #fff;
+
+        &:disabled {
+            background: #9aa7c2;
+            cursor: not-allowed;
+        }
+    }
+}

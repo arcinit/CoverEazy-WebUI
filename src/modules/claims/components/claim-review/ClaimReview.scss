@@ -1,0 +1,666 @@
+// ============================================================
+// Design tokens
+// ============================================================
+$color-bg: #f5f7fb;
+$color-panel: #ffffff;
+$color-border: #e4e8f0;
+$color-navy: #062155;
+$color-blue: #2e65ee;
+$color-blue-bg: #eff6ff;
+$color-green: #1dc67f;
+$color-green-bg: #ecfdf5;
+$color-green-bg-light: #edfffa;
+$color-amber: #fe9e26;
+$color-amber-bg: #fff8ec;
+$color-text: #1f2937;
+$color-muted: #586474;
+$color-muted-light: #9aa4b8;
+$text-dark: #313131;
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-pill: 999px;
+
+$card-border: 0.67px solid #E9EEF5;
+$card-bg: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%),
+    radial-gradient(100% 80% at 100% 100%,
+        rgba(43, 196, 196, 0.18) 0%,
+        rgba(43, 196, 196, 0) 55%),
+    radial-gradient(120% 80% at -4950% -4950%,
+        rgba(15, 91, 255, 0.18) 0%,
+        rgba(15, 91, 255, 0) 55%);
+$card-accent-border: 1px solid rgba(38, 98, 254, 0.15); // #2662FE26
+
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+
+
+
+// ============================================================
+// Block: claim-review
+// ============================================================
+.claim-review {
+    // ---------- Header -----------------------------------------
+    &__header {
+        padding: $space-8 $space-6 $space-4;
+    }
+
+    &__title {
+        margin: 0 0 $space-2;
+        font-size: 44px;
+        font-weight: 400;
+        color: $color-navy;
+        letter-spacing: -0.01em;
+
+        &-accent {
+            color: $color-green;
+            font-style: italic;
+            font-weight: 400;
+        }
+    }
+
+    &__subtitle {
+        margin: 0;
+        font-size: 14px;
+        color: $color-muted;
+    }
+
+    // ---------- Body / layout -----------------------------------
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: $space-5;
+        padding: 0 $space-6 $space-6;
+        flex: 1;
+    }
+
+    // ---------- Generic card -------------------------------------
+    &__card {
+        background: #fff;
+        border: $card-border;
+        border-radius: 24px;
+        padding: $space-6;
+
+        &--vehicle,
+        &--insurance {
+            display: flex;
+            flex-direction: column;
+            gap: $space-4;
+        }
+    }
+
+    &__card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $space-5;
+
+        &--icon {
+            justify-content: flex-start;
+            gap: $space-3;
+        }
+    }
+
+    &__card-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: $radius-pill;
+        background: $color-blue-bg;
+        color: $color-blue;
+        font-size: 16px;
+    }
+
+    &__card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: $text-dark;
+    }
+
+    &__divider {
+        height: 1px;
+        background: $color-border;
+    }
+
+    // ---------- Grids ----------------------------------------------
+    &__grid {
+        display: grid;
+        gap: $space-4;
+
+        &--2col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        &--4col {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        &--split {
+            grid-template-columns: repeat(2, 1fr);
+            align-items: stretch;
+        }
+    }
+
+    // ---------- Info field (icon + label + value) -------------------
+    &__field {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: #F8FAFD;
+        border-radius: 16px;
+        padding: 12px;
+    }
+
+    &__field-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: $radius-sm;
+        background: $color-green-bg-light;
+        color: $color-green;
+        font-size: 15px;
+    }
+
+    &__field-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    &__field-label {
+        font-size: 12px;
+        font-weight: 400;
+        color: $color-muted;
+    }
+
+    &__field-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
+
+        &--positive {
+            color: $color-green;
+        }
+    }
+
+    // ---------- Spec item (plain label/value pair) --------------------
+    &__spec {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__spec-label {
+        font-size: 12px;
+        color: $color-muted-light;
+        text-transform: capitalize;
+    }
+
+    &__spec-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
+    }
+
+    // ---------- Badge -----------------------------------------------
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: $radius-pill;
+
+        &--pending {
+            color: $color-blue;
+            background: $color-blue-bg;
+        }
+
+        &--verified {
+            color: $color-green;
+            background: $color-green-bg;
+        }
+
+        &--active {
+            color: $color-green;
+            background: $color-green-bg;
+        }
+
+        &--panel {
+            color: $color-blue;
+            background: $color-blue-bg;
+        }
+    }
+
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: $color-green;
+    }
+
+    // ---------- Entity (vehicle / insurer header row) --------------------
+    &__card-vehicle ,&__card-insurance{
+        background:
+            radial-gradient(100% 80% at 100% 100%,
+                rgba(43, 196, 196, 0.18) 0%,
+                rgba(43, 196, 196, 0) 55%),
+            radial-gradient(120% 80% at 0% 0%,
+                rgba(15, 91, 255, 0.10) 0%,
+                rgba(15, 91, 255, 0) 55%),
+            linear-gradient(180deg,
+                #FFFFFF 0%,
+                #F4F8FF 100%);
+        border: 1px solid #2662FE26;
+        box-shadow: 0px 12px 32px -12px #0F172A1F;
+        box-shadow: 0px 1px 2px 0px #0F172A0A;
+        border-radius: 24px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: $space-4;
+
+    }
+
+    &__entity {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: $space-4;
+    }
+
+    &__entity-media {
+       width: 125px;
+       height: 75px;
+       img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+       }
+    }
+
+    &__entity-icon {
+        font-size: 32px;
+        color: $color-muted-light;
+    }
+
+    &__entity-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+
+    &__entity-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+    }
+
+    &__entity-label {
+        font-size: 14px;
+        color: $color-muted;
+        font-weight: 400;
+    }
+
+    &__entity-name {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: $color-navy;
+    }
+
+    &__entity-meta {
+        margin: 0;
+        font-size: 13px;
+        color: $color-muted;
+    }
+
+    &__entity-logo {
+        font-size: 20px;
+        font-weight: 800;
+        font-style: italic;
+        color: $color-amber;
+    }
+
+    // ---------- Vehicle image slots -----------------------------------
+    &__images {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: $space-3;
+        margin-top: 10px;
+    }
+
+    &__image-slot {
+        height: 174px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 6px;
+        padding: $space-4 $space-2;
+        border: 1.5px dashed rgba(29, 198, 127, 0.4);
+        border-radius: $radius-md;
+        background: $color-green-bg-light;
+    }
+
+    &__image-check {
+        color: $color-green;
+        font-size: 20px;
+    }
+
+    &__image-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: $color-green;
+    }
+
+    &__image-caption {
+        font-size: 11px;
+        color: $color-muted;
+    }
+
+    // ---------- Workshop --------------------------------------------
+    &__workshop-header {
+        margin-bottom: $space-5;
+        padding-bottom: 10px;
+        border-bottom: 1px solid  #2662FE26;
+    }
+
+    &__workshop-title-row {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        flex-wrap: wrap;
+    }
+
+    &__workshop-address {
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: $color-muted;
+    }
+
+    &__rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 400;
+        color: $text-dark;
+
+        svg {
+            color: $color-amber;
+        }
+    }
+
+    // ---------- Map -----------------------------------------------
+    &__map {
+        position: relative;
+        margin-top: $space-5;
+        border-radius: $radius-md;
+        overflow: hidden;
+        border: 1px solid $color-border;
+    }
+
+    &__map-canvas {
+        position: relative;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            linear-gradient(120deg, #eaf3e6 0%, #d9ecf7 45%, #eef2e2 100%);
+        background-size: cover;
+    }
+
+    &__map-pin {
+        font-size: 28px;
+        color: $color-navy;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+    }
+
+    &__map-controls {
+        position: absolute;
+        top: $space-3;
+        right: $space-3;
+        display: flex;
+        flex-direction: column;
+        border-radius: $radius-sm;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+
+        button {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $color-panel;
+            border: none;
+            border-bottom: 1px solid $color-border;
+            color: $color-text;
+            cursor: pointer;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background: $color-bg;
+            }
+        }
+    }
+
+    &__map-attribution {
+        padding: 6px $space-3;
+        font-size: 10px;
+        color: $color-muted-light;
+        background: $color-panel;
+    }
+
+    // ---------- Warning banner -----------------------------------------
+    &__warning {
+        display: flex;
+        align-items: flex-start;
+        gap: $space-3;
+        padding: $space-4 $space-5;
+        border-radius: $radius-md;
+        background: $color-amber-bg;
+        border: 1px solid rgba(254, 158, 38, 0.3);
+
+        p {
+            margin: 0;
+            font-size: 13px;
+            color: $text-dark;
+            line-height: 1.5;
+        }
+    }
+
+    &__warning-icon {
+        flex-shrink: 0;
+        margin-top: 2px;
+        font-size: 16px;
+        color: $color-amber;
+    }
+
+    // ---------- Declaration -----------------------------------------------
+    &__declaration-list {
+        margin: 0 0 $space-5;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: $space-2;
+        margin-top: 10px;
+
+        li {
+            font-size: 13px;
+            line-height: 1.5;
+            color: $color-muted;
+        }
+    }
+
+    &__agree {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        font-size: 13px;
+        font-weight: 600;
+        color: $text-dark;
+        cursor: pointer;
+    }
+
+    &__checkbox {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        background: $color-green;
+        color: #fff;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+
+    // ---------- Footer -----------------------------------------------
+    &__footer {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: $space-4 $space-6;
+        background: $color-panel;
+        border-top: 1px solid $color-border;
+    }
+
+    &__footer-actions {
+        display: flex;
+        gap: $space-3;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: $space-2;
+        font-size: 14px;
+        font-weight: 600;
+        padding: $space-3 $space-5;
+        border-radius: $radius-md;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: background 0.15s ease, border-color 0.15s ease;
+
+        &--ghost {
+            background: transparent;
+            color: $color-muted;
+
+            &:hover {
+                background: $color-bg;
+            }
+        }
+
+        &--outline {
+            background: $color-panel;
+            border-color: $color-border;
+            color: $text-dark;
+
+            &:hover {
+                background: $color-bg;
+            }
+        }
+
+        &--primary {
+            background: $color-navy;
+            color: #fff;
+
+            &:hover {
+                background: darken($color-navy, 5%);
+            }
+        }
+    }
+}
+
+// ============================================================
+// Responsive
+// ============================================================
+@media (max-width: 900px) {
+    .claim-review {
+        &__grid {
+
+            &--2col,
+            &--3col,
+            &--4col,
+            &--split {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        &__images {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .claim-review {
+        &__header {
+            padding: $space-6 $space-4 $space-3;
+        }
+
+        &__body {
+            padding: 0 $space-4 $space-4;
+        }
+
+        &__grid {
+
+            &--2col,
+            &--3col,
+            &--4col,
+            &--split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        &__images {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &__footer {
+            flex-direction: column-reverse;
+            gap: $space-3;
+
+            &-actions {
+                width: 100%;
+
+                .claim-review__btn {
+                    flex: 1;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

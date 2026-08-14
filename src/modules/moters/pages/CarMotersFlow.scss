@@ -1,0 +1,170 @@
+// ==========================================================================
+// CarMotersFlow — page shell (stepper + content)
+// Styled to match TravelInsuranceFlow's shell. Navbar/subheader intentionally
+// omitted — <Header /> is a shared component rendered separately in the TSX.
+// ==========================================================================
+
+$navy: #062155;
+$text-dark: #313131;
+$green: #01b637;
+$green-bg: #e9faed;
+$orange: #f97316;
+$orange-bg: #fff1e6;
+$blue: #2563eb;
+$blue-bg: #eaf1ff;
+$border: #e3e8ee;
+$muted: #6b7280;
+$bg: #f5f7fb;
+
+// Colors used by the stepper
+$stepper-green: #00b894; // done-step check circle
+$stepper-active-bg: #f4f4f4; // active-step pill background
+$stepper-border: $border;
+$stepper-muted: $muted;
+$stepper-navy: $navy;
+
+.car-moters-flow {
+    min-height: 100vh;
+    background: $bg;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: $navy;
+
+    // -------------------------------------------------------------
+    // Stepper row
+    // -------------------------------------------------------------
+    &__stepper-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 32px 12px;
+    }
+
+    &__back-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid $stepper-border;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: $stepper-navy;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    &__stepper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding: 8px 20px;
+        background: #fff;
+        border-radius: 999px;
+        border: 1px solid $stepper-border;
+        overflow-x: auto;
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    &__step-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        transition: background-color 0.15s ease;
+    }
+
+    &__step-index {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: $bg;
+        color: $stepper-muted;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    &__step-label {
+        font-size: 12.5px;
+        font-weight: 500;
+        color: $stepper-muted;
+        white-space: nowrap;
+    }
+
+    &__step-divider {
+        width: 18px;
+        height: 1px;
+        background: $stepper-border;
+        margin: 0 4px;
+        flex-shrink: 0;
+    }
+
+    // ---------------------------------------------------------------------
+    // Active step: light grey pill (#F4F4F4) behind the number + label
+    // ---------------------------------------------------------------------
+    &__step--active {
+        .car-moters-flow__step-content {
+            background: $stepper-active-bg;
+        }
+
+        .car-moters-flow__step-index {
+            background: #fff;
+            color: $stepper-navy;
+        }
+
+        .car-moters-flow__step-label {
+            color: $stepper-navy;
+            font-weight: 700;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // Done step: green (#00B894) check circle + connector
+    // ---------------------------------------------------------------------
+    &__step--done {
+        .car-moters-flow__step-index {
+            background: $stepper-green;
+            color: #fff;
+        }
+
+        .car-moters-flow__step-label {
+            color: $stepper-navy;
+            font-weight: 600;
+        }
+
+        // the connector right after a done step reads as "completed" too
+        .car-moters-flow__step-divider {
+            background: $stepper-green;
+        }
+    }
+
+    // -------------------------------------------------------------
+    // Content area
+    // -------------------------------------------------------------
+    &__content {
+        width: 90%;
+        margin: auto;
+        padding: 20px 0px 80px 0px;
+    }
+
+    &__placeholder {
+        padding: 80px 0;
+        text-align: center;
+        color: $muted;
+        font-size: 15px;
+    }
+}

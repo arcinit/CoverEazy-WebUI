@@ -1,7 +1,7 @@
 .header {
     width: 100%;
     height: 70px;
-border-bottom: 1px solid #E3E8EE;
+    border-bottom: 1px solid #E3E8EE;
 
     &__nav {
         width: 90%;
@@ -36,16 +36,20 @@ border-bottom: 1px solid #E3E8EE;
     }
 
     &__menu {
+        height: 70px;
         font-size: 16px;
         font-weight: normal;
         color: var(--text-dark);
-        position: relative;
         display: flex;
         align-items: center;
+        gap: 4px;
+        position: relative;
+        cursor: pointer;
 
         .icon {
-            font-size: 28px;
+            font-size: 20px;
             color: var(--text-dark);
+            transition: transform 0.15s ease;
         }
 
         &.active {
@@ -62,6 +66,48 @@ border-bottom: 1px solid #E3E8EE;
                 transform: translateX(-50%);
             }
         }
+
+        // Submenu only appears while hovering this specific menu item
+        &:hover {
+            .header__submenus-card {
+                display: block;
+            }
+
+            .icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__submenus-card {
+        display: none;
+        padding: 10px 0px;
+        background: #ffffff;
+        box-shadow: 0px 4px 12px 0px #00000029;
+        position: absolute;
+        top: 70px;
+        left: 0px;
+        z-index: 999;
+        min-width: 160px;
+        border-radius: 6px;
+    }
+
+    &__submenu-row {
+        display: flex;
+        align-items: center;
+        padding: 8px 20px;
+        cursor: pointer;
+
+        &:hover {
+            background: #F1F5FB;
+        }
+    }
+
+    &__submenu-name {
+        font-size: 14px;
+        color: var(--text-dark);
+        font-weight: 400;
+        white-space: nowrap;
     }
 
     &__nav-right {
@@ -119,7 +165,7 @@ border-bottom: 1px solid #E3E8EE;
     }
 
     &__get-quote-btn {
-        height:40px;
+        height: 40px;
         padding: 6px 16px 6px 16px;
         gap: 8px;
         border-radius: 24px;
@@ -134,7 +180,6 @@ border-bottom: 1px solid #E3E8EE;
 
         .icon {
             font-size: 14px;
-
         }
     }
 
@@ -152,10 +197,28 @@ border-bottom: 1px solid #E3E8EE;
         font-weight: 500;
         border: 1px solid #E0E5EB;
 
-
         .icon {
             font-size: 24px;
-
         }
+    }
+    &__profile-btn{
+        height: 40px;
+            padding: 0px 16px;
+            gap: 5px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #04193A;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid #E0E5EB;
+            background: transparent;
+        
+            img {
+               width: 24px;
+               height: 24px;
+               object-fit: contain;
+            }
     }
 }

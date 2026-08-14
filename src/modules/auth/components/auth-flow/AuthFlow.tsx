@@ -6,6 +6,7 @@ import VerifyOtp from '../verify-otp/VerifyOtp';
 import RegisterForm from '../registration-form/RegistrationForm';
 import AccountReady from '../account-ready/AccountReady';
 import LoginForm from '../login-form/LoginForm';
+import { tokenService } from '../../../../shared/services/token.service';
 
 
 type Step = 'login' | 'register' | 'otp' | 'account-ready';
@@ -41,8 +42,7 @@ const AuthFlow = () => {
     const handleVerifyOtp = (otp: string) => {
         if (!otpPayload) return;
         const payload = { ...otpPayload, otp };
-        // No backend yet — this is where you'd call your "verify OTP" API with `payload`
-        console.log('[AuthFlow] Verify OTP payload:', payload);
+        tokenService.setIsAuthenticated("true");
         setStep('account-ready');
     };
 
@@ -52,7 +52,6 @@ const AuthFlow = () => {
 
     const handleResendOtp = () => {
         if (!otpPayload) return;
-        // No backend yet — this is where you'd call your "resend OTP" API with `otpPayload`
         console.log('[AuthFlow] Resend OTP payload:', otpPayload);
     };
 

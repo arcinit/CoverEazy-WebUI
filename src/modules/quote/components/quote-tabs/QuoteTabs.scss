@@ -1,0 +1,38 @@
+.quote-tabs {
+    width: 100%;
+    background: #F1F5FB;
+    margin-top: 15px;
+    height: 48px;
+    border-radius: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+
+    &__tab {
+        width: 33.33%;
+        height: 100%;
+        border-radius: 36px;
+        background: transparent;
+        color: #586474;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+
+        .icon {
+            font-size: 15px;
+        }
+
+        &.active {
+            background: #062155;
+            color: #ffffff;
+        }
+    }
+}
