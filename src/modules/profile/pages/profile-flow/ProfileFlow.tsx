@@ -48,7 +48,7 @@ const USER = {
     profileCompletion: 88,
 };
 
-// menu id ko hi key bana diya — same key se component render hoga
+
 type MenuKey =
     | 'overview'
     | 'personal'
