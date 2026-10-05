@@ -1,114 +1,91 @@
 import React from 'react'
 import "./Header.scss"
 import { IoMdArrowDropdown } from "react-icons/io";
-import { LuSparkles } from "react-icons/lu";
 import { FaArrowRight } from "react-icons/fa";
-import { MdPerson3 } from "react-icons/md";
-import headerLogo from "./images/logo.png"
 import { useNavigate } from 'react-router-dom';
 import { tokenService } from '../../services/token.service';
 import avtarImage from "./images/avtar.png"
 
 const Header = () => {
     const menusData = [
-        { id: 1, menu: "Home", subMenus: [], key: "home", path: "/" },
+        { id: 1, menu: "Compare", path: "/moters" },
+        { id: 2, menu: "Motor", path: "/moters" },
+        { id: 3, menu: "Road Tax", path: "/road-tax" },
+        { id: 4, menu: "Claims", path: "/claims" },
         {
-            id: 2, menu: "Products", subMenus: [
-                { id: 21, menu: "Motor", key: "moter", path: "/moters" },
-                { id: 22, menu: "Travel", key: "travel", path: "/travel" },
-                { id: 23, menu: "Road Tax", key: "road_tax", path: "/road-tax" }
-            ], key: "products"
+            id: 5, menu: "Products", subMenus: [
+                { id: 51, menu: "Motor", path: "/moters" },
+                { id: 52, menu: "Travel", path: "/travel" },
+                { id: 53, menu: "Road Tax", path: "/road-tax" }
+            ]
         },
-        { id: 3, menu: "Claims", subMenus: [], key: "claims", path: "/claims" }
+        { id: 6, menu: "Support", path: "/claims" },
+        { id: 7, menu: "About", path: "/" }
     ]
     const navigate = useNavigate();
     const isLogin = tokenService.isAuthenticated();
-    const handleLogin = () => {
-        navigate("/login")
-    }
-    const getQuote = () => {
-        navigate("/get-quote")
-    }
 
-    const handleSubMenuClick = (path:string) => {
-        navigate(path)
-    }
-
-    const handleMenuClick = (path: string) => {
-        navigate(path)
-    }
-
-    return <>
-
+    return (
         <header className="header">
-            <nav className="header__nav">
-                <div className="header__nav-left">
-                    <div className="header__logo">
-                        <img src={headerLogo} alt="" className="header__logo-img" />
-                    </div>
-                    <div className="header__menus">
-                        {
-                            menusData?.map((item) => {
-                                const hasSubMenus = item.subMenus.length > 0
-                                return (
-                                    <div className="header__menu" key={item.id}>
-                                        <span onClick={() => handleMenuClick(item?.path ?? "")}>{item.menu}</span>
-                                        {hasSubMenus && <IoMdArrowDropdown className="icon" />}
+            <nav className="header__nav" aria-label="Main navigation">
+                <button className="header__logo" type="button" aria-label="PolisOne home" onClick={() => navigate("/")}>
+                    <span className="header__logo-mark" aria-hidden="true"><i /></span>
+                    <span className="header__logo-word"><span>Polis</span><strong>One</strong></span>
+                </button>
 
-                                        {hasSubMenus && (
-                                            <div className="header__submenus-card">
-                                                {item.subMenus.map((sub) => (
-                                                    <div
-                                                        className="header__submenu-row"
-                                                        key={sub.id}
-                                                        onClick={() => handleSubMenuClick(sub.path??"")}
-                                                    >
-                                                        <span className="header__submenu-name">{sub.menu}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
+                <div className="header__menus">
+                    {menusData.map((item) => {
+                        const subMenus = 'subMenus' in item ? item.subMenus : undefined
+                        return (
+                            <div className="header__menu" key={item.id}>
+                                <button
+                                    className="header__menu-link"
+                                    type="button"
+                                    onClick={() => item.path && navigate(item.path)}
+                                    aria-haspopup={subMenus ? "true" : undefined}
+                                >
+                                    {item.menu}
+                                    {subMenus && <IoMdArrowDropdown className="icon" aria-hidden="true" />}
+                                </button>
+                                {subMenus && (
+                                    <div className="header__submenus-card">
+                                        {subMenus.map((sub) => (
+                                            <button
+                                                className="header__submenu-row"
+                                                key={sub.id}
+                                                type="button"
+                                                onClick={() => navigate(sub.path)}
+                                            >
+                                                {sub.menu}
+                                            </button>
+                                        ))}
                                     </div>
-                                )
-                            })
-                        }
-
-                    </div>
+                                )}
+                            </div>
+                        )
+                    })}
                 </div>
-                <div className="header__nav-right">
-                    <button className="header__ai-mode-btn">
-                        <LuSparkles className='icon' />
-                        AI MODE
-                        <span>New</span>
-                    </button>
-                    {
-                        !isLogin &&
-                        <button className="header__login-btn" onClick={handleLogin}>
-                            Login
-                        </button>
-                    }
 
-                    <button className="header__get-quote-btn" onClick={getQuote}>
-                        Get Quote
-                        <FaArrowRight className='icon' strokeWidth={0.9} />
-                    </button>
-                    <button className="header__agent-btn">
-                        <MdPerson3 className='icon' />
-                        Agent
-                    </button>
-                    {
-                        isLogin &&
-                        <button className="header__profile-btn" onClick={() => navigate("/profile")}>
-                            <img src={avtarImage} alt="avtar" />
+                <div className="header__nav-right">
+                    {!isLogin ? (
+                        <>
+                            <button className="header__login-btn" type="button" onClick={() => navigate("/login")}>Login</button>
+                            <button className="header__signup-btn" type="button" onClick={() => navigate("/login")}>Sign Up</button>
+                        </>
+                    ) : (
+                        <button className="header__profile-btn" type="button" onClick={() => navigate("/profile")}>
+                            <img src={avtarImage} alt="" />
                             <span>Jhon doe</span>
                         </button>
-                    }
-
+                    )}
+                    <button className="header__get-quote-btn" type="button" onClick={() => navigate("/get-quote")}>
+                        Get Quote
+                        <FaArrowRight className="icon" aria-hidden="true" />
+                    </button>
                 </div>
             </nav>
         </header>
-
-    </>
+    )
 }
 
 export default Header

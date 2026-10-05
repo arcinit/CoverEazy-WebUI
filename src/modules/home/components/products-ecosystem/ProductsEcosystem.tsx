@@ -1,11 +1,7 @@
 import React from 'react'
 import "./ProductsEcosystem.scss"
-import { FaArrowRight, FaStopwatch } from 'react-icons/fa'
+import { FaArrowRight, FaBicycle, FaBriefcase, FaCarSide, FaHeartbeat, FaPlane, FaShieldAlt, FaStar, FaStopwatch, FaUsers } from 'react-icons/fa'
 import { CiFileOn, CiLock, CiPlay1 } from "react-icons/ci";
-import product1Image from "./images/product1.png";
-import product2Image from "./images/product2.png";
-import product3Image from "./images/product3.png";
-import product4Image from "./images/product4.png";
 import { LuZap } from 'react-icons/lu';
 
 import tickCircle from "./images/tick-circle.png"
@@ -13,7 +9,6 @@ import closeCircle from "./images/close-circle.png"
 import car from "./images/car.png"
 import more from "./images/more.png"
 import { GoShieldCheck } from "react-icons/go";
-import { IoWatch } from 'react-icons/io5';
 import { TbDeviceMobileFilled } from "react-icons/tb";
 import { Ri24HoursLine } from "react-icons/ri";
 import { MdVerifiedUser } from 'react-icons/md';
@@ -22,24 +17,44 @@ const ProductsEcosystem = () => {
 
     const products = [
         {
-            id: 1, img: product1Image,
-            type: "moter_insurance", class: "m-insurance", title: "Motor Insurance",
-            desc: "Single-trip and annual plans for 180+ destinations."
+            id: "motor", class: "motor", title: "Motor Insurance",
+            desc: "Comprehensive coverage from 20+ insurers with up to 55% NCD protection.",
+            action: "Compare now", icon: <FaCarSide />
         },
         {
-            id: 1, img: product2Image,
-            type: "travel_insurance", class: "t-insurance", title: "Travel Insurance",
-            desc: "Single-trip and annual plans for 180+ destinations."
+            id: "takaful", class: "takaful", title: "General Takaful",
+            desc: "Shariah-compliant protection with transparent surplus sharing.",
+            action: "View plans", icon: <FaShieldAlt />
         },
         {
-            id: 1, img: product3Image,
-            type: "road_tax", class: "t-tax", title: "Road Tax Renewal",
-            desc: "Single-trip and annual plans for 180+ destinations."
+            id: "travel", class: "travel", title: "Travel Insurance",
+            desc: "Global coverage for flight delays, medical, and lost baggage.",
+            action: "Get protected", icon: <FaPlane />
         },
         {
-            id: 1, img: product4Image,
-            type: "claims", class: "claims", title: "Claims",
-            desc: "Single-trip and annual plans for 180+ destinations."
+            id: "health", class: "health", title: "Health Insurance",
+            desc: "Cashless hospital admissions across 200+ panel hospitals.",
+            action: "Find plan", icon: <FaHeartbeat />
+        },
+        {
+            id: "motorcycle", class: "motorcycle", title: "Motorcycle Insurance",
+            desc: "Affordable coverage for bikes with rider personal accident.",
+            action: "Insure ride", icon: <FaBicycle />
+        },
+        {
+            id: "sme", class: "sme", title: "SME Insurance",
+            desc: "Business liability, fire & property protection for local enterprises.",
+            action: "Business quote", icon: <FaBriefcase />
+        },
+        {
+            id: "family", class: "family", title: "Family Insurance",
+            desc: "All-in-one protection for you and your loved ones.",
+            action: "Secure family", icon: <FaUsers />
+        },
+        {
+            id: "ai", class: "ai", title: "AI Recommends",
+            desc: "Not sure which plan? Our AI matches you to the best policy in seconds.",
+            action: "Match me", icon: <FaStar />
         },
 
     ]
@@ -48,29 +63,30 @@ const ProductsEcosystem = () => {
 
         <section className="pes">
             <div className="pes__header">
-                <p className="pes__heading">PRODUCTS ECOSYSTEM</p>
-                <h1 className="pes__title">Insurance for <span> every journey</span></h1>
-                <p className="pes__subtitle">From your first car to your family's future — explore protection plans built for the Malaysian lifestyle.</p>
+                <div className="pes__header-copy">
+                    <p className="pes__heading">PRODUCTS ECOSYSTEM</p>
+                    <h1 className="pes__title">Insurance for every journey</h1>
+                    <p className="pes__subtitle">From your first car to your family's future — explore protection plans built for the Malaysian lifestyle.</p>
+                </div>
+                <button className="pes__all-products">View all products <FaArrowRight /></button>
             </div>
             <div className="pes__products-grid">
                 {
-                    products?.map((product) => {
+                    products.map((product) => {
                         return (
-                            <div className={`pes__product-card ${product.class}`}>
+                            <div className={`pes__product-card ${product.class}`} key={product.id}>
+                                <div className="pes__product-icon">{product.icon}</div>
                                 <div className="pes__product-info">
                                     <div className="pes__p-title">{product.title}</div>
                                     <div className="pes__p-text">{product.desc}</div>
-                                    <button className="pes__card-action-btn">Get quote <FaArrowRight className='icon' /></button>
-                                </div>
-                                <div className="pes__product-image-wrap">
-                                    <img src={product.img} className="pes__product-img"></img>
+                                    <button className="pes__card-action-btn">{product.action} <FaArrowRight className='icon' /></button>
                                 </div>
                             </div>
                         )
                     })
                 }
             </div>
-            <div className="renew-rt">
+            {/* <div className="renew-rt">
                 <div className="renew-rt__block-title">The Transformation</div>
                 <div className="renew-rt__container">
                     <div className="renew-rt__left">
@@ -249,7 +265,7 @@ const ProductsEcosystem = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
 
     </>

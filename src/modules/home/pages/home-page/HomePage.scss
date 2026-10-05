@@ -6,3 +6,13 @@
         margin: auto;
     }
 }
+
+.hp__header {
+    position: relative;
+    z-index: 20;
+    height: 0;
+}
+
+.hp__header + .hp .h-hero {
+    padding-top: 60px;
+}
