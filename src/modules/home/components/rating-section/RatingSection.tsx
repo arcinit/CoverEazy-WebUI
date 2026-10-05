@@ -42,9 +42,9 @@ const RatingSection = () => {
                 <span className="rating__eyebrow">Trusted by Malaysians</span>
 
                 <h2 className="rating__heading">
-                    250,000+ <em>policies.</em> 4.9
-                    <MdOutlineStarPurple500 className="star" />
-                    rating.
+                    250,000+ policies. 4.9
+                    <MdOutlineStarPurple500 className="rating__heading-star" />
+                    {" "}rating.
                 </h2>
 
                 <div className="rating__grid">

@@ -1,0 +1,75 @@
+.insurer-partners {
+    width: 100%;
+    padding: 0 24px 28px;
+    background: #f5fafd;
+
+    &__panel {
+        width: 100%;
+        max-width: 1024px;
+        min-height: 112px;
+        margin: 0 auto;
+        padding: 22px 28px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #e3eaf1;
+        border-radius: 22px;
+        background: #fff;
+    }
+
+    &__heading {
+        margin: 0 0 20px;
+        color: #626d7d;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.2;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__list {
+        width: 100%;
+        max-width: 760px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        list-style: none;
+    }
+
+    &__name {
+        color: #9ba8ba;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 720px) {
+        &__panel {
+            padding: 22px 20px;
+        }
+
+        &__list {
+            max-width: 520px;
+            justify-content: center;
+            flex-wrap: wrap;
+            column-gap: 28px;
+            row-gap: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding-right: 16px;
+        padding-left: 16px;
+
+        &__list {
+            column-gap: 20px;
+        }
+    }
+}

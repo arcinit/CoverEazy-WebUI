@@ -1,98 +1,83 @@
 import React from 'react'
-import "./InsurerForms.scss"
-import CheckBox from '../../../../shared/ui/check-box/CheckBox'
-import { FaArrowRight, FaInfoCircle, FaChevronDown } from 'react-icons/fa'
-import { LuSparkles, LuClock } from 'react-icons/lu'
-import { MdDirectionsCar } from 'react-icons/md'
+import './InsurerForms.scss'
+import { Link } from 'react-router-dom'
+import { FaCarSide } from 'react-icons/fa'
+import { LuSparkles } from 'react-icons/lu'
 
-const InsurerForms = () => {
-    return <>
-
-        <section className="insu-forms-s">
-            <div className="insu-forms-s__heading">One intelligent surface for <span>every quote</span> you need.</div>
-            <div className="insu-forms-s__subheading">Switch between products instantly. Real partner pricing, transparent breakdowns, no inbox follow-ups.</div>
-            <div className="insu-forms-s__form-card-outer">
-
-           
-            <div className="insu-forms-s__form-card">
-                <div className="insu-forms-s__tabs">
-                    <button className="insu-forms-s__tab active">Motor Insurance</button>
-                    <button className="insu-forms-s__tab">Travel Insurance</button>
-                    <button className="insu-forms-s__tab">Road Tax Renewal</button>
+const InsurerForms = () => (
+    <section className="insu-forms-s" aria-label="Get an instant quote">
+        <div className="insu-forms-s__form-card">
+            <div className="insu-forms-s__card-heading">
+                <div>
+                    <h2 className="insu-forms-s__title">Get an Instant Quote</h2>
+                    <p className="insu-forms-s__subtitle">
+                        Compare 20+ insurers in under 30 seconds. No paperwork.
+                    </p>
                 </div>
-                <form action="" className="insu-forms-s__form">
-                    <div className="insu-forms-s__form-grid-row">
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">Ownership <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper insu-forms-s__input-wrapper--select">
-                                <select className="insu-forms-s__form-input">
-                                    <option>Private</option>
-                                </select>
-                                <FaChevronDown className="insu-forms-s__select-icon" />
-                            </div>
-                        </div>
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">Vehicle Reg. <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper">
-                                <MdDirectionsCar className="insu-forms-s__field-icon" />
-                                <input type="text" className="insu-forms-s__form-input insu-forms-s__form-input--with-icon" defaultValue="VAB 1234" />
-                            </div>
-                        </div>
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">ID Type <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper insu-forms-s__input-wrapper--select">
-                                <select className="insu-forms-s__form-input">
-                                    <option>NRIC/ My Kad</option>
-                                </select>
-                                <FaChevronDown className="insu-forms-s__select-icon" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="insu-forms-s__form-grid-row">
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">ID Number <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper">
-                                <input type="text" className="insu-forms-s__form-input" defaultValue="1234 5678 9012" />
-                            </div>
-                        </div>
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">Postcode <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper">
-                                <input type="text" className="insu-forms-s__form-input" placeholder="eg. 54320" />
-                            </div>
-                        </div>
-                        <div className="insu-forms-s__form-group">
-                            <div className="insu-forms-s__form-label">Martial Status <span>*</span></div>
-                            <div className="insu-forms-s__input-wrapper insu-forms-s__input-wrapper--select">
-                                <select className="insu-forms-s__form-input">
-                                    <option>Unmarried</option>
-                                </select>
-                                <FaChevronDown className="insu-forms-s__select-icon" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="insu-forms-s__row-two">
-                        <div className="insu-forms-s__checkbox-group">
-                            <CheckBox />
-                            <span className="insu-forms-s__checkbox-instruction">My vehicle is not used for, and has no history of e-hailing.</span>
-                            <FaInfoCircle />
-                        </div>
-                        <button className="insu-forms-s__submit-btn">
-                            Get Quote <FaArrowRight className='icon' />
-                        </button>
-                    </div>
-                </form>
-
-                <div className="insu-forms-s__covereazy-message-box">
-                    <div className="insu-forms-s__message"><LuSparkles className='icon' /><b>CoverEazy AI</b>&nbsp;matches you with 12 licensed insurers in under 30 seconds.</div>
-                    <div className="insu-forms-s__covereazy-avg-sec"><LuClock className='icon' />Avg quote · 22s</div>
-                </div>
+                <span className="insu-forms-s__ai-badge">
+                    <LuSparkles />
+                    AI Powered
+                </span>
             </div>
-            </div>
-        </section>
 
-    </>
-}
+            <div className="insu-forms-s__quote-fields">
+                <label className="insu-forms-s__field">
+                    <span className="insu-forms-s__form-label">Vehicle Number</span>
+                    <span className="insu-forms-s__input-wrapper">
+                        <FaCarSide className="insu-forms-s__field-icon" />
+                        <input
+                            type="text"
+                            className="insu-forms-s__form-input insu-forms-s__form-input--with-icon"
+                            placeholder="e.g. VCS 8842"
+                        />
+                    </span>
+                </label>
+                <label className="insu-forms-s__field">
+                    <span className="insu-forms-s__form-label">Vehicle Type</span>
+                    <span className="insu-forms-s__input-wrapper">
+                        <select className="insu-forms-s__form-input" defaultValue="Private Car">
+                            <option>Private Car</option>
+                            <option>Motorcycle</option>
+                        </select>
+                    </span>
+                </label>
+                <label className="insu-forms-s__field">
+                    <span className="insu-forms-s__form-label">Existing Insurer</span>
+                    <span className="insu-forms-s__input-wrapper">
+                        <select className="insu-forms-s__form-input" defaultValue="Etiqa Takaful">
+                            <option>Etiqa Takaful</option>
+                            <option>Allianz</option>
+                            <option>Zurich</option>
+                            <option>Tokio Marine</option>
+                        </select>
+                    </span>
+                </label>
+                <label className="insu-forms-s__field">
+                    <span className="insu-forms-s__form-label">NCD %</span>
+                    <span className="insu-forms-s__input-wrapper">
+                        <select className="insu-forms-s__form-input" defaultValue="55% (Max)">
+                            <option>55% (Max)</option>
+                            <option>45%</option>
+                            <option>38.33%</option>
+                            <option>30%</option>
+                            <option>25%</option>
+                            <option>0%</option>
+                        </select>
+                    </span>
+                </label>
+                <Link to="/get-quote" className="insu-forms-s__submit-btn">
+                    Get Instant Quotes
+                </Link>
+            </div>
+
+            <ul className="insu-forms-s__trust-list">
+                <li>Smart autofill</li>
+                <li>Plate recognition</li>
+                <li>Instant preview</li>
+                <li>Bank-grade encryption</li>
+            </ul>
+        </div>
+    </section>
+)
 
 export default InsurerForms

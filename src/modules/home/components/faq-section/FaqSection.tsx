@@ -69,9 +69,7 @@ const FaqSection = () => {
         <section className="faq">
             <div className="faq__container">
                 <span className="faq__eyebrow">FAQ</span>
-                <h2 className="faq__heading">
-                    <em>Everything</em> you need to know
-                </h2>
+                <h2 className="faq__heading">Everything you need to know</h2>
 
                 <div className="faq__list">
                     {faqs.map((item, index) => {

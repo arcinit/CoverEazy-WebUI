@@ -1,19 +1,17 @@
 import React from 'react'
 import "./HomeHero.scss"
-import { FaArrowRight, FaCarSide } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { FaHandshake } from "react-icons/fa6";
 import { IoNewspaperOutline } from "react-icons/io5";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { LuSearchCheck } from "react-icons/lu";
-import appStore from "./images/app-store.png"
-import googleStore from "./images/google-play.png"
+import { Link } from 'react-router-dom'
 
 import mobileImg from "./images/mobile.png"
 import motorInsuranceImg from "./images/motor-insurance.png"
 import travelImg from "./images/travel.png"
-import taxRenewalImg from "./images/tax-renewal.png"
 import claimsImg from "./images/claims.png"
-import { FaCar, FaPlane } from "react-icons/fa";
+import { FaCar, FaHeartbeat, FaPlane } from "react-icons/fa";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
 const HomeHero = () => {
@@ -24,22 +22,19 @@ const HomeHero = () => {
                 <div className="h-hero__content">
                     <div className="h-hero__badge">
                         <span className="point"></span>
-                        Now Serving 100,000+ Malaysians
+                        Malaysia's #1 Insurance Super App
                     </div>
                     <h1 className="h-hero__title">
                         Malaysia's
                         <br />
-                        Smartest <span className="gradient-text">Insurance</span>
+                        Smart <span className="gradient-text">Insurance</span>
                         <br />
-                        <span className="gradient-text">Super App</span>
+                        Super Platform
                     </h1>
-                    <div className="h-hero__subtitle">Compare, buy, renew, and manage Motor, Travel, and Health Insurance from <br /> multiple insurers in one seamless experience.</div>
+                    <div className="h-hero__subtitle">Compare, renew, manage policies, renew road tax, and track claims — all from one intelligent digital insurance ecosystem built for Malaysians.</div>
                     <div className="h-hero__action-btns">
-                        <button className="h-hero__compare-btn">Compare Insurance <FaArrowRight className='icon' /></button>
-                        <button className="h-hero__demo-btn">
-                            Watch Demo
-                            <video autoPlay loop src="https://www.pexels.com/download/video/38687742/"></video>
-                        </button>
+                        <Link to="/get-quote" className="h-hero__compare-btn">Compare Insurance <FaArrowRight className='icon' /></Link>
+                        <Link to="/road-tax" className="h-hero__demo-btn">Renew Road Tax</Link>
                     </div>
                     <div className="h-hero__meta-row">
                         <div className="h-hero__meta-block">
@@ -72,12 +67,6 @@ const HomeHero = () => {
                         </div>
 
                     </div>
-                    <div className="h-hero__get-app-btns">
-                        <button className="h-hero__get-app-btn play-store">
-                        </button>
-                        <button className="h-hero__get-app-btn app-store">
-                        </button>
-                    </div>
                 </div>
                 <div className="h-hero__3d-images-container">
                     <img src={mobileImg} alt="Insurance Super App" className="h-hero__phone-img" />
@@ -104,14 +93,14 @@ const HomeHero = () => {
                         </div>
                     </div>
 
-                    <img src={taxRenewalImg} alt="Road Tax Renewal" className="h-hero__floating-icon h-hero__floating-icon--tax" />
-                    <div className="h-hero__float-card h-hero__float-card--tax">
+                    <IoCheckmarkCircle className="h-hero__floating-icon h-hero__floating-icon--tax" aria-hidden="true" />
+                    <div className="h-hero__float-card h-hero__float-card--health">
                         <div className="h-hero__float-card__icon-wrap">
-                            <FaCarSide className="icon" />
+                            <FaHeartbeat className="icon" />
                         </div>
                         <div className="h-hero__float-card__text">
-                            <span className="title">Road Tax Renewal</span>
-                            <span className="subtitle">Renew + Road Tax</span>
+                            <span className="title">Health</span>
+                            <span className="subtitle">Medical Protection</span>
                         </div>
                     </div>
 
