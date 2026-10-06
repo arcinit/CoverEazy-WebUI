@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RatingSection.scss";
-import { MdOutlineStarPurple500 } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 
 interface Testimonial {
     quote: string;
@@ -33,29 +33,23 @@ const testimonials: Testimonial[] = [
     },
 ];
 
-
-
 const RatingSection = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
     return (
         <section className="rating">
             <div className="rating__container">
-                <span className="rating__eyebrow">Trusted by Malaysians</span>
-
                 <h2 className="rating__heading">
-                    250,000+ <em>policies.</em> 4.9
-                    <MdOutlineStarPurple500 className="star" />
-                    rating.
+                    LOVED BY THOUSANDS OF <span className="rating__highlight">MALAYSIANS</span>
                 </h2>
 
                 <div className="rating__grid">
                     {testimonials.map((t) => (
                         <div className="rating__card" key={t.name}>
                             <div className="rating__stars">
-                                <MdOutlineStarPurple500  className="rating__rating-star"/>
-                                <MdOutlineStarPurple500 className="rating__rating-star" />
-                                <MdOutlineStarPurple500 className="rating__rating-star" />
-                                <MdOutlineStarPurple500 className="rating__rating-star" />
-                                <MdOutlineStarPurple500 className="rating__rating-star" />
+                                {[...Array(5)].map((_, i) => (
+                                    <FaStar key={i} className="rating__rating-star" />
+                                ))}
                             </div>
 
                             <p className="rating__quote">&quot;{t.quote}&quot;</p>
@@ -70,6 +64,17 @@ const RatingSection = () => {
                                 </span>
                             </div>
                         </div>
+                    ))}
+                </div>
+
+                <div className="rating__pagination">
+                    {testimonials.map((_, index) => (
+                        <button
+                            key={index}
+                            className={`rating__dot ${index === activeIndex ? 'rating__dot--active' : ''}`}
+                            onClick={() => setActiveIndex(index)}
+                            aria-label={`Go to testimonial ${index + 1}`}
+                        />
                     ))}
                 </div>
             </div>

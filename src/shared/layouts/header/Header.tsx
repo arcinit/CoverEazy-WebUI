@@ -93,8 +93,8 @@ const Header = () => {
                         <FaArrowRight className='icon' strokeWidth={0.9} />
                     </button>
                     <button className="header__agent-btn">
-                        <MdPerson3 className='icon' />
-                        Agent
+                        <span>🧑‍💼</span>
+                        Agent Portal
                     </button>
                     {
                         isLogin &&
