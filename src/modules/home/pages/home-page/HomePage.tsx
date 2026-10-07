@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import "./HomePage.scss"
 import Header from '../../../../shared/layouts/header/Header'
 import HomeHero from '../../components/home-hero/HomeHero'
@@ -16,13 +17,21 @@ import MobileApp from '../../components/mobile-app/MobileApp'
 import RatingSection from '../../components/rating-section/RatingSection'
 import FaqSection from '../../components/faq-section/FaqSection'
 import Footer from '../../../../shared/layouts/footer/Footer'
+import AuthHero from '../../../auth/components/auth-hero/AuthHero'
 
 const HomePage = () => {
+  const location = useLocation()
+  const [showLogin, setShowLogin] = useState(!!location.state?.openLogin)
+
+  useEffect(() => {
+    setShowLogin(!!location.state?.openLogin)
+  }, [location.key])
+
   return <>
-  <Header/>
+  <Header onLoginClick={() => setShowLogin(true)} />
   <section className="hp">
     <main className="hp__container">
-        <HomeHero/>
+        {showLogin ? <AuthHero /> : <HomeHero />}
         <TrustedInsurers/>
         <ProtectionServices/>
         <ProductsPlans/>
@@ -39,7 +48,6 @@ const HomePage = () => {
         <Footer/>
     </main>
   </section>
-  
   </>
 }
 

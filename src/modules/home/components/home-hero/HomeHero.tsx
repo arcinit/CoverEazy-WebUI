@@ -1,133 +1,217 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./HomeHero.scss"
-import { FaArrowRight, FaCarSide } from "react-icons/fa";
-import { FaHandshake } from "react-icons/fa6";
-import { IoNewspaperOutline } from "react-icons/io5";
-import { AiOutlineFileProtect } from "react-icons/ai";
-import { LuSearchCheck } from "react-icons/lu";
-import appStore from "./images/app-store.png"
-import googleStore from "./images/google-play.png"
 
-import mobileImg from "./images/mobile.png"
-import motorInsuranceImg from "./images/motor-insurance.png"
-import travelImg from "./images/travel.png"
-import taxRenewalImg from "./images/tax-renewal.png"
-import claimsImg from "./images/claims.png"
-import { FaCar, FaPlane } from "react-icons/fa";
-import { IoCheckmarkCircle } from "react-icons/io5";
+import heroBg from "./images/hero-bg.png"
+import tabCar from "./images/tab-car.png"
+import tabTravel from "./images/tab-travel.png"
+import tabTax from "./images/tab-tax.png"
+import badgeBnm from "./images/badge-bnm.svg"
+import badgeCompare from "./images/badge-compare.svg"
+import badgePrice from "./images/badge-price.svg"
+import badgeSecure from "./images/badge-secure.svg"
+import arrowRight from "./images/arrow-right.svg"
+import playIcon from "./images/play.svg"
+import googlePlayBtn from "./images/google-play-btn.svg"
+import appStoreBtn from "./images/app-store-btn.svg"
+import chipCompare from "./images/chip-compare.svg"
+import chipTax from "./images/chip-tax.svg"
+import chipClaims from "./images/chip-claims.svg"
+import chevronDown from "./images/chevron-down.svg"
+import rego from "./images/rego.svg"
+import info from "./images/info.svg"
+import quoteArrow from "./images/quote-arrow.svg"
+import aiSparkle from "./images/ai-sparkle.svg"
+
+const TABS = [
+    { id: "car", label: "Car & Motorcycle", icon: tabCar },
+    { id: "travel", label: "Travel", icon: tabTravel },
+    { id: "tax", label: "Road Tax", icon: tabTax },
+]
+
+const BADGES = [
+    { icon: badgeBnm, title: "BNM", sub: "Licensed" },
+    { icon: badgeCompare, title: "Compare", sub: "20+ Insurers" },
+    { icon: badgePrice, title: "Best Prices", sub: "Guaranteed" },
+    { icon: badgeSecure, title: "100% Secure", sub: "Your Data is Safe" },
+]
+
+const CHIPS = [
+    { icon: chipCompare, title: "Policy Compare", sub: "Find the best plan" },
+    { icon: chipTax, title: "Road Tax Renewal", sub: "Instant renewal" },
+    { icon: chipClaims, title: "Claims Support", sub: "We're here for you" },
+]
 
 const HomeHero = () => {
-    return <>
+    const [tab, setTab] = useState("car")
+    const [form, setForm] = useState({
+        ownership: "Private",
+        vehicleReg: "",
+        idType: "NRIC/ My Kad",
+        idNumber: "",
+        postcode: "",
+        marital: "Unmarried",
+        noEhailing: false,
+    })
+    const set = (key: string, value: string | boolean) => setForm((f) => ({ ...f, [key]: value }))
 
-        <section className="h-hero">
-            <div className="h-hero__container">
-                <div className="h-hero__content">
-                    <div className="h-hero__badge">
-                        <span className="point"></span>
-                        Now Serving 100,000+ Malaysians
+    return (
+        <section className="h-hero" style={{ backgroundImage: `url(${heroBg})` }}>
+            <div className="h-hero__overlay">
+                <div className="h-hero__container">
+                    <div className="h-hero__content">
+                        <div className="h-hero__pill">
+                            <span className="h-hero__pill-dot" />
+                            Now serving 100,000+ Malaysians
+                        </div>
+                        <h1 className="h-hero__title">
+                            Malaysia's<br />Smarter Way<br />to <span>Insure</span>
+                        </h1>
+                        <p className="h-hero__subtitle">
+                            Compare, buy, renew and manage your Motor Insurance, Road Tax and more in one simple, secure platform.
+                        </p>
+                        <div className="h-hero__meta-row">
+                            {BADGES.map((b) => (
+                                <div className="h-hero__meta-block" key={b.title}>
+                                    <img src={b.icon} alt="" />
+                                    <div className="h-hero__meta-text">
+                                        <span className="h-hero__meta-title">{b.title}</span>
+                                        <span className="h-hero__meta-sub">{b.sub}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="h-hero__action-btns">
+                            <button type="button" className="h-hero__compare-btn">
+                                Compare Insurance <img src={arrowRight} alt="" />
+                            </button>
+                            <button type="button" className="h-hero__demo-btn">
+                                Watch Demo
+                                <span className="h-hero__demo-thumb" style={{ backgroundImage: `url(${heroBg})` }}>
+                                    <img src={playIcon} alt="" />
+                                </span>
+                            </button>
+                        </div>
+                        <div className="h-hero__app-label">Download our app</div>
+                        <div className="h-hero__get-app-btns">
+                            <img src={googlePlayBtn} alt="Get it on Google Play" />
+                            <img src={appStoreBtn} alt="Download on the App Store" />
+                        </div>
+
+                        <div className="h-hero__chips">
+                            {CHIPS.map((c) => (
+                                <div className="h-hero__chip" key={c.title}>
+                                    <span className="h-hero__chip-icon"><img src={c.icon} alt="" /></span>
+                                    <span className="h-hero__chip-text">
+                                        <b>{c.title}</b>
+                                        <small>{c.sub}</small>
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <h1 className="h-hero__title">
-                        Malaysia's
-                        <br />
-                        Smartest <span className="gradient-text">Insurance</span>
-                        <br />
-                        <span className="gradient-text">Super App</span>
-                    </h1>
-                    <div className="h-hero__subtitle">Compare, buy, renew, and manage Motor, Travel, and Health Insurance from <br /> multiple insurers in one seamless experience.</div>
-                    <div className="h-hero__action-btns">
-                        <button className="h-hero__compare-btn">Compare Insurance <FaArrowRight className='icon' /></button>
-                        <button className="h-hero__demo-btn">
-                            Watch Demo
-                            <video autoPlay loop src="https://www.pexels.com/download/video/38687742/"></video>
-                        </button>
-                    </div>
-                    <div className="h-hero__meta-row">
-                        <div className="h-hero__meta-block">
-                            <div className="h-hero__meta-icon-wrap">
-                                <FaHandshake className='icon' />
+
+                    <form className="h-hero__card" onSubmit={(e) => e.preventDefault()}>
+                        <div className="h-hero__card-inner">
+                            <h2 className="h-hero__card-title">Get an <span>Instant</span> Quote</h2>
+                            <p className="h-hero__card-sub">Compare 20+ insurers in under 30 seconds. No paperwork.</p>
+
+                            <div className="h-hero__tabs">
+                                {TABS.map((t) => (
+                                    <button
+                                        type="button"
+                                        key={t.id}
+                                        className={`h-hero__tab ${tab === t.id ? "is-active" : ""}`}
+                                        onClick={() => setTab(t.id)}
+                                    >
+                                        <img src={t.icon} alt="" /> {t.label}
+                                    </button>
+                                ))}
                             </div>
-                            <div className="h-hero__meta-title">  20+ Insurance Partners</div>
-                          
-                        </div>
 
-                        <div className="h-hero__meta-block">
-                            <div className="h-hero__meta-icon-wrap">
-                                <IoNewspaperOutline className='icon' />
+                            <div className="h-hero__row">
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">Ownership<i>*</i></span>
+                                    <span className="h-hero__input">
+                                        <select value={form.ownership} onChange={(e) => set("ownership", e.target.value)}>
+                                            <option>Private</option>
+                                            <option>Company</option>
+                                        </select>
+                                        <img src={chevronDown} alt="" />
+                                    </span>
+                                </label>
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">Vehicle Reg</span>
+                                    <span className="h-hero__input">
+                                        <img src={rego} alt="" />
+                                        <input value={form.vehicleReg} placeholder="VAB 1234" onChange={(e) => set("vehicleReg", e.target.value)} />
+                                    </span>
+                                </label>
                             </div>
-                            <div className="h-hero__meta-title">Instant Quotes</div>
-                        </div>
 
-                        <div className="h-hero__meta-block">
-                            <div className="h-hero__meta-icon-wrap">
-                                <AiOutlineFileProtect className='icon' />
+                            <div className="h-hero__row">
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">ID Type</span>
+                                    <span className="h-hero__input">
+                                        <select value={form.idType} onChange={(e) => set("idType", e.target.value)}>
+                                            <option>NRIC/ My Kad</option>
+                                            <option>Passport</option>
+                                        </select>
+                                        <img src={chevronDown} alt="" />
+                                    </span>
+                                </label>
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">ID Number</span>
+                                    <span className="h-hero__input">
+                                        <input value={form.idNumber} placeholder="1234 5678 9012" onChange={(e) => set("idNumber", e.target.value)} />
+                                    </span>
+                                </label>
                             </div>
-                            <div className="h-hero__meta-title">Secure Payments</div>
-                        </div>
 
-                        <div className="h-hero__meta-block">
-                            <div className="h-hero__meta-icon-wrap">
-                                <LuSearchCheck className='icon' />
+                            <div className="h-hero__row">
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">Postcode<i>*</i></span>
+                                    <span className="h-hero__input">
+                                        <input value={form.postcode} placeholder="eg. 54320" onChange={(e) => set("postcode", e.target.value)} />
+                                    </span>
+                                </label>
+                                <label className="h-hero__field">
+                                    <span className="h-hero__label">Martial Status<i>*</i></span>
+                                    <span className="h-hero__input">
+                                        <select value={form.marital} onChange={(e) => set("marital", e.target.value)}>
+                                            <option>Unmarried</option>
+                                            <option>Married</option>
+                                        </select>
+                                        <img src={chevronDown} alt="" />
+                                    </span>
+                                </label>
                             </div>
-                            <div className="h-hero__meta-title"> Real-Time Claim Tracking</div>
-                        </div>
 
-                    </div>
-                    <div className="h-hero__get-app-btns">
-                        <button className="h-hero__get-app-btn play-store">
-                        </button>
-                        <button className="h-hero__get-app-btn app-store">
-                        </button>
-                    </div>
-                </div>
-                <div className="h-hero__3d-images-container">
-                    <img src={mobileImg} alt="Insurance Super App" className="h-hero__phone-img" />
+                            <label className="h-hero__check">
+                                <input type="checkbox" checked={form.noEhailing} onChange={(e) => set("noEhailing", e.target.checked)} />
+                                <span>My vehicle is not used for, and has no history of e-hailing.</span>
+                                <span className="h-hero__info">
+                                    <img src={info} alt="" />
+                                    <em>We don't cover e-hailing vehicles. However, you can proceed if you've declared at a JPJ counter that your vehicle is no longer used for e-hailing.</em>
+                                </span>
+                            </label>
 
-                    <img src={motorInsuranceImg} alt="" className="h-hero__floating-icon h-hero__floating-icon--motor" />
-                    <div className="h-hero__float-card h-hero__float-card--motor">
-                        <div className="h-hero__float-card__icon-wrap">
-                            <FaCar className="icon" />
-                        </div>
-                        <div className="h-hero__float-card__text">
-                            <span className="title">Motor Insurance</span>
-                            <span className="subtitle">Car + Bike Insurance</span>
-                        </div>
-                    </div>
+                            <button type="submit" className="h-hero__quote-btn">
+                                Get Quote Now <img src={quoteArrow} alt="" />
+                            </button>
 
-                    <img src={travelImg} alt="" className="h-hero__floating-icon h-hero__floating-icon--travel" />
-                    <div className="h-hero__float-card h-hero__float-card--travel">
-                        <div className="h-hero__float-card__icon-wrap">
-                            <FaPlane className="icon" />
+                            <div className="h-hero__ai-note">
+                                <img src={aiSparkle} alt="" />
+                                <p>
+                                    <b>CoverEazy AI</b> matches you with<br />
+                                    <b>12 licensed insurers</b> in under 30 seconds.
+                                </p>
+                            </div>
                         </div>
-                        <div className="h-hero__float-card__text">
-                            <span className="title">Travel</span>
-                            <span className="subtitle">Worldwide Coverage</span>
-                        </div>
-                    </div>
-
-                    <img src={taxRenewalImg} alt="Road Tax Renewal" className="h-hero__floating-icon h-hero__floating-icon--tax" />
-                    <div className="h-hero__float-card h-hero__float-card--tax">
-                        <div className="h-hero__float-card__icon-wrap">
-                            <FaCarSide className="icon" />
-                        </div>
-                        <div className="h-hero__float-card__text">
-                            <span className="title">Road Tax Renewal</span>
-                            <span className="subtitle">Renew + Road Tax</span>
-                        </div>
-                    </div>
-
-                    <img src={claimsImg} alt="Claims" className="h-hero__floating-icon h-hero__floating-icon--claims" />
-                    <div className="h-hero__float-card h-hero__float-card--claims">
-                        <div className="h-hero__float-card__text">
-                            <span className="title">Claims</span>
-                            <div className="claim-row"><IoCheckmarkCircle style={{ color: "var(--green-color)" }} /> Third-Party Claim Notification</div>
-                            <div className="claim-row"><IoCheckmarkCircle style={{ color: "var(--green-color)" }} /> Claim Notification</div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
-
-    </>
+    )
 }
 
 export default HomeHero

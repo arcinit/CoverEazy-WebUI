@@ -1,37 +1,39 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./RatingSection.scss";
-import { FaStar } from "react-icons/fa";
+import starIcon from "./images/star.svg";
+import aisha from "./images/aisha-rahman.png";
+import zhiWei from "./images/zhi-wei-tan.png";
+import daniel from "./images/daniel-lim.png";
 
 interface Testimonial {
     quote: string;
     name: string;
     role: string;
-    initial: string;
+    avatar: string;
 }
 
 const testimonials: Testimonial[] = [
     {
-        quote:
-            "Renewed my motor insurance and road tax in under 3 minutes. The doorstep delivery genuinely surprised me.",
+        quote: "“Renewed my motor insurance and road tax in under 3 minutes. The doorstep delivery genuinely surprised me!”",
         name: "Aisha Rahman",
-        role: "Family Doctor · Kuala Lumpur",
-        initial: "A",
+        role: "Family Doctor, Kuala Lumpur",
+        avatar: aisha,
     },
     {
-        quote:
-            "Compared 12 insurers, picked the best plan, and saved RM 380. The cleanest insurance experience in Malaysia.",
+        quote: "“Compared 12 insurers, picked the best plan, and saved RM380. The cleanest insurance experience in Malaysia.”",
         name: "Zhi Wei Tan",
-        role: "Software Engineer · Penang",
-        initial: "Z",
+        role: "Software Engineer, Penang",
+        avatar: zhiWei,
     },
     {
-        quote:
-            "Submitted a claim through the app — approved within 36 hours, payout via DuitNow same day. Brilliant.",
+        quote: "“Submitted a claim through the app, approved within 36 hours, payout via DuitNow same day. Brilliant!”",
         name: "Daniel Lim",
         role: "Small Business Owner",
-        initial: "D",
+        avatar: daniel,
     },
 ];
+
+const DOT_COUNT = 5;
 
 const RatingSection = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -39,39 +41,35 @@ const RatingSection = () => {
     return (
         <section className="rating">
             <div className="rating__container">
-                <h2 className="rating__heading">
-                    LOVED BY THOUSANDS OF <span className="rating__highlight">MALAYSIANS</span>
-                </h2>
+                <h2 className="rating__heading">LOVED BY THOUSANDS OF MALAYSIANS</h2>
 
                 <div className="rating__grid">
                     {testimonials.map((t) => (
-                        <div className="rating__card" key={t.name}>
+                        <article className="rating__card" key={t.name}>
                             <div className="rating__stars">
                                 {[...Array(5)].map((_, i) => (
-                                    <FaStar key={i} className="rating__rating-star" />
+                                    <img key={i} src={starIcon} alt="" className="rating__star" />
                                 ))}
                             </div>
 
-                            <p className="rating__quote">&quot;{t.quote}&quot;</p>
-
-                            <div className="rating__divider" />
+                            <p className="rating__quote">{t.quote}</p>
 
                             <div className="rating__footer">
-                                <span className="rating__avatar">{t.initial}</span>
+                                <img className="rating__avatar" src={t.avatar} alt={t.name} />
                                 <span className="rating__person">
                                     <strong className="rating__name">{t.name}</strong>
-                                    <small className="rating__role">{t.role}</small>
+                                    <span className="rating__role">{t.role}</span>
                                 </span>
                             </div>
-                        </div>
+                        </article>
                     ))}
                 </div>
 
                 <div className="rating__pagination">
-                    {testimonials.map((_, index) => (
+                    {Array.from({ length: DOT_COUNT }).map((_, index) => (
                         <button
                             key={index}
-                            className={`rating__dot ${index === activeIndex ? 'rating__dot--active' : ''}`}
+                            className={`rating__dot ${index === activeIndex ? "rating__dot--active" : ""}`}
                             onClick={() => setActiveIndex(index)}
                             aria-label={`Go to testimonial ${index + 1}`}
                         />

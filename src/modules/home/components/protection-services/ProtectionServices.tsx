@@ -1,9 +1,38 @@
 import React, { useState } from 'react'
 import './ProtectionServices.scss'
-import { FaArrowRight, FaCarSide, FaMotorcycle, FaPlane, FaPeopleGroup, FaShieldHalved, FaMagnifyingGlass } from 'react-icons/fa6'
-import { MdOutlineVerifiedUser } from 'react-icons/md'
-import { MdOutlineTask } from 'react-icons/md'
-import { LuWallet, LuBell, LuFileText, LuUsers } from 'react-icons/lu'
+import sprite1 from './images/sprite1.png'
+import sprite2 from './images/sprite2.png'
+import sprite3 from './images/sprite3.png'
+import arrowIcon from './images/arrow.svg'
+import walletIcon from './images/wallet.svg'
+import bellIcon from './images/bell.svg'
+import claimIcon from './images/claim.svg'
+import userIcon from './images/user.svg'
+
+interface Service {
+  id: number
+  title: string
+  description: string
+  sprite: string
+  crop: { h: number; l: number; t: number; w: number }
+}
+
+const services: Service[] = [
+  { id: 1, title: 'Car Insurance', description: 'Comprehensive cover for your car', sprite: sprite1, crop: { h: 262.56, l: -22.31, t: 0.77, w: 393.85 } },
+  { id: 2, title: 'Bike Insurance', description: 'Protect your ride, every mile', sprite: sprite2, crop: { h: 263.43, l: -112.54, t: -5, w: 396.5 } },
+  { id: 3, title: 'Travel Insurance', description: 'Comprehensive cover for your car', sprite: sprite2, crop: { h: 345.95, l: -126.95, t: -231.08, w: 363.12 } },
+  { id: 4, title: 'Road Tax Renewal', description: 'Renew road tax instantly', sprite: sprite3, crop: { h: 188.93, l: -41.93, t: -94.47, w: 283.92 } },
+  { id: 5, title: 'Claim Notifications', description: 'Report, Track & Settle faster', sprite: sprite1, crop: { h: 262.56, l: -14.51, t: -86.48, w: 393.85 } },
+  { id: 6, title: 'Third Party Claim Notifications', description: 'Manage third party claims', sprite: sprite2, crop: { h: 325.81, l: -132.55, t: -122.78, w: 490.4 } },
+  { id: 7, title: 'Police Summons Check', description: 'Check your summons status', sprite: sprite2, crop: { h: 325.81, l: -264.56, t: -122.78, w: 490.4 } }
+]
+
+const benefits = [
+  { icon: walletIcon, accent: 'One wallet.', title: 'All your policies in one place.', text: 'Store, access and manage all your policies, road tax and documents securely.' },
+  { icon: bellIcon, accent: 'Smart reminders.', title: 'Never miss an important date.', text: 'Get timely reminders for policy renewals, road tax expiry and claim updates.' },
+  { icon: claimIcon, accent: 'Faster claims.', title: "We're with you, end to end.", text: 'Raise, track and settle claims with real-time updates at every step.' },
+  { icon: userIcon, accent: 'Better together.', title: 'Advice you can trust.', text: 'Our BNM licensed advisors are here to help you choose the right protection.' }
+]
 
 const ProtectionServices = () => {
   const [currentPage, setCurrentPage] = useState(0)
@@ -29,60 +58,9 @@ const ProtectionServices = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const services = [
-    {
-      id: 1,
-      title: 'Car Insurance',
-      description: 'Comprehensive cover for your car',
-      icon: FaCarSide,
-      color: '#003366'
-    },
-    {
-      id: 2,
-      title: 'Bike Insurance',
-      description: 'Protect your ride, every mile',
-      icon: FaMotorcycle,
-      color: '#003366'
-    },
-    {
-      id: 3,
-      title: 'Travel Insurance',
-      description: 'Comprehensive cover for your trip',
-      icon: FaPlane,
-      color: '#003366'
-    },
-    {
-      id: 4,
-      title: 'Road Tax Renewal',
-      description: 'Renew road tax instantly',
-      icon: MdOutlineVerifiedUser,
-      color: '#003366'
-    },
-    {
-      id: 5,
-      title: 'Claim Notifications',
-      description: 'Report, Track & Settle faster',
-      icon: MdOutlineTask,
-      color: '#003366'
-    },
-    {
-      id: 6,
-      title: 'Third Party Claim Notifications',
-      description: 'Manage third party claims',
-      icon: FaPeopleGroup,
-      color: '#003366'
-    },
-    {
-      id: 7,
-      title: 'Police Summons Check',
-      description: 'Check your summons status',
-      icon: FaMagnifyingGlass,
-      color: '#003366'
-    }
-  ]
-
   const totalPages = Math.ceil(services.length / itemsPerPage)
-  const startIdx = currentPage * itemsPerPage
+  const safePage = Math.min(currentPage, Math.max(totalPages - 1, 0))
+  const startIdx = safePage * itemsPerPage
   const visibleServices = services.slice(startIdx, startIdx + itemsPerPage)
 
   const handlePageChange = (page: number) => {
@@ -111,21 +89,23 @@ const ProtectionServices = () => {
             {visibleServices.map((service) => (
               <div key={service.id} className="protection-services__card">
                 <div className="protection-services__card-icon-wrapper">
-                  <div className="protection-services__card-icon">
-                    {React.createElement(service.icon as any, {
-                      style: { color: service.color }
-                    })}
-                  </div>
+                  <img
+                    className="protection-services__card-image"
+                    src={service.sprite}
+                    alt=""
+                    style={{
+                      height: `${service.crop.h}%`,
+                      left: `${service.crop.l}%`,
+                      top: `${service.crop.t}%`,
+                      width: `${service.crop.w}%`
+                    }}
+                  />
                 </div>
-                <h3 className="protection-services__card-title">
-                  {service.title}
-                </h3>
-                <p className="protection-services__card-description">
-                  {service.description}
-                </p>
-                <div className="protection-services__card-arrow">
-                  <FaArrowRight />
+                <div className="protection-services__card-body">
+                  <h3 className="protection-services__card-title">{service.title}</h3>
+                  <p className="protection-services__card-description">{service.description}</p>
                 </div>
+                <img className="protection-services__card-arrow" src={arrowIcon} alt="" />
               </div>
             ))}
           </div>
@@ -135,9 +115,7 @@ const ProtectionServices = () => {
           {Array.from({ length: Math.max(totalPages, 1) }).map((_, idx) => (
             <button
               key={idx}
-              className={`protection-services__pagination-dot ${
-                idx === currentPage ? 'active' : ''
-              }`}
+              className={`protection-services__pagination-dot ${idx === safePage ? 'active' : ''}`}
               onClick={() => handlePageChange(idx)}
               aria-label={`Go to page ${idx + 1}`}
               disabled={totalPages <= 1}
@@ -146,55 +124,18 @@ const ProtectionServices = () => {
         </div>
 
         <div className="protection-services__benefits">
-          <div className="protection-services__benefits-grid">
-            <div className="protection-services__benefit-card">
-              <div className="protection-services__benefit-icon">
-                <LuWallet />
+          {benefits.map((b) => (
+            <div key={b.accent} className="protection-services__benefit">
+              <img className="protection-services__benefit-icon" src={b.icon} alt="" />
+              <div className="protection-services__benefit-content">
+                <h3 className="protection-services__benefit-title">
+                  <span className="highlight-text">{b.accent}</span>
+                  <span>{b.title}</span>
+                </h3>
+                <p className="protection-services__benefit-description">{b.text}</p>
               </div>
-              <h3 className="protection-services__benefit-title">
-                <span className="highlight-text">Green wallet.</span> All your policies in one place.
-              </h3>
-              <p className="protection-services__benefit-description">
-                Store, access and manage all your policies, road tax and documents securely.
-              </p>
             </div>
-
-            <div className="protection-services__benefit-card">
-              <div className="protection-services__benefit-icon">
-                <LuBell />
-              </div>
-              <h3 className="protection-services__benefit-title">
-                <span className="highlight-text">Green reminders.</span> Never miss an important date.
-              </h3>
-              <p className="protection-services__benefit-description">
-                Get timely reminders for policy renewals, road tax expiry and claim updates.
-              </p>
-            </div>
-
-            <div className="protection-services__benefit-card">
-              <div className="protection-services__benefit-icon">
-                <LuFileText />
-              </div>
-              <h3 className="protection-services__benefit-title">
-                <span className="highlight-text">Faster claims.</span> We're with you, end to end.
-              </h3>
-              <p className="protection-services__benefit-description">
-                Raise, track and settle claims with real-time updates at every step.
-              </p>
-            </div>
-
-            <div className="protection-services__benefit-card">
-              <div className="protection-services__benefit-icon">
-                <LuUsers />
-              </div>
-              <h3 className="protection-services__benefit-title">
-                <span className="highlight-text">Better together.</span> Advice you can trust.
-              </h3>
-              <p className="protection-services__benefit-description">
-                Our BNM licensed advisors are here to help you choose the right protection.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
