@@ -1,0 +1,261 @@
+.why-choose {
+  padding: 50px 100px 0;
+  background: #fff;
+
+  @media (max-width: 1400px) {
+    padding: 50px 60px 0;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 40px 40px 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 24px 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 24px 16px 0;
+  }
+
+  &__container {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (max-width: 480px) {
+      gap: 16px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #062155;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .why-choose__highlight {
+      color: #148534;
+    }
+  }
+
+  &__features {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    border: 1px solid #e3e8ee;
+    border-radius: 16px;
+
+    @media (max-width: 768px) {
+      gap: 16px;
+      padding: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 480px) {
+      gap: 12px;
+      padding: 12px;
+    }
+  }
+
+  &__feature {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    @media (max-width: 480px) {
+      flex-basis: 100%;
+    }
+  }
+
+  &__feature-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+
+    @media (max-width: 480px) {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.2;
+    min-width: 0;
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+      gap: 4px;
+    }
+  }
+
+  &__feature-title {
+    margin: 0;
+    font-weight: 700;
+    color: #062155;
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+    }
+  }
+
+  &__feature-desc {
+    margin: 0;
+    color: #586474;
+
+    @media (max-width: 480px) {
+      font-size: 11px;
+      line-height: 1;
+    }
+  }
+
+  &__stats {
+    margin-top: 26px;
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: #f4f8ff;
+    border: 1px solid #edf3fd;
+    border-radius: 16px;
+
+    @media (max-width: 768px) {
+      gap: 12px;
+      padding: 12px;
+    }
+
+    @media (max-width: 480px) {
+      gap: 8px;
+      padding: 8px;
+    }
+  }
+
+  &__stat {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #fff;
+    border-radius: 12px;
+
+    @media (max-width: 768px) {
+      padding: 4px 8px;
+      gap: 4px;
+    }
+  }
+
+  &__stat-icon {
+    display: flex;
+    padding: 8px;
+    border-radius: 60px;
+    background: #edfffa;
+    flex-shrink: 0;
+
+    img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      padding: 6px;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  &__stat-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #313131;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+      gap: 1px;
+    }
+  }
+
+  &__stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+
+  &__stat-label {
+    font-size: 12px;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    padding: 25px 40px 0;
+
+    &__features {
+      flex-wrap: wrap;
+    }
+
+    &__feature {
+      flex: 1 1 calc(33.333% - 24px);
+    }
+
+    &__stats {
+      flex-wrap: wrap;
+    }
+
+    &__stat {
+      flex: 1 1 calc(33.333% - 16px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 25px 16px 0;
+
+    &__feature {
+      flex-basis: 100%;
+    }
+
+    &__stat {
+      flex-basis: calc(50% - 16px);
+    }
+  }
+}

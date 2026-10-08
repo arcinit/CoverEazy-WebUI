@@ -1,100 +1,54 @@
-// ---------- tokens ----------
 $footer-bg: #031222;
-$footer-green: #01b637;
-$footer-text-muted: #8a94a6;
-$footer-link: #c7cedb;
-$footer-border: rgba(255, 255, 255, 0.08);
-$radius-pill: 999px;
 
 .footer {
+    position: relative;
     width: 100%;
     background: $footer-bg;
     color: #fff;
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    padding: 48px 24px 32px;
+    font-family: "Inter", sans-serif;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &__glow {
+        position: absolute;
+        inset: 0;
+        opacity: 0.6;
+        pointer-events: none;
+        background:
+            radial-gradient(ellipse 720px 202px at 288px 0, rgba(46, 132, 239, 0.25) 0, rgba(46, 132, 239, 0) 70%),
+            radial-gradient(ellipse 576px 168px at 1152px 34px, rgba(153, 115, 239, 0.22) 0, rgba(153, 115, 239, 0) 70%);
+    }
 
     &__container {
-        max-width: 1320px;
+        position: relative;
+        // max-width: 1440px;
         margin: 0 auto;
-    }
-
-    // ---------- top CTA row ----------
-    &__cta-row {
+        padding: 50px 100px;
+        box-sizing: border-box;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 24px;
-        margin-bottom: 56px;
 
-        @media (max-width: 720px) {
-            flex-direction: column;
-            align-items: flex-start;
+        @media (max-width: 1400px) { padding: 50px 60px; }
+        @media (max-width: 1200px) { padding: 40px 40px; }
+        @media (max-width: 900px) {
+            padding: 40px 24px;
+            gap: 20px;
+        }
+        @media (max-width: 480px) {
+            padding: 30px 16px;
+            gap: 16px;
         }
     }
 
-    &__heading {
-        font-size: 34px;
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0;
-        color: #fff;
-
-        em {
-            color: $footer-green;
-            font-style: italic;
-            font-weight: 600;
-        }
-
-        @media (max-width: 720px) {
-            font-size: 26px;
-        }
-    }
-
-    &__cta-group {
-        display: flex;
-        gap: 12px;
-        flex-shrink: 0;
-    }
-
-    &__cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border: none;
-        border-radius: $radius-pill;
-        padding: 12px 22px;
-        font-size: 14.5px;
-        font-weight: 600;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: opacity 0.15s ease, transform 0.15s ease;
-
-        &:hover {
-            transform: translateY(-1px);
-        }
-
-        &--primary {
-            background: $footer-green;
-            color: #fff;
-        }
-
-        &--outline {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-    }
-
-    // ---------- main grid: brand + link columns ----------
     &__main {
-        display: grid;
-        grid-template-columns: 0.9fr 2.4fr;
-        gap: 40px;
-        margin-bottom: 40px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
 
-        @media (max-width: 860px) {
-            grid-template-columns: 1fr;
+        @media (max-width: 900px) {
+            flex-wrap: wrap;
+            gap: 32px 16px;
         }
     }
 
@@ -102,59 +56,88 @@ $radius-pill: 999px;
         display: flex;
         flex-direction: column;
         gap: 16px;
+        width: 386.667px;
+        flex-shrink: 0;
+
+        @media (max-width: 900px) { width: 100%; }
     }
 
     &__logo {
-        display: inline-flex;
-        width: fit-content;
-        background: #fff;
-        border-radius: 14px;
-        padding: 14px 18px;
+        position: relative;
+        width: 300px;
+        max-width: 100%;
+        aspect-ratio: 300 / 111.923;
+        border-radius: 16px;
+        overflow: hidden;
 
         img {
+            position: absolute;
             display: block;
-            height: 44px;
-            width: auto;
+            max-width: none;
+            width: 100%;
+            height: 178.69%;
+            left: 0;
+            top: -33.06%;
         }
     }
 
     &__socials {
         display: flex;
-        gap: 10px;
+        align-items: center;
+        gap: 9.6px;
     }
 
     &__social {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.08);
+        position: relative;
+        width: 24px;
+        height: 24px;
+        border-radius: 50px;
+        display: block;
 
-        &:hover {
-            background: rgba(255, 255, 255, 0.16);
+        img {
+            position: absolute;
+            display: block;
+            max-width: none;
+        }
+
+        &--facebook {
+            background: #337fff;
+            img { inset: 25.11% 35.93% 24.85% 37%; width: 27.07%; height: 50.04%; }
+        }
+
+        &--instagram {
+            background: linear-gradient(-45deg, #fbe18a 1%, #fcbb45 22%, #f75274 39%, #d53692 53%, #8f39ce 75%, #5b4fe9 100%);
+            img { left: 25%; top: 25.11%; width: 50.03%; height: 50.04%; }
+        }
+
+        .footer__social-full {
+            inset: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 
-    &__columns {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: 15.33px;
+        flex: 1 0 0;
+        min-width: 0;
 
-        @media (max-width: 620px) {
-            grid-template-columns: repeat(2, 1fr);
+        &--company { flex: 0 0 173.333px; }
+
+        @media (max-width: 900px) {
+            flex: 1 1 40%;
+            &--company { flex: 1 1 40%; }
         }
     }
 
     &__column-title {
-        display: block;
         font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
+        font-weight: 600;
+        line-height: 1.2;
         text-transform: uppercase;
-        color: $footer-text-muted;
-        margin-bottom: 16px;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     &__link-list {
@@ -167,20 +150,12 @@ $radius-pill: 999px;
     }
 
     &__link {
-        font-size: 14px;
-        color: $footer-link;
+        font-size: 12px;
+        line-height: 1.2;
+        color: #fff;
         text-decoration: none;
 
-        &:hover {
-            color: #fff;
-        }
-    }
-
-    // ---------- divider + bottom row ----------
-    &__divider {
-        height: 1px;
-        background: $footer-border;
-        margin-bottom: 24px;
+        &:hover { opacity: 0.8; }
     }
 
     &__bottom-row {
@@ -189,16 +164,19 @@ $radius-pill: 999px;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 16px;
+        padding-top: 24.667px;
+        border-top: 0.667px solid rgba(255, 255, 255, 0.1);
     }
 
     &__copyright {
-        font-size: 13.5px;
-        color: $footer-text-muted;
+        font-size: 12px;
+        line-height: 1.2;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     &__badges {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
     }
 
@@ -206,15 +184,19 @@ $radius-pill: 999px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 12.5px;
-        font-weight: 500;
-        color: $footer-link;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: $radius-pill;
-        padding: 6px 12px;
+        padding: 7px 13px;
+        font-size: 12px;
+        line-height: 1.2;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        white-space: nowrap;
 
-        svg {
-            color: $footer-green;
+        img {
+            width: 14px;
+            height: 14px;
+            display: block;
         }
     }
 }
