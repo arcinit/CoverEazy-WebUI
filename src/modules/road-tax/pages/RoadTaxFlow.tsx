@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-import {
-    FiChevronLeft,
-    FiChevronDown,
-    FiClock,
-    FiTruck,
-    FiCheck,
-} from 'react-icons/fi';
-import { HiOutlineShieldCheck } from 'react-icons/hi';
-import { PiSteeringWheelBold } from 'react-icons/pi';
-import { FaCheckCircle } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiArrowLeft, FiCheck } from 'react-icons/fi';
+import { LuAward, LuTimer, LuTruck } from 'react-icons/lu';
 
 import './RoadTaxFlow.scss';
 import VehicleDetails from '../components/vehicle-details/VehicleDetails';
@@ -26,12 +19,21 @@ const STEPS = [
 ];
 
 const RoadTaxFlow = () => {
+    const navigate = useNavigate();
     const [activeStep, setActiveStep] = useState(1);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [activeStep]);
+
+    const handleBack = () => (activeStep === 1 ? navigate('/') : setActiveStep(activeStep - 1));
+    const isFinished = activeStep === STEPS.length;
 
     return <>
         <Header/>
         <div className="road-tax-flow">
             <section className="road-tax-flow__subheader">
+                <div className="road-tax-flow__subheader-inner">
                 <div className="road-tax-flow__subheader-left">
                     <span className="road-tax-flow__subheader-icon">
                         <LuCar />
@@ -41,8 +43,10 @@ const RoadTaxFlow = () => {
                             Road Tax Renewal
                         </h1>
                         <p className="road-tax-flow__subheader-desc">
+                            <LuTimer className="road-tax-flow__sub-icon" />
                             <span>Renew in under 3 minutes</span>
                             <span className="road-tax-flow__dot">•</span>
+                            <LuTruck className="road-tax-flow__sub-icon road-tax-flow__sub-icon--blue" />
                             <span>Delivered to your door</span>
                         </p>
                     </div>
@@ -50,39 +54,40 @@ const RoadTaxFlow = () => {
 
                 <div className="road-tax-flow__subheader-right">
                     <div className="road-tax-flow__stat">
-                        <FiClock className="road-tax-flow__stat-icon road-tax-flow__stat-icon--orange" />
+                        <LuTimer className="road-tax-flow__stat-icon road-tax-flow__stat-icon--orange" />
                         <div className="road-tax-flow__stat-copy">
                             <span className="road-tax-flow__stat-value">3 Min</span>
                             <span className="road-tax-flow__stat-label">Average</span>
                         </div>
                     </div>
                     <div className="road-tax-flow__stat">
-                        <HiOutlineShieldCheck className="road-tax-flow__stat-icon road-tax-flow__stat-icon--green" />
+                        <LuAward className="road-tax-flow__stat-icon road-tax-flow__stat-icon--green" />
                         <div className="road-tax-flow__stat-copy">
                             <span className="road-tax-flow__stat-value">99.9%</span>
                             <span className="road-tax-flow__stat-label">Success Rate</span>
                         </div>
                     </div>
                     <div className="road-tax-flow__stat">
-                        <FiTruck className="road-tax-flow__stat-icon road-tax-flow__stat-icon--blue" />
+                        <LuTruck className="road-tax-flow__stat-icon road-tax-flow__stat-icon--blue" />
                         <div className="road-tax-flow__stat-copy">
                             <span className="road-tax-flow__stat-value">Free</span>
                             <span className="road-tax-flow__stat-label">Door Delivery</span>
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
 
             {/* Stepper row */}
             <section className="road-tax-flow__stepper-row">
-                <button className="road-tax-flow__back-btn" type="button">
-                    <FiChevronLeft />
+                <button className="road-tax-flow__back-btn" type="button" aria-label="Back" onClick={handleBack}>
+                    <FiArrowLeft />
                 </button>
 
                 <ol className="road-tax-flow__stepper">
                     {STEPS.map((step, index) => {
-                        const isActive = step.id === activeStep;
-                        const isDone = step.id < activeStep;
+                        const isActive = step.id === activeStep && !isFinished;
+                        const isDone = step.id < activeStep || isFinished;
                         return (
                             <li
                                 key={step.id}
@@ -92,11 +97,13 @@ const RoadTaxFlow = () => {
                                     isDone ? 'road-tax-flow__step--done' : '',
                                 ].join(' ').trim()}
                             >
-                                <span className="road-tax-flow__step-index">
-                                    {isDone ? <FiCheck /> : step.id}
-                                </span>
-                                <span className="road-tax-flow__step-label">
-                                    {step.label}
+                                <span className="road-tax-flow__step-content">
+                                    <span className="road-tax-flow__step-index">
+                                        {isDone ? <FiCheck /> : step.id}
+                                    </span>
+                                    <span className="road-tax-flow__step-label">
+                                        {step.label}
+                                    </span>
                                 </span>
                                 {index < STEPS.length - 1 && (
                                     <span className="road-tax-flow__step-divider" />
@@ -105,7 +112,7 @@ const RoadTaxFlow = () => {
                         );
                     })}
                 </ol>
-                <div></div>
+                <div className="road-tax-flow__stepper-spacer" />
             </section>
 
             {/* Active step content */}

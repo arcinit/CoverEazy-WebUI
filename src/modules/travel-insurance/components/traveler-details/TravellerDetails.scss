@@ -5,29 +5,30 @@
 $navy: #062155;
 $text-dark: #313131;
 $green: #01b637;
-$green-bg: #e9faed;
-$blue: #2563eb;
-$blue-bg: #eaf1ff;
-$border: #e3e8ee;
-$muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
-$card-bg: #ffffff;
+$mint: #e6faf5;
+$teal: #00b894;
+$border: #edf0f4;
+$muted: #626e7d;
+$input-bg: #f8fafd;
+$input-border: #e9eef5;
 
-.traveller-details {
-    padding-bottom: 20px;
+.tr-trav {
+    padding-bottom: 40px;
 
     &__heading {
-        margin-bottom: 28px;
+        margin-bottom: 51px;
     }
 
     &__title {
-        font-size: 44px;
+        font-family: 'Lato', 'Inter', sans-serif !important;
+        font-size: 46px;
+        line-height: 48px;
         font-weight: 400;
         color: $navy;
-        margin: 0 0 10px;
+        margin: 0;
 
         &--accent {
+            font-family: 'Lato', 'Inter', sans-serif !important;
             color: $green;
             font-style: italic;
         }
@@ -35,14 +36,16 @@ $card-bg: #ffffff;
 
     &__subtitle {
         font-size: 16px;
-        color: $text-dark;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+        color: #3d3d3d;
         margin: 0;
-        font-weight: 300;
+        font-weight: 400;
     }
 
     &__grid {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 300px;
+        grid-template-columns: minmax(0, 1fr) 292px;
         gap: 24px;
         align-items: start;
     }
@@ -50,7 +53,7 @@ $card-bg: #ffffff;
     &__main {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 25px;
         min-width: 0;
     }
 
@@ -58,43 +61,47 @@ $card-bg: #ffffff;
     // Traveller card
     // -------------------------------------------------------------
     &__card {
-        background: $card-bg;
+        background: #fff;
         border: 1px solid $border;
-        border-radius: 16px;
+        border-radius: 24px;
         overflow: hidden;
+        box-shadow: 0 1px 3px rgba(16, 24, 40, 0.03);
     }
 
     &__card-header {
         width: 100%;
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 18px 22px;
+        gap: 16px;
+        padding: 19px 20px;
         background: none;
         border: none;
         cursor: pointer;
-        font-family: inherit;
         text-align: left;
     }
 
+    &__card--open &__card-header {
+        border-bottom: 1px solid #f6f8fb;
+    }
+
     &__avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #fff;
         flex-shrink: 0;
 
         &--blue {
-            background: linear-gradient(135deg, #0F5BFF 0%, #5B8EFF 100%);
+            background: linear-gradient(135deg, #1f5fff 0%, #3b7bff 100%);
         }
 
         &--green {
-            background: linear-gradient(135deg, #00B894 0%, #00D4AA 100%);
+            background: linear-gradient(135deg, #00b894 0%, #00d4aa 100%);
         }
     }
 
@@ -103,55 +110,65 @@ $card-bg: #ffffff;
         min-width: 0;
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 2px;
     }
 
     &__card-name-row {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
     }
 
     &__card-name {
         font-size: 14px;
+        line-height: 20px;
         font-weight: 600;
-        color: $navy;
+        color: $text-dark;
     }
 
     &__badge {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 4px;
         font-size: 12px;
-        font-weight: 600;
-        padding: 2px 10px;
+        line-height: 18px;
+        font-weight: 500;
+        padding: 1px 10px;
         border-radius: 999px;
 
+        svg {
+            width: 11px;
+            height: 11px;
+        }
+
         &--primary {
-            color: #0F5BFF;
-            background: #EDF2FF;
+            color: #2563eb;
+            background: #dfe8ff;
         }
 
         &--verified {
-            color: #16C47F;
-            background: #ECFDF5;
+            color: #16c47f;
+            background: $mint;
         }
     }
 
     &__card-meta {
         font-size: 12px;
+        line-height: 16px;
         color: $muted;
     }
 
     &__chevron {
-        color: $muted;
-        font-size: 16px;
+        display: inline-flex;
+        color: #4b5563;
+        font-size: 18px;
         flex-shrink: 0;
+        margin-right: 12px;
     }
 
     &__card-body {
-        padding: 4px 22px 22px;
+        padding: 20px 20px 20px;
     }
 
     // -------------------------------------------------------------
@@ -159,19 +176,22 @@ $card-bg: #ffffff;
     // -------------------------------------------------------------
     &__form-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-bottom: 18px;
+        grid-template-columns: repeat(2, minmax(0, 398px));
+        column-gap: 16px;
+        row-gap: 16px;
+        margin-bottom: 16px;
     }
 
     &__field {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 7px;
+        min-width: 0;
     }
 
     &__field-label {
         font-size: 12px;
+        line-height: 16px;
         font-weight: 600;
         color: $text-dark;
     }
@@ -185,20 +205,22 @@ $card-bg: #ffffff;
     &__input-icon {
         position: absolute;
         left: 16px;
-        color: $muted-light;
-        font-size: 15px;
+        color: #475569;
+        font-size: 13px;
         pointer-events: none;
+        z-index: 1;
     }
 
     &__input {
         width: 100%;
-        font-family: inherit;
-        font-size: 13.5px;
+        box-sizing: border-box;
+        height: 42px;
+        font-size: 14px;
         color: $text-dark;
-        background: #F8FAFD;
-        border: 1.33px solid #E9EEF5;
-        border-radius: 20px;
-        padding: 10px 14px;
+        background: $input-bg;
+        border: 1px solid $input-border;
+        border-radius: 21px;
+        padding: 0 15px;
         outline: none;
 
         &::placeholder {
@@ -211,14 +233,29 @@ $card-bg: #ffffff;
         }
 
         &--with-icon {
+            position: relative;
             padding-left: 42px;
+
+            // keep the whole field clickable to open the native picker
+            &::-webkit-calendar-picker-indicator {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+
+        &--empty {
+            color: transparent;
         }
     }
 
     &__divider {
         height: 1px;
-        background: $border;
-        margin-bottom: 16px;
+        background: #f1f3f7;
+        margin-bottom: 12px;
     }
 
     // -------------------------------------------------------------
@@ -227,7 +264,7 @@ $card-bg: #ffffff;
     &__toggles {
         display: flex;
         align-items: center;
-        gap: 28px;
+        gap: 12px 26px;
         flex-wrap: wrap;
     }
 
@@ -238,28 +275,30 @@ $card-bg: #ffffff;
         background: none;
         border: none;
         cursor: pointer;
-        font-family: inherit;
-        font-size: 13px;
-        font-weight: 500;
-        color: $text-dark;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 600;
+        color: #3a3a3a;
         padding: 0;
     }
 
     &__toggle-check {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
+        box-sizing: border-box;
         border-radius: 50%;
-        border: 1.5px solid #E9EEF5;
+        border: 1px solid $input-border;
+        background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 10px;
+        font-size: 12px;
         color: #fff;
         flex-shrink: 0;
 
         &--on {
-            background: #00B894;
-            border-color: $green;
+            background: #00b894;
+            border-color: #00b894;
         }
     }
 
@@ -269,18 +308,23 @@ $card-bg: #ffffff;
     &__add-btn {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 8px;
         width: 100%;
-        padding: 14px 20px;
+        box-sizing: border-box;
+        height: 50px;
+        padding: 0 20px;
         border-radius: 16px;
-        border: 1.33px dashed #00B894;
-        background: $green-bg;
-        color: $green;
+        border: 1px dashed $teal;
+        background: $mint;
+        color: $teal;
         font-size: 14px;
         font-weight: 600;
         cursor: pointer;
-        font-family: inherit;
+
+        svg {
+            font-size: 16px;
+        }
 
         &:hover {
             border-color: $green;
@@ -293,89 +337,108 @@ $card-bg: #ffffff;
     &__sidebar {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 13px;
+        position: sticky;
+        top: 24px;
     }
 
     &__summary-card {
-        background: $card-bg;
+        background: #fff;
         border: 1px solid $border;
-        border-radius: 16px;
-        padding: 20px;
+        border-radius: 24px;
+        padding: 14px 16px 16px;
     }
 
     &__summary-title {
         display: block;
-        font-size: 14px;
+        font-size: 12px;
+        line-height: 16px;
         font-weight: 600;
         color: $text-dark;
-        margin-bottom: 14px;
+        margin: 0 0 12px;
     }
 
     &__summary-list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        margin-bottom: 18px;
+        gap: 0;
+        margin-bottom: 8px;
     }
 
     &__summary-row {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+        height: 32px;
     }
 
     &__summary-label {
         font-size: 12px;
+        line-height: 16px;
         color: $muted;
+        padding-top: 2px;
     }
 
     &__summary-value {
-        font-size: 13px;
-        font-weight: 700;
-        color: $text-dark;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 600;
+        color: $navy;
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+        padding-top: 4px;
+
+        &--small {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 12px;
+            font-weight: 700;
+            color: $text-dark;
+            padding-top: 2px;
+        }
     }
 
     &__cta {
-    display: flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
         width: 100%;
-        padding: 14px 24px;
+        box-sizing: border-box;
+        height: 47px;
         border-radius: 16px;
         border: none;
-        background: #062155;
+        background: $navy;
         color: #fff;
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
     }
 
     &__ai-tip {
         display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        background: $green-bg;
-        border: 1px solid rgba(1, 182, 55, 0.25);
-        border-radius: 14px;
-        padding: 16px 18px;
+        align-items: center;
+        gap: 7px;
+        background: $mint;
+        border-radius: 20px;
+        padding: 15px 16px;
+        min-height: 73px;
+        box-sizing: border-box;
     }
 
     &__ai-tip-icon {
-        color: $green;
-        font-size: 16px;
-        margin-top: 2px;
+        display: inline-flex;
+        color: $teal;
+        font-size: 15px;
         flex-shrink: 0;
     }
 
     &__ai-tip-text {
-        font-size: 12.5px;
+        font-size: 12px;
         color: $text-dark;
-        line-height: 1.5;
+        line-height: 14px;
         margin: 0;
 
         strong {
-            color: $navy;
+            font-weight: 600;
         }
     }
 
@@ -386,15 +449,27 @@ $card-bg: #ffffff;
         &__grid {
             grid-template-columns: 1fr;
         }
+
+        &__sidebar {
+            position: static;
+        }
     }
 
     @media (max-width: 640px) {
+        &__title {
+            font-size: 34px;
+        }
+
+        &__heading {
+            margin-bottom: 28px;
+        }
+
         &__form-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
         }
 
         &__card-header {
-            flex-wrap: wrap;
+            padding: 16px;
         }
     }
 }

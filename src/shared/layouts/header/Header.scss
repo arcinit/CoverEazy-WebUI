@@ -130,6 +130,11 @@ $btn-shadow: 0 2px 8px -2px rgba(4, 25, 58, 0.06), 0 1px 3px -1px rgba(4, 25, 58
             border-bottom: none;
         }
 
+        &--has-sub#{&}--active {
+            width: auto;
+            border-bottom: 1px solid $blue;
+        }
+
         &:hover {
             .header__submenus-card { display: flex; }
             .icon { transform: rotate(180deg); }

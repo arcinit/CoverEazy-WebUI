@@ -10,15 +10,13 @@ import {
     IoChevronDownOutline,
     IoCheckmarkCircle,
     IoInformationCircleOutline,
-    IoWarningOutline,
     IoArrowForward,
     IoArrowBackOutline,
     IoSparkles,
 } from 'react-icons/io5'
 import zurichLogo from './images/zurich.png'
-import { FaRegCheckCircle, FaSortDown, FaSortUp } from 'react-icons/fa'
+import { FaRegCheckCircle, FaCaretDown, FaCaretUp } from 'react-icons/fa'
 import { FaRegCircleCheck } from 'react-icons/fa6'
-import { LuSparkles } from 'react-icons/lu'
 import { FiShield } from 'react-icons/fi'
 
 // ---------------------------------------------------------------
@@ -120,67 +118,80 @@ const Stepper = () => (
 // Reusable form primitives
 // ---------------------------------------------------------------
 const TextField = ({ label, value, placeholder, verified, hint, required = true }: any) => (
-    <div className="form-field">
-        <label className="form-field__label">
+    <div className="cd-field">
+        <label className="cd-field__label">
             {label}
-            {required && <span className="form-field__required">*</span>}
+            {required && <span className="cd-field__required">*</span>}
         </label>
-        <div className={`form-field__control${verified ? ' form-field__control--verified' : ''}`}>
+        <div className={`cd-field__control${verified ? ' cd-field__control--verified' : ''}`}>
             <input
-                className="form-field__input"
+                className="cd-field__input"
                 defaultValue={value}
                 placeholder={placeholder}
                 readOnly={verified}
             />
-            {verified && <IoCheckmarkCircle className="icon form-field__check" />}
+            {verified && <IoCheckmarkCircle className="icon cd-field__check" />}
         </div>
         {hint && (
-            <span className="form-field__hint">
-                <LuSparkles className="icon" /> {hint}
+            <span className="cd-field__hint">
+                <IoSparkles className="icon" /> {hint}
             </span>
         )}
     </div>
 )
 
-const SelectField = ({ label, value, placeholder, verified, hint, required = true }: any) => (
-    <div className="form-field">
-        <label className="form-field__label">
+const SelectField = ({ label, value, placeholder, verified, hint, required = true, caret = false }: any) => (
+    <div className="cd-field">
+        <label className="cd-field__label">
             {label}
-            {required && <span className="form-field__required">*</span>}
+            {required && <span className="cd-field__required">*</span>}
         </label>
         <div
-            className={`form-field__control form-field__control--select${verified ? ' form-field__control--verified' : ''
+            className={`cd-field__control cd-field__control--select${verified ? ' cd-field__control--verified' : ''
                 }`}
         >
-            <select className="form-field__input" defaultValue={value || ''}>
+            <select className="cd-field__input" defaultValue={value || ''}>
                 <option value="" disabled>
                     {placeholder}
                 </option>
                 {value && <option value={value}>{value}</option>}
             </select>
-            {verified ? (
-                <IoCheckmarkCircle className="icon form-field__check" />
+            {verified && !caret ? (
+                <IoCheckmarkCircle className="icon cd-field__check" />
             ) : (
-                <IoChevronDownOutline className="icon form-field__caret" />
+                <FaCaretDown className="icon cd-field__caret" />
             )}
         </div>
         {hint && (
-            <span className="form-field__hint">
-                <LuSparkles className="icon" /> {hint}
+            <span className="cd-field__hint">
+                <IoSparkles className="icon" /> {hint}
             </span>
         )}
     </div>
 )
 
+const UsFlag = () => (
+    <svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="20" height="14" fill="#fff" />
+        {[0, 2, 4, 6, 8, 10, 12].map((i) => (
+            <rect key={i} y={i} width="20" height="1.08" fill="#D9293C" />
+        ))}
+        <rect width="9" height="7.5" fill="#2B3F87" />
+    </svg>
+)
+
 const PhoneField = ({ label, required = true }: any) => (
-    <div className="form-field">
-        <label className="form-field__label">
+    <div className="cd-field">
+        <label className="cd-field__label">
             {label}
-            {required && <span className="form-field__required">*</span>}
+            {required && <span className="cd-field__required">*</span>}
         </label>
-        <div className="form-field__control form-field__control--phone">
-            <span className="form-field__flag">🇺🇸 +61</span>
-            <input className="form-field__input" placeholder="X XX XX XX XX" />
+        <div className="cd-field__control cd-field__control--phone">
+            <span className="cd-field__flag">
+                +61
+                <UsFlag />
+            </span>
+            <input className="cd-field__input" placeholder="X XX XX XX XX" />
         </div>
     </div>
 )
@@ -206,7 +217,7 @@ const ToggleField = ({ title, desc, checked = false }: any) => {
 
 // ---------------------------------------------------------------
 // Collapsible section wrapper — each usage renders an independent
-// BEM block (personal-info, contact-details, etc.), styled
+// BEM block (cd-personal, contact-details, etc.), styled
 // independently in SCSS via shared mixins only.
 // ---------------------------------------------------------------
 const FormSection = ({ blockName, icon: Icon, title, subtitle, defaultOpen = true, children }: any) => {
@@ -226,12 +237,12 @@ const FormSection = ({ blockName, icon: Icon, title, subtitle, defaultOpen = tru
                 </span>
                 {open ? (
                     <div className={`${blockName}__chevron`}>
-                        <FaSortDown className='icon' />
+                        <FaCaretDown className='icon' />
                     </div>
                     
                 ) : (
                     <div className={`${blockName}__chevron`}>
-                            <FaSortUp className='icon' />
+                            <FaCaretUp className='icon' />
                     </div>
                       
                 )}
@@ -283,13 +294,13 @@ const OccupationDetails = () => (
 // ---------------------------------------------------------------
 const PersonalInfoSection = () => (
     <FormSection
-        blockName="personal-info"
+        blockName="cd-personal"
         icon={IoPersonOutline}
         title="Personal Information"
         subtitle="Please review and complete the information below"
     >
-        <div className="personal-info__grid">
-            <TextField label="Full Name (As Per ID)" value="Ahmad bin Abdullah" verified hint="Auto-filled from records" />
+        <div className="cd-personal__grid">
+            <TextField label="Full Name ( As Per ID)" value="Ahmad bin Abdullah" verified hint="Auto-filled from records" />
             <TextField label="NRIC / MyKad Number" value="890123-10-1234" verified hint="Auto-filled from records" />
             <TextField label="Date of Birth" value="23 Jan 1989" verified hint="Auto-filled from records" />
             <SelectField label="Gender" value="Male" verified hint="Auto-filled from records" placeholder="Select Gender" />
@@ -314,7 +325,7 @@ const ContactDetailsSection = () => (
             <SelectField label="Preferred Language" placeholder="Select Language" required={false} />
         </div>
         <div className="contact-details__notice">
-            <IoWarningOutline className="icon" />
+            <IoInformationCircleOutline className="icon" />
             <span>
                 <strong>Important:</strong> We&apos;ll send your policy documents and renewal reminders to this email.
                 Please ensure it&apos;s correct.
@@ -375,10 +386,10 @@ const VehicleDetailsSection = () => (
         </div>
 
         <div className="vehicle-details__grid">
-            <TextField label="Chassis Number (Optional)" placeholder="17-digit VIN" required={false} />
+            <TextField label="Chassis Number (Optional)" value="17-digit VIN" required={false} />
             <TextField label="Engine Number (Optional)" placeholder="" required={false} />
             <TextField label="Current Market Value" value="RM 68,000" verified hint="Auto-filled from records" />
-            <SelectField label="Vehicle Financing Status" placeholder="Select Financing Status" />
+            <SelectField label="Vehicle Financing Status" placeholder="" />
         </div>
 
         <h4 className="vehicle-details__subheading">Usage Information</h4>
@@ -387,6 +398,7 @@ const VehicleDetailsSection = () => (
                 label="Primary Usage"
                 value="Private"
                 verified
+                caret
                 hint="Auto-filled from records"
                 placeholder="Select Usage"
             />
@@ -467,88 +479,88 @@ const OrderSummaryCard = ({onContinue}:any) => {
     const [selectedPlan, setSelectedPlan] = useState('12m')
 
     return (
-        <div className="order-summary">
-            <h3 className="order-summary__title">Order Summary</h3>
+        <div className="cd-order-summary">
+            <h3 className="cd-order-summary__title">Order Summary</h3>
 
-            <div className="order-summary__plan">
-                <span className="order-summary__plan-logo">
+            <div className="cd-order-summary__plan">
+                <span className="cd-order-summary__plan-logo">
                     <img src={zurichLogo} alt="" />
                 </span>
                 <div>
-                    <p className="order-summary__plan-name">Zurich Takaful</p>
-                    <p className="order-summary__plan-type">Comprehensive Plan</p>
+                    <p className="cd-order-summary__plan-name">Zurich Takaful</p>
+                    <p className="cd-order-summary__plan-type">Comprehensive Plan</p>
                 </div>
             </div>
 
-            <div className="order-summary__meta">
-                <div className="order-summary__meta-row">
+            <div className="cd-order-summary__meta">
+                <div className="cd-order-summary__meta-row">
                     <span>Sum Insured/Sum Covered</span>
                     <span>RM 10,000</span>
                 </div>
-                <div className="order-summary__meta-row">
+                <div className="cd-order-summary__meta-row">
                     <span>Period of Cover</span>
                     <span>2026/06/01 - 2027/05/31</span>
                 </div>
             </div>
 
-            <div className="order-summary__divider" />
+            <div className="cd-order-summary__divider" />
 
-            <div className="order-summary__lines">
+            <div className="cd-order-summary__lines">
                 {breakdownLines.map((line: any) => (
-                    <div className="order-summary__line" key={line.label}>
+                    <div className="cd-order-summary__line" key={line.label}>
                         <span>{line.label}</span>
                         <span>{line.value}</span>
                     </div>
                 ))}
             </div>
 
-            <div className="order-summary__addons">
-                <p className="order-summary__addons-title">Add-ons ({addOnLines.length})</p>
-                <div className="order-summary__addons-divider" />
+            <div className="cd-order-summary__addons">
+                <p className="cd-order-summary__addons-title">Add-ons ({addOnLines.length})</p>
+                <div className="cd-order-summary__addons-divider" />
                 {addOnLines.map((line: any) => (
-                    <div className="order-summary__line" key={line.label}>
+                    <div className="cd-order-summary__line" key={line.label}>
                         <span>{line.label}</span>
                         <span>{line.value}</span>
                     </div>
                 ))}
             </div>
 
-            <div className="order-summary__summary-box">
-                <div className="order-summary__lines">
+            <div className="cd-order-summary__summary-box">
+                <div className="cd-order-summary__lines">
                     {secondaryLines.map((line: any) => (
-                        <div className="order-summary__line" key={line.label}>
+                        <div className="cd-order-summary__line" key={line.label}>
                             <span>{line.label}</span>
                             <span>{line.value}</span>
                         </div>
                     ))}
                 </div>
 
-                <div className="order-summary__summary-divider" />
+                <div className="cd-order-summary__summary-divider" />
 
-                <div className="order-summary__line order-summary__line--bold">
+                <div className="cd-order-summary__line cd-order-summary__line--bold">
                     <span>Total Premium/Contribution</span>
                     <span>RM 130.00</span>
                 </div>
 
-                <div className="order-summary__excess">
-                    <div className="order-summary__line">
+                <div className="cd-order-summary__excess">
+                    <div className="cd-order-summary__line">
                         <span>Excess Amount</span>
                         <span>RM 0.00</span>
                     </div>
-                    <div className="order-summary__line">
+                    <div className="cd-order-summary__line">
                         <span>Commission (10% from Gross Premium/Contribution) *</span>
                         <span>RM71.49</span>
                     </div>
                 </div>
             </div>
 
-            <p className="order-summary__section-label">Flexible Payments</p>
-            <div className="order-summary__payments">
+            <p className="cd-order-summary__section-label">Flexible Payments</p>
+            <div className="cd-order-summary__payments">
                 {paymentOptions.map((opt: any) => (
                     <button
                         type="button"
                         key={opt.id}
-                        className={`order-summary__payment${selectedPlan === opt.id ? ' order-summary__payment--selected' : ''
+                        className={`cd-order-summary__payment${selectedPlan === opt.id ? ' cd-order-summary__payment--selected' : ''
                             }`}
                         onClick={() => setSelectedPlan(opt.id)}
                     >
@@ -558,16 +570,16 @@ const OrderSummaryCard = ({onContinue}:any) => {
                 ))}
             </div>
 
-            <div className="order-summary__total">
-                <span className="order-summary__total-label">Total Amount</span>
-                <div className="order-summary__total-value">
-                    <span className="order-summary__total-currency">RM</span>
+            <div className="cd-order-summary__total">
+                <span className="cd-order-summary__total-label">Total Amount</span>
+                <div className="cd-order-summary__total-value">
+                    <span className="cd-order-summary__total-currency">RM</span>
                     <span>1,369</span>
-                    <p className="order-summary__total-monthly">or RM 107/mo</p>
+                    <p className="cd-order-summary__total-monthly">or RM 107/mo</p>
                 </div>
             </div>
 
-            <button type="button" className="order-summary__next-btn" onClick={onContinue}>
+            <button type="button" className="cd-order-summary__next-btn" onClick={onContinue}>
                 Next <IoArrowForward className="icon" />
             </button>
         </div>
@@ -589,12 +601,16 @@ const ContactDetails = ({ onContinue }:any) => {
                 <div className="confirm-details-page__main">
                     <PageIntro />
                     <AutoFillBanner />
-                    <PersonalInfoSection />
-                    <ContactDetailsSection />
-                    <AddressInfoSection />
-                    <VehicleDetailsSection />
-                    <ClaimsHistorySection />
-                    <SecurityBanner />
+                    <div className="confirm-details-page__card">
+                        <PersonalInfoSection />
+                        <ContactDetailsSection />
+                        <AddressInfoSection />
+                        <VehicleDetailsSection />
+                        <ClaimsHistorySection />
+                        <div className="confirm-details-page__footer">
+                            <SecurityBanner />
+                        </div>
+                    </div>
                 </div>
 
                 <aside className="confirm-details-page__aside">
@@ -605,4 +621,4 @@ const ContactDetails = ({ onContinue }:any) => {
     )
 }
 
-export default ContactDetails
+export default ContactDetails

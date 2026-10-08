@@ -3,6 +3,7 @@ import {
     FiPlus,
     FiChevronUp,
     FiChevronDown,
+    FiChevronRight,
     FiStar,
     FiCheck,
     FiX,
@@ -29,11 +30,18 @@ import {
     PiPawPrintBold,
     PiBriefcaseBold,
     PiSparkleBold,
+    PiLifebuoyBold,
+    PiMedalBold,
+    PiUsersBold,
+    PiLightningBold,
 } from 'react-icons/pi';
 import './Coverage.scss';
 import { IoMdTrendingDown } from 'react-icons/io';
 import { AiFillStar } from 'react-icons/ai';
 import { FaRegCircleCheck } from 'react-icons/fa6';
+import allianzLogo from '../../../moters/components/compare-plans/images/plans-images/allianz-logo.png';
+import tokioLogo from '../../../moters/components/compare-plans/images/plans-images/tokio-logo.png';
+import zurichLogo from '../../../moters/components/compare-plans/images/plans-images/zurich-logo.png';
 
 // ==========================================================================
 // Static data
@@ -107,6 +115,7 @@ const ADD_ONS = [
 ];
 
 const HIGHLIGHT_ICONS:any = {
+    '24/7 Roadside Assist': <PiLifebuoyBold />,
     'Flood Coverage': <FiDroplet />,
     'Unlimited Driver': <PiSteeringWheelBold />,
     Windscreen: <FiWind />,
@@ -125,7 +134,7 @@ const HIGHLIGHT_ICONS:any = {
 const PLANS = [
     {
         id: 'allianz',
-        logo: 'Allianz',
+        logo: 'allianz',
         name: 'Allianz General',
         badge: { text: 'BEST MATCH', tone: 'pink' },
         rating: '4.8',
@@ -133,15 +142,12 @@ const PLANS = [
         digitalClaims: true,
         workshops: '320 panel workshops',
         highlights: [
+            '24/7 Roadside Assist',
             'Flood Coverage',
-            'Unlimited Driver',
             'Windscreen',
-            'Digital Claims',
             'Free Towing',
-            'Roadside Assist',
-            'Emergency Evacuation',
-            'Passenger Coverage',
         ],
+        viewAll: true,
         save: 'SAVE RM 196',
         price: '1,497',
         perMonth: 'RM 125/mo',
@@ -150,7 +156,7 @@ const PLANS = [
     },
     {
         id: 'etiqa',
-        logo: 'eTiQa',
+        logo: 'etiqa',
         name: 'Etiqa Insurance',
         badge: { text: 'BEST VALUE', tone: 'orange' },
         rating: '4.8',
@@ -172,7 +178,7 @@ const PLANS = [
     },
     {
         id: 'tokio',
-        logo: 'TOKIO MARINE',
+        logo: 'tokio',
         name: 'Tokio Marine',
         badge: { text: 'MOST PICKED', tone: 'dark' },
         rating: '4.8',
@@ -194,7 +200,7 @@ const PLANS = [
     },
     {
         id: 'zurich',
-        logo: 'ZURICH',
+        logo: 'zurich',
         name: 'Zurich Malaysia',
         badge: null,
         rating: '4.8',
@@ -219,6 +225,19 @@ const PLANS = [
 // ==========================================================================
 // Sub-components
 // ==========================================================================
+
+const PlanLogo = ({ id }:any) => {
+    if (id === 'etiqa') {
+        return (
+            <span className="tr-cov-logo-etiqa">
+                <span>eTiQa</span>
+                <svg width="22" height="8" viewBox="0 0 22 8"><path d="M1 1c5 6 15 6 20 0" stroke="#f7a600" strokeWidth="2.5" fill="none" strokeLinecap="round" /></svg>
+            </span>
+        );
+    }
+    const src:any = { allianz: allianzLogo, tokio: tokioLogo, zurich: zurichLogo };
+    return <img className={`tr-cov-logo-img tr-cov-logo-img--${id}`} src={src[id]} alt={id} />;
+};
 
 const AddOnCard = ({ addOn, checked, onToggle }:any) => (
     <div
@@ -296,7 +315,8 @@ const BestMatchHero = () => (
 
         <div className="coverage__hero-body">
             <span className="coverage__hero-eyebrow">
-                POLIS AI <span className="coverage__hero-eyebrow-dot">&middot;</span>{' '}
+                <span className="coverage__hero-eyebrow-ai">POLIS AI</span>
+                <span className="coverage__hero-eyebrow-dot" />
                 Personalised for SL
             </span>
             <h3 className="coverage__hero-title">
@@ -304,10 +324,10 @@ const BestMatchHero = () => (
                 <span className="coverage__hero-title-accent">Allianz General</span>
             </h3>
             <div className="coverage__hero-tags">
-                <span className="coverage__hero-tag">98% coverage match</span>
-                <span className="coverage__hero-tag">Lowest premium</span>
-                <span className="coverage__hero-tag">Unlimited drivers</span>
-                <span className="coverage__hero-tag">Fast claims &middot; 24h</span>
+                <span className="coverage__hero-tag coverage__hero-tag--blue"><PiMedalBold />98% coverage match</span>
+                <span className="coverage__hero-tag coverage__hero-tag--green"><IoMdTrendingDown />Lowest premium</span>
+                <span className="coverage__hero-tag"><PiUsersBold />Unlimited drivers</span>
+                <span className="coverage__hero-tag"><PiLightningBold />Fast claims &middot; 24h</span>
             </div>
         </div>
 
@@ -331,12 +351,12 @@ const PlanCard = ({ plan, isComparing, onToggleCompare }:any) => (
                         <span
                             className={`coverage__plan-badge coverage__plan-badge--${plan.badge.tone}`}
                         >
-                           
+                            <PiSparkleBold />
                             {plan.badge.text}
                         </span>
                     )}
                 </div>
-                <span className="coverage__plan-logo">{plan.logo}</span>
+                <span className="coverage__plan-logo"><PlanLogo id={plan.logo} /></span>
             </div>
 
             <div className="coverage__plan-meta">
@@ -365,9 +385,12 @@ const PlanCard = ({ plan, isComparing, onToggleCompare }:any) => (
                     <span className="coverage__plan-highlight-pill" key={h}>
                         {HIGHLIGHT_ICONS[h]}
                         {h}
+                        {h === '24/7 Roadside Assist' && (
+                            <span className="coverage__plan-included">Included</span>
+                        )}
                     </span>
                 ))}
-                {plan.highlights.length > 5 && (
+                {plan.viewAll && (
                     <span className="coverage__plan-highlight-pill coverage__plan-highlight-pill--link">
                         View All
                     </span>
@@ -377,13 +400,14 @@ const PlanCard = ({ plan, isComparing, onToggleCompare }:any) => (
             <div className="coverage__plan-actions">
                 <button type="button" className="coverage__plan-details-btn">
                     View details
-                    <FiChevronDown />
+                    <FiChevronRight />
                 </button>
                 <button
                     type="button"
                     className={[
                         'coverage__plan-compare-btn',
                         isComparing ? 'coverage__plan-compare-btn--added' : '',
+                        plan.id === 'allianz' && !isComparing ? 'coverage__plan-compare-btn--wide' : '',
                     ].join(' ').trim()}
                     onClick={() => onToggleCompare(plan.id)}
                 >
@@ -449,7 +473,7 @@ const CompareBar = ({ compareList, plansById, onRemove, onClear, onContinue }:an
                 const plan = plansById[id];
                 return (
                     <span className="coverage__compare-chip" key={id}>
-                        <span className="coverage__compare-chip-avatar">
+                        <span className={`coverage__compare-chip-avatar coverage__compare-chip-avatar--${id}`}>
                             {plan.name.charAt(0)}
                         </span>
                         {plan.name.split(' ')[0]}
@@ -537,8 +561,7 @@ const Coverage = ({ onContinue }:any) => {
                         <span className="coverage__title--accent">tailored</span>.
                     </h2>
                     <p className="coverage__subtitle">
-                        We compared 12 live policies against your travel profile. Pick a
-                        plan, adjust add-ons, checkout in minutes.
+                        We compared 12 live policies against your travel profile. Pick a plan, adjust add- ons, checkout in minutes.
                     </p>
                 </div>
 

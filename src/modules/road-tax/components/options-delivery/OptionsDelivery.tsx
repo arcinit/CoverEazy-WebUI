@@ -4,6 +4,7 @@ import {
     FiArrowRight,
     FiMapPin,
     FiShield,
+    FiNavigation,
     FiClock,
 } from 'react-icons/fi';
 import {
@@ -13,8 +14,8 @@ import {
     PiBuildingsBold,
 } from 'react-icons/pi';
 import './OptionsDelivery.scss';
-import carImage from './images/car.png';
-import { LuCar } from 'react-icons/lu';
+import carImage from './images/camry-options.png';
+import { LuCar, LuGauge, LuFuel } from 'react-icons/lu';
 
 const VEHICLE = {
     name: 'Toyota Camry',
@@ -66,7 +67,7 @@ const DELIVERY_METHODS = [
         icon: <PiPackageBold />,
         title: 'Standard Delivery',
         badge: { text: 'Free', tone: 'neutral' },
-        subtitle: '3-5 Business Days',
+        subtitle: '3–5 Business Days',
         tags: ['Full tracking', 'Signature required'],
         price: 'Free',
     },
@@ -75,7 +76,7 @@ const DELIVERY_METHODS = [
         icon: <PiLightningBold />,
         title: 'Express Delivery',
         badge: { text: 'Fast', tone: 'orange' },
-        subtitle: '1-2 Business Days',
+        subtitle: '1–2 Business Days',
         tags: ['Priority processing', 'Live tracking', 'SMS updates'],
         price: 'RM 10.00',
     },
@@ -118,11 +119,11 @@ const OptionsDelivery = ({ onContinue }: any) => {
                                 </span>
                                 <h3 className="options-delivery__vehicle-name">{VEHICLE.name}</h3>
                                 <p className="options-delivery__vehicle-specs">
-                                    {VEHICLE.year}
+                                    <span>{VEHICLE.year}</span>
                                     <span className="options-delivery__dot">&middot;</span>
-                                    {VEHICLE.transmission}
+                                    <span className="sp"><LuGauge />{VEHICLE.transmission}</span>
                                     <span className="options-delivery__dot">&middot;</span>
-                                    {VEHICLE.fuel}
+                                    <span className="sp"><LuFuel />{VEHICLE.fuel}</span>
                                 </p>
                             </div>
                         </div>
@@ -319,49 +320,40 @@ const OptionsDelivery = ({ onContinue }: any) => {
 
                     {/* Delivery address */}
                     <section className="options-delivery__section">
-                        <h4 className="options-delivery__section-title">
-                            Delivery Address
-                        </h4>
-
                         <div className="options-delivery__address-card">
-                            <span className="options-delivery__address-icon">
-                                <FiMapPin />
-                            </span>
-
-                            <div className="options-delivery__address-body">
-                                <div className="options-delivery__address-top">
-                                    <span className="options-delivery__address-name">
-                                        Ahmad Rizal bin Ismail
-                                    </span>
-                                </div>
-                                <p className="options-delivery__address-lines">
-                                    No. 12, Jalan Kenanga 5/2, Taman Kenanga,
-                                    <br />
-                                    47500 Subang Jaya, Selangor
-                                </p>
-                                <div className="options-delivery__address-footer">
-                                    <span className="options-delivery__address-confidence">
-                                        &#8599; Delivery Confidence: 98%
-                                    </span>
-                                    <span className="options-delivery__address-eta">
-                                        Est. Delivery: 25-26 Jun
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className='options-delivery__top-right'>
+                            <div className="options-delivery__address-head">
+                                <h4 className="options-delivery__section-title">Delivery Address</h4>
                                 <span className="options-delivery__address-verified">
                                     <FiCheck />
                                     Verified
                                 </span>
-                                <button
-                                    type="button"
-                                    className="options-delivery__address-change"
-                                >
+                            </div>
+                            <div className="options-delivery__address-row">
+                                <span className="options-delivery__address-icon">
+                                    <FiMapPin />
+                                </span>
+                                <div className="options-delivery__address-body">
+                                    <span className="options-delivery__address-name">
+                                        Ahmad Rizal bin Ismail
+                                    </span>
+                                    <p className="options-delivery__address-lines">
+                                        No. 12, Jalan Kenanga 5/2, Taman Kenanga,
+                                        <br />
+                                        47500 Subang Jaya, Selangor
+                                    </p>
+                                    <div className="options-delivery__address-footer">
+                                        <span className="options-delivery__address-confidence">
+                                            <FiNavigation /> Delivery Confidence: 98%
+                                        </span>
+                                        <span className="options-delivery__address-eta">
+                                            Est. Delivery: 25&ndash;26 Jun
+                                        </span>
+                                    </div>
+                                </div>
+                                <button type="button" className="options-delivery__address-change">
                                     Change
                                 </button>
                             </div>
-
                         </div>
                     </section>
                 </div>
@@ -430,7 +422,7 @@ const OptionsDelivery = ({ onContinue }: any) => {
                                     Est. Delivery
                                 </span>
                                 <span className="options-delivery__summary-value">
-                                    1-2 Days
+                                    1–2 Days
                                 </span>
                             </div>
                             <div className="options-delivery__summary-row">
@@ -438,7 +430,7 @@ const OptionsDelivery = ({ onContinue }: any) => {
                                     Valid Until
                                 </span>
                                 <span className="options-delivery__summary-value">
-                                    {selectedDuration?.validUntil}
+                                    31 Jul 2026
                                 </span>
                             </div>
                         </div>
@@ -454,11 +446,9 @@ const OptionsDelivery = ({ onContinue }: any) => {
                     </div>
 
                     <div className="options-delivery__protection-card">
-                        <span className="options-delivery__protection-icon">
-                            <FiShield />
-                        </span>
                         <div>
                             <span className="options-delivery__protection-title">
+                                <FiShield />
                                 Renewal Protection
                             </span>
                             <p className="options-delivery__protection-desc">

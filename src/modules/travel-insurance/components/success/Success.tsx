@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-    FiCheck,
-    FiZap,
-    FiGlobe,
-    FiDollarSign,
-    FiPhone,
-    FiDownload,
-    FiShare2,
-    FiCreditCard,
-    FiFileText,
-    FiNavigation,
-} from 'react-icons/fi';
+    LuCheck as FiCheck,
+    LuZap as FiZap,
+    LuGlobe as FiGlobe,
+    LuReceiptText as FiReceipt,
+    LuPhone as FiPhone,
+    LuDownload as FiDownload,
+    LuShare2 as FiShare2,
+    LuWallet as FiWallet,
+    LuBuilding2 as FiBuilding,
+    LuNavigation as FiNavigation,
+} from 'react-icons/lu';
 import './Success.scss';
 
 /** Badges shown under the headline. */
@@ -74,31 +74,31 @@ const CHECKLIST_ITEMS = [
 const QUICK_ACTIONS = [
     { id: 'download', icon: FiDownload, tone: 'green', label: 'Download Policy' },
     { id: 'share', icon: FiShare2, tone: 'blue', label: 'Share Policy' },
-    { id: 'wallet', icon: FiCreditCard, tone: 'green', label: 'Add to Wallet' },
+    { id: 'wallet', icon: FiWallet, tone: 'green', label: 'Add to Wallet' },
     { id: 'hotline', icon: FiPhone, tone: 'orange', label: 'Emergency Hotline' },
-    { id: 'embassy', icon: FiFileText, tone: 'purple', label: 'Nearest Embassy' },
+    { id: 'embassy', icon: FiBuilding, tone: 'purple', label: 'Nearest Embassy' },
 ];
 
 const Success = ({ onReturnHome }:any) => {
     return (
-        <div className="success">
+        <div className="tr-done">
             {/* Headline */}
-            <header className="success__header">
-                <span className="success__check-badge">
+            <header className="tr-done__header">
+                <span className="tr-done__check-badge">
                     <FiCheck />
                 </span>
-                <h1 className="success__title">
+                <h1 className="tr-done__title">
                     Congratulations!{' '}
-                    <span className="success__title-accent">You&apos;re Covered.</span>
+                    <span className="tr-done__title-accent">You&apos;re Covered.</span>
                 </h1>
-                <p className="success__subtitle">
+                <p className="tr-done__subtitle">
                     Travel Insurance policy issued · Have a wonderful trip! ✈️
                 </p>
-                <div className="success__badges">
+                <div className="tr-done__badges">
                     {HEADLINE_BADGES.map((badge) => {
                         const Icon = badge.icon;
                         return (
-                            <span className={`success__badge ${badge.id}`} key={badge.id}>
+                            <span className={`tr-done__badge ${badge.id}`} key={badge.id}>
                                 <Icon />
                                 {badge.label}
                             </span>
@@ -108,67 +108,67 @@ const Success = ({ onReturnHome }:any) => {
             </header>
 
             {/* Policy + emergency contacts */}
-            <div className="success__top-grid">
-                <section className="policy-card">
-                    <div className="policy-card__header">
+            <div className="tr-done__top-grid">
+                <section className="tr-done-policy">
+                    <div className="tr-done-policy__header">
                         <div>
-                            <span className="policy-card__label">Travel Policy</span>
-                            <span className="policy-card__number">TRV-2026-44821</span>
+                            <span className="tr-done-policy__label">Travel Policy</span>
+                            <span className="tr-done-policy__number">TRV-2026-44821</span>
                         </div>
-                        <span className="policy-card__icon">
-                            <FiDollarSign />
+                        <span className="tr-done-policy__icon">
+                            <FiReceipt />
                         </span>
                     </div>
 
-                    <div className="policy-card__details">
+                    <div className="tr-done-policy__details">
                         {POLICY_DETAILS.map((detail) => (
-                            <div className="policy-card__detail" key={detail.label}>
-                                <span className="policy-card__detail-label">
+                            <div className="tr-done-policy__detail" key={detail.label}>
+                                <span className="tr-done-policy__detail-label">
                                     {detail.label}
                                 </span>
-                                <span className="policy-card__detail-value">
+                                <span className="tr-done-policy__detail-value">
                                     {detail.value}
                                 </span>
                             </div>
                         ))}
                     </div>
 
-                    <div className="policy-card__actions">
-                        <button className="policy-card__action-btn" type="button">
+                    <div className="tr-done-policy__actions">
+                        <button className="tr-done-policy__action-btn" type="button">
                             <FiDownload />
                             Download
                         </button>
-                        <button className="policy-card__action-btn" type="button">
+                        <button className="tr-done-policy__action-btn" type="button">
                             <FiShare2 />
                             Share
                         </button>
-                        <button className="policy-card__action-btn" type="button">
-                            <FiCreditCard />
+                        <button className="tr-done-policy__action-btn" type="button">
+                            <FiWallet />
                             Add to Wallet
                         </button>
                     </div>
                 </section>
 
-                <section className="contacts-card">
-                    <div className="contacts-card__header">
-                        <FiPhone className="contacts-card__header-icon" />
-                        <h2 className="contacts-card__title">Emergency Contacts</h2>
-                        <span className="contacts-card__badge">24/7</span>
+                <section className="tr-done-contacts">
+                    <div className="tr-done-contacts__header">
+                        <FiPhone className="tr-done-contacts__header-icon" />
+                        <h2 className="tr-done-contacts__title">Emergency Contacts</h2>
+                        <span className="tr-done-contacts__badge">24/7</span>
                     </div>
 
-                    <div className="contacts-card__list">
+                    <div className="tr-done-contacts__list">
                         {EMERGENCY_CONTACTS.map((contact) => (
-                            <div className="contact-row" key={contact.id}>
-                                <div className="contact-row__copy">
-                                    <span className="contact-row__name">{contact.name}</span>
+                            <div className="tr-done-contact" key={contact.id}>
+                                <div className="tr-done-contact__copy">
+                                    <span className="tr-done-contact__name">{contact.name}</span>
                                     <span
-                                        className={`contact-row__number contact-row__number--${contact.tone}`}
+                                        className={`tr-done-contact__number tr-done-contact__number--${contact.tone}`}
                                     >
                                         {contact.number}
                                     </span>
                                 </div>
                                 <span
-                                    className={`contact-row__phone-btn contact-row__phone-btn--${contact.tone}`}
+                                    className={`tr-done-contact__phone-btn tr-done-contact__phone-btn--${contact.tone}`}
                                 >
                                     <FiPhone />
                                 </span>
@@ -179,12 +179,12 @@ const Success = ({ onReturnHome }:any) => {
             </div>
 
             {/* Pre-departure checklist */}
-            <section className="checklist-card">
-                <h2 className="checklist-card__title">Pre-Departure Checklist</h2>
-                <div className="checklist-card__grid">
+            <section className="tr-done-checklist">
+                <h2 className="tr-done-checklist__title">Pre-Departure Checklist</h2>
+                <div className="tr-done-checklist__grid">
                     {CHECKLIST_ITEMS.map((item) => (
-                        <div className="checklist-item" key={item}>
-                            <span className="checklist-item__check">
+                        <div className="tr-done-check" key={item}>
+                            <span className="tr-done-check__check">
                                 <FiCheck />
                             </span>
                             {item}
@@ -194,32 +194,32 @@ const Success = ({ onReturnHome }:any) => {
             </section>
 
             {/* Quick actions */}
-            <section className="success__quick-actions">
-                <h2 className="success__section-title">Quick Actions</h2>
-                <div className="success__quick-actions-grid">
+            <section className="tr-done__quick">
+                <h2 className="tr-done__section-title">Quick Actions</h2>
+                <div className="tr-done__quick-grid">
                     {QUICK_ACTIONS.map((action) => {
                         const Icon = action.icon;
                         return (
                             <button
-                                className="quick-action"
+                                className="tr-done-qa"
                                 type="button"
                                 key={action.id}
                             >
                                 <span
-                                    className={`quick-action__icon quick-action__icon--${action.tone}`}
+                                    className={`tr-done-qa__icon tr-done-qa__icon--${action.tone}`}
                                 >
                                     <Icon />
                                 </span>
-                                <span className="quick-action__label">{action.label}</span>
+                                <span className="tr-done-qa__label">{action.label}</span>
                             </button>
                         );
                     })}
                 </div>
             </section>
 
-            <div className="success__footer">
+            <div className="tr-done__footer">
                 <button
-                    className="success__home-btn"
+                    className="tr-done__home-btn"
                     type="button"
                     onClick={onReturnHome}
                 >

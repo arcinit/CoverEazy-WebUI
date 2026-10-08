@@ -6,8 +6,9 @@ import {
     FiCreditCard,
     FiShare2,
     FiFileText,
-    FiAlertCircle,
+    FiCheckCircle,
 } from "react-icons/fi";
+import zurichLogo from "./images/zurich.png";
 import "./PolicyConformation.scss";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
@@ -91,10 +92,7 @@ const PolicyCard: React.FC<{ data: PolicyDetails }> = ({ data }) => (
                 </span>
             </div>
             <div className="policy-confirmation__insurer-badge">
-                <div className="policy-confirmation__insurer-logo">
-                    <strong>ZURICH</strong>
-                    <span>Takaful</span>
-                </div>
+                <img className="policy-confirmation__insurer-logo" src={zurichLogo} alt="Zurich Takaful" />
             </div>
         </div>
 
@@ -109,7 +107,7 @@ const PolicyCard: React.FC<{ data: PolicyDetails }> = ({ data }) => (
             </div>
         </div>
 
-        <div className="policy-confirmation__field-grid policy-confirmation__field-grid--tight">
+        <div className="policy-confirmation__field-grid">
             <div>
                 <span className="policy-confirmation__field-label">Amount Paid</span>
                 <span className="policy-confirmation__field-value">{data.amountPaid}</span>
@@ -120,7 +118,7 @@ const PolicyCard: React.FC<{ data: PolicyDetails }> = ({ data }) => (
             </div>
         </div>
 
-        <div className="policy-confirmation__field-grid policy-confirmation__field-grid--tight">
+        <div className="policy-confirmation__field-grid">
             <div>
                 <span className="policy-confirmation__field-label">Policy End Date</span>
                 <span className="policy-confirmation__field-value">{data.policyEndDate}</span>
@@ -217,7 +215,7 @@ const DateBanner: React.FC<{ data: CoverageDates }> = ({ data }) => (
 const RoadTaxNotice: React.FC<{ message: string }> = ({ message }) => (
     <div className="policy-confirmation__notice">
         <div className="policy-confirmation__notice-head">
-            <FiAlertCircle />
+            <FiCheckCircle />
             <span>Road Tax Status</span>
         </div>
         <p className="policy-confirmation__notice-text">{message}</p>

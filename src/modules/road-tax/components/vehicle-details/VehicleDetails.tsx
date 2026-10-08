@@ -1,10 +1,10 @@
 import React from 'react';
 import { FiCheckCircle, FiArrowRight } from 'react-icons/fi';
 import { FaStar } from 'react-icons/fa';
-import { PiCarProfileBold } from 'react-icons/pi';
+import { PiGauge, PiGasPump } from 'react-icons/pi';
 import './VehicleDetails.scss';
 import { BiCar } from 'react-icons/bi';
-import carImage from "./images/car.png"
+import carImage from "./images/camry-eligibility.png"
 
 const SYSTEM_CHECKS = [
     {
@@ -183,7 +183,11 @@ const VehicleDetails = ({ onContinue }:any) => {
                             {VEHICLE.name}
                         </h3>
                         <p className="eligibility-verification__vehicle-specs">
-                            {VEHICLE.year} <span className="eligibility-verification__dot">&middot;</span> {VEHICLE.transmission} <span className="eligibility-verification__dot">&middot;</span> {VEHICLE.fuel}
+                            {VEHICLE.year}
+                            <span className="eligibility-verification__dot">&middot;</span>
+                            <span className="eligibility-verification__spec"><PiGauge />{VEHICLE.transmission}</span>
+                            <span className="eligibility-verification__dot">&middot;</span>
+                            <span className="eligibility-verification__spec"><PiGasPump />{VEHICLE.fuel}</span>
                         </p>
                         <p className="eligibility-verification__vehicle-plate">{VEHICLE.plate}</p>
 

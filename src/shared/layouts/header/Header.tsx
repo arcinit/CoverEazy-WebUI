@@ -30,6 +30,8 @@ const Header = ({ onLoginClick }: HeaderProps) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const isLogin = tokenService.isAuthenticated();
+    // On a product route the "Products" menu reads as the product itself and is highlighted (as in the Figma logged-in header)
+    const activeProduct = menusData[1].subMenus.find((sub) => pathname.startsWith(sub.path))
     const handleLogin = () => (onLoginClick ? onLoginClick() : navigate('/', { state: { openLogin: true } }));
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
@@ -43,13 +45,13 @@ const Header = ({ onLoginClick }: HeaderProps) => {
                     <div className="header__menus">
                         {menusData.map((item) => {
                             const hasSubMenus = item.subMenus.length > 0
-                            const isActive = !hasSubMenus && (item.path === "/" ? pathname === "/" : pathname.startsWith(item.path))
+                            const isActive = hasSubMenus ? !!activeProduct : (item.path === "/" ? pathname === "/" : pathname.startsWith(item.path))
                             return (
                                 <div
                                     className={`header__menu${isActive ? " header__menu--active" : ""}${hasSubMenus ? " header__menu--has-sub" : ""}`}
                                     key={item.id}
                                 >
-                                    <span onClick={() => !hasSubMenus && navigate(item.path)}>{item.menu}</span>
+                                    <span onClick={() => !hasSubMenus && navigate(item.path)}>{hasSubMenus && activeProduct ? activeProduct.menu : item.menu}</span>
                                     {hasSubMenus && <img src={arrowDownIcon} alt="" className="icon" />}
                                     {hasSubMenus && (
                                         <div className="header__submenus-card">
@@ -85,14 +87,16 @@ const Header = ({ onLoginClick }: HeaderProps) => {
                         <img src={arrowRightIcon} alt="" className="icon" />
                     </button>
                     <span className="header__divider" />
-                    <button className="header__agent-btn">
-                        <img src={agentIcon} alt="" className="icon" />
-                        Agent Portal
-                    </button>
+                    {!isLogin &&
+                        <button className="header__agent-btn">
+                            <img src={agentIcon} alt="" className="icon" />
+                            Agent Portal
+                        </button>
+                    }
                     {isLogin &&
                         <button className="header__profile-btn" onClick={() => navigate("/profile")}>
                             <img src={avtarImage} alt="avtar" />
-                            <span>Jhon doe</span>
+                            <span>Ahamad Rizal</span>
                         </button>
                     }
                 </div>
@@ -186,7 +190,7 @@ const Header = ({ onLoginClick }: HeaderProps) => {
                                     }}
                                 >
                                     <img src={avtarImage} alt="avtar" />
-                                    <span>Jhon doe</span>
+                                    <span>Ahamad Rizal</span>
                                 </button>
                             )}
                         </div>

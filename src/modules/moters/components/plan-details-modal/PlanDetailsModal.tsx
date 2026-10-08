@@ -3,24 +3,18 @@ import './PlanDetailsModal.scss'
 import {
     IoClose,
     IoStar,
+    IoStarOutline,
     IoCheckmarkCircle,
-    IoChevronUpOutline,
-    IoChevronDownOutline,
-    IoCloseCircleOutline,
-    IoAddCircleOutline,
-    IoWaterOutline,
-    IoCarSportOutline,
-    IoConstructOutline,
-    IoBusinessOutline,
-    IoCarOutline,
-    IoFlashOutline,
-    IoCallOutline,
+    IoShieldHalf,
+    IoCaretUp,
+    IoCaretDown,
+    IoCalendarClearOutline,
     IoArrowForward,
-    IoCalendarOutline,
 } from 'react-icons/io5'
-import { FaFileAlt, FaShieldAlt } from 'react-icons/fa'
+import { FaFileAlt, FaWrench, FaBolt, FaDotCircle, FaWarehouse } from 'react-icons/fa'
+import { FaTruckMedical } from 'react-icons/fa6'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { MdRemoveRedEye } from 'react-icons/md'
+import { MdFlood, MdPhoneInTalk, MdOutlineAutoAwesome } from 'react-icons/md'
 import { BiSolidPlusSquare } from 'react-icons/bi'
 
 // ---------------------------------------------------------------
@@ -39,8 +33,8 @@ const coreCoverage: any = [
 ]
 
 const addOns: any = [
-    { icon: IoWaterOutline, title: 'Flood Protection', price: '+RM 50/year' },
-    { icon: IoCarSportOutline, title: 'Windshield Protection', price: '+RM 80/year' },
+    { icon: MdFlood, title: 'Flood Protection', price: '+RM 50/year' },
+    { icon: MdOutlineAutoAwesome, title: 'Windshield Protection', price: '+RM 80/year' },
 ]
 
 const exclusions: any = [
@@ -51,14 +45,14 @@ const exclusions: any = [
 
 const claimSteps: any = [
     { icon: FaFileAlt, title: '1. Report', desc: 'Notify via RHB app or 24/7 hotline within 24 hours.' },
-    { icon: MdRemoveRedEye, title: '2. Survey', desc: 'Adjuster inspects vehicle at a panel workshop.' },
-    { icon: IoConstructOutline, title: '3. Repair', desc: 'Quality repairs with original parts guarantee.' },
+    { icon: FaDotCircle, title: '2. Survey', desc: 'Adjuster inspects vehicle at a panel workshop.' },
+    { icon: FaWrench, title: '3. Repair', desc: 'Quality repairs with original parts guarantee.' },
 ]
 
 const whyChoosePoints: any = [
-    { icon: IoBusinessOutline, title: '500+ Panel Workshops', desc: 'Widest network in West & East Malaysia.' },
-    { icon: IoCarOutline, title: '24/7 Roadside Assistance', desc: 'Free towing up to 50km for breakdowns.' },
-    { icon: IoFlashOutline, title: 'Fast Approval', desc: 'Claims under RM 5k approved in 48h.' },
+    { icon: FaWarehouse, title: '500+ Panel Workshops', desc: 'Widest network in West & East Malaysia.' },
+    { icon: FaTruckMedical, title: '24/7 Roadside Assistance', desc: 'Free towing up to 50km for breakdowns.' },
+    { icon: FaBolt, title: 'Fast Approval', desc: 'Claims under RM 5k approved in 48h.' },
 ]
 
 // ---------------------------------------------------------------
@@ -102,9 +96,11 @@ const PolicySummaryCard = () => (
             </div>
             <div className="policy-summary__item">
                 <span className="policy-summary__label">
-                    <IoCalendarOutline className="icon" /> Renewal
+                    Renewal
                 </span>
-                <span className="policy-summary__value">{vehicle.renewal}</span>
+                <span className="policy-summary__value">
+                    <IoCalendarClearOutline className="icon" /> {vehicle.renewal}
+                </span>
             </div>
         </div>
     </section>
@@ -122,14 +118,14 @@ const CoreCoverageCard = () => {
             >
                 <span className="core-coverage__header-left">
                     <span className="core-coverage__icon">
-                        <FaShieldAlt className="icon" />
+                        <IoShieldHalf className="icon" />
                     </span>
                     <span className="core-coverage__title">Core Coverage</span>
                 </span>
                 {open ? (
-                    <IoChevronUpOutline className="icon core-coverage__chevron" />
+                    <IoCaretUp className="icon core-coverage__chevron" />
                 ) : (
-                    <IoChevronDownOutline className="icon core-coverage__chevron" />
+                    <IoCaretDown className="icon core-coverage__chevron" />
                 )}
             </button>
 
@@ -156,26 +152,25 @@ const CoreCoverageCard = () => {
 // Recommended Add-ons — independent card
 // ---------------------------------------------------------------
 const AddOnsCard = () => {
-    console.log('[AddOnsCard] rendering, addOns:', addOns) // TEMP: remove after confirming render
     return (
-        <section className="addons-card">
-            <div className="addons-card__header">
-                <span className="addons-card__icon">
+        <section className="plan-addons-card">
+            <div className="plan-addons-card__header">
+                <span className="plan-addons-card__icon">
                     <BiSolidPlusSquare className="icon" />
                 </span>
-                <span className="addons-card__title">Recommended Add-ons</span>
+                <span className="plan-addons-card__title">Recommended Add-ons</span>
             </div>
-            <div className="addons-card__body">
-                <ul className="addons-card__list">
+            <div className="plan-addons-card__body">
+                <ul className="plan-addons-card__list">
                     {addOns.map((item: any) => {
                         const Icon = item.icon
                         return (
-                            <li className="addons-card__item" key={item.title}>
-                                <div className="addons-card__item-left">
-                                    <Icon className="icon addons-card__item-icon" />
-                                    <span className="addons-card__item-title">{item.title}</span>
+                            <li className="plan-addons-card__item" key={item.title}>
+                                <div className="plan-addons-card__item-left">
+                                    <Icon className="icon plan-addons-card__item-icon" />
+                                    <span className="plan-addons-card__item-title">{item.title}</span>
                                 </div>
-                                <div className="addons-card__item-price">{item.price}</div>
+                                <div className="plan-addons-card__item-price">{item.price}</div>
                             </li>
                         )
                     })}
@@ -202,9 +197,9 @@ const ExclusionsCard = () => {
                     <span className="exclusions-card__title">Exclusions</span>
                 </span>
                 {open ? (
-                    <IoChevronUpOutline className="icon exclusions-card__chevron" />
+                    <IoCaretUp className="icon exclusions-card__chevron" />
                 ) : (
-                    <IoChevronDownOutline className="icon exclusions-card__chevron" />
+                    <IoCaretDown className="icon exclusions-card__chevron" />
                 )}
             </button>
 
@@ -247,13 +242,13 @@ const StarRating = ({ rating }: any) => {
     const stars = [0, 1, 2, 3, 4]
     return (
         <span className="why-choose-card__stars">
-            {stars.map((i) => (
-                <IoStar
-                    key={i}
-                    className={`icon why-choose-card__star${i < Math.round(rating) ? ' why-choose-card__star--filled' : ''
-                        }`}
-                />
-            ))}
+            {stars.map((i) =>
+                i < Math.floor(rating) ? (
+                    <IoStar key={i} className="icon why-choose-card__star" />
+                ) : (
+                    <IoStarOutline key={i} className="icon why-choose-card__star" />
+                )
+            )}
         </span>
     )
 }
@@ -261,14 +256,14 @@ const StarRating = ({ rating }: any) => {
 const WhyChooseCard = ({ plan }: any) => (
     <div className="why-choose-card">
         <p className="why-choose-card__eyebrow">Insurer Choice</p>
-        <h3 className="why-choose-card__title">Why Choose {plan.name}?</h3>
+        <h3 className="why-choose-card__title">Why Choose {String(plan.name).split(' ')[0]}?</h3>
 
         <div className="why-choose-card__score">
             <span className="why-choose-card__score-value">
                 {plan.score ? (plan.score / 10).toFixed(1) : plan.rating}
             </span>
             <span className="why-choose-card__score-meta">
-                <StarRating rating={plan.rating || 4.5} />
+                <StarRating rating={plan.score ? plan.score / 20 : plan.rating || 4} />
                 <span className="why-choose-card__score-label">Coverage Score</span>
             </span>
         </div>
@@ -299,7 +294,7 @@ const HelpCard = () => (
             Our insurance experts are available 9 AM - 6 PM to guide you through RHB&apos;s fine print.
         </p>
         <button type="button" className="help-card__btn">
-            <IoCallOutline className="icon" /> Talk to Expert
+            <MdPhoneInTalk className="icon" /> Talk to Expert
         </button>
     </div>
 )

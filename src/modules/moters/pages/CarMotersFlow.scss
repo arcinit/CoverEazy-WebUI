@@ -14,7 +14,7 @@ $blue: #2563eb;
 $blue-bg: #eaf1ff;
 $border: #e3e8ee;
 $muted: #6b7280;
-$bg: #f5f7fb;
+$bg: #f1f5fb;
 
 // Colors used by the stepper
 $stepper-green: #00b894; // done-step check circle
@@ -25,27 +25,39 @@ $stepper-navy: $navy;
 
 .car-moters-flow {
     min-height: 100vh;
-    background: $bg;
+    background: #fff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: $navy;
 
     // -------------------------------------------------------------
     // Stepper row
     // -------------------------------------------------------------
+    // Figma: pill sits 10px under the 65px header, is 50px tall and centred; the back button is a 40px circle on the left edge of the 1240px container
     &__stepper-row {
-        display: flex;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 10px 0 0;
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr) 40px;
         align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 28px 32px 12px;
+        gap: 16px;
+
+        @media (max-width: 600px) {
+            width: calc(100% - 24px);
+            gap: 8px;
+        }
     }
 
+    &__stepper-spacer { width: 40px; }
+
     &__back-btn {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        border: 1px solid $stepper-border;
+        border: 0;
+        padding: 0;
         background: #fff;
+        box-shadow: 0 2px 8px rgba(14, 34, 83, 0.14);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -60,12 +72,20 @@ $stepper-navy: $navy;
         align-items: center;
         justify-content: center;
         list-style: none;
-        margin: 0;
-        padding: 8px 20px;
+        margin: 0 auto;
+        min-width: 0;
+        max-width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 0 16px;
         background: #fff;
         border-radius: 999px;
         border: 1px solid $stepper-border;
+        box-shadow: 0 6px 14px -6px rgba(14, 34, 83, 0.12);
         overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar { display: none; }
     }
 
     &__step {
@@ -79,7 +99,9 @@ $stepper-navy: $navy;
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 6px 12px;
+        height: 36px;
+        box-sizing: border-box;
+        padding: 0 12px;
         border-radius: 999px;
         transition: background-color 0.15s ease;
     }
@@ -99,17 +121,17 @@ $stepper-navy: $navy;
     }
 
     &__step-label {
-        font-size: 12.5px;
+        font-size: 12px;
         font-weight: 500;
         color: $stepper-muted;
         white-space: nowrap;
     }
 
     &__step-divider {
-        width: 18px;
+        width: 14px;
         height: 1px;
         background: $stepper-border;
-        margin: 0 4px;
+        margin: 0 2px;
         flex-shrink: 0;
     }
 
@@ -155,11 +177,17 @@ $stepper-navy: $navy;
     // -------------------------------------------------------------
     // Content area
     // -------------------------------------------------------------
+    // Figma content column: x = 100..1340 on a 1440 canvas
     &__content {
-        width: 90%;
-        margin: auto;
-        padding: 20px 0px 80px 0px;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 42px 0 80px;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
     }
+
+    // src/styles/style.scss sets a global `* { font-family }`; keep Inter as the flow default (sections override where Figma differs)
+    & * { font-family: "Inter", sans-serif; }
 
     &__placeholder {
         padding: 80px 0;

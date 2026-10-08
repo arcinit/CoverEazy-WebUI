@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
-import {
-    FiChevronLeft,
-    FiChevronDown,
-    FiStar,
-    FiGlobe,
-    FiZap,
-    FiCheck,
-} from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiArrowLeft, FiCheck, FiStar, FiGlobe, FiZap } from 'react-icons/fi';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import { PiAirplaneTiltBold } from 'react-icons/pi';
-import { FaCheckCircle } from 'react-icons/fa';
 import './TravelInsuranceFlow.scss';
 import TripDetails from '../../components/trip-details/TripDetails';
 import TravellerDetails from '../../components/traveler-details/TravellerDetails';
@@ -32,14 +25,23 @@ const STEPS = [
 ];
 
 const TravelInsuranceFlow = () => {
+    const navigate = useNavigate();
     const [activeStep, setActiveStep] = useState(1);
 
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [activeStep]);
+
+    const handleBack = () => (activeStep === 1 ? navigate('/') : setActiveStep(activeStep - 1));
+    const isFinished = activeStep === STEPS.length;
+
     return (
-        <div className="travel-insurance-flow">
+        <div className={`travel-insurance-flow${isFinished ? ' travel-insurance-flow--finished' : ''}`}>
            <Header/>
 
             {/* Sub header */}
             <section className="travel-insurance-flow__subheader">
+                <div className="travel-insurance-flow__subheader-inner">
                 <div className="travel-insurance-flow__subheader-left">
                     <span className="travel-insurance-flow__subheader-icon">
                         <PiAirplaneTiltBold />
@@ -108,18 +110,19 @@ const TravelInsuranceFlow = () => {
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
 
             {/* Stepper row */}
             <section className="travel-insurance-flow__stepper-row">
-                <button className="travel-insurance-flow__back-btn" type="button">
-                    <FiChevronLeft />
+                <button className="travel-insurance-flow__back-btn" type="button" aria-label="Back" onClick={handleBack}>
+                    <FiArrowLeft />
                 </button>
 
                 <ol className="travel-insurance-flow__stepper">
                     {STEPS.map((step, index) => {
-                        const isActive = step.id === activeStep;
-                        const isDone = step.id < activeStep;
+                        const isActive = step.id === activeStep && !isFinished;
+                        const isDone = step.id < activeStep || isFinished;
                         return (
                             <li
                                 key={step.id}
@@ -144,7 +147,7 @@ const TravelInsuranceFlow = () => {
                         );
                     })}
                 </ol>
-                <div></div>
+                <div className="travel-insurance-flow__stepper-spacer" />
             </section>
 
             {/* Active step content */}
@@ -168,7 +171,7 @@ const TravelInsuranceFlow = () => {
                     <Checkout onContinue={() => setActiveStep(7)} />
                 )}
                 {activeStep === 7 && (
-                    <Success onReturnHome={() => setActiveStep(1)} />
+                    <Success onReturnHome={() => navigate('/')} />
                 )}
             </main>
         </div>

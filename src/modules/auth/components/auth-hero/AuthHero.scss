@@ -44,6 +44,23 @@ $secondary: #01b637;
         @media (max-width: 480px) { padding: 24px 16px 24px; }
     }
 
+    // Quote card (logged-in home): Figma centres the card on the artwork (mid-line y=409 of the page)
+    &__container--center {
+        align-items: flex-start;
+        min-height: 607px;
+        padding-bottom: 70px;
+        box-sizing: border-box;
+        .auth-hero__content { align-self: flex-start; }
+        .auth-hero__card { margin-top: 1px; @media (max-width: 992px) { margin-top: 0; } }
+        // Road Tax tab: short card sits lower on the artwork in Figma
+        &:has(.h-hero__tabs[data-tab="tax"]) .auth-hero__card { margin-top: 130px; @media (max-width: 992px) { margin-top: 0; } }
+        // Travel tab: the taller card is centred on the same mid-line as the Road Tax card and the services strip
+        // follows ~14px below it (Figma: card 130..690, strip 704)
+        &:has(.h-hero__tabs[data-tab="travel"]) { padding-bottom: 10px; }
+        &:has(.h-hero__tabs[data-tab="travel"]) .auth-hero__card { margin-top: 22px; @media (max-width: 992px) { margin-top: 0; } }
+        @media (max-width: 992px) { min-height: 0; }
+    }
+
     &__content {
         width: 684px;
         max-width: 100%;

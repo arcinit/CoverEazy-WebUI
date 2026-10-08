@@ -1,0 +1,262 @@
+$navy: #072256;
+$green: #01b637;
+$ink: #062155;
+
+.vv-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 65px 16px 0;
+    background: rgba(240, 244, 250, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overflow-y: auto;
+    animation: vv-fade 0.2s ease;
+}
+@keyframes vv-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.vv-overlay, .vv-overlay * {
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.vv-modal {
+    width: 964px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    padding: 24px 24px 22px;
+    background: #fff;
+    color: $ink;
+    box-shadow: 0 20px 60px -20px rgba(30, 41, 99, 0.25);
+    overflow-y: auto;
+}
+
+.vv-head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 40px;
+    &__car { flex: none; width: 46px; height: 46px; color: $navy; }
+    &__text { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+    &__top { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    &__chip {
+        padding: 4px 12px;
+        border-radius: 4px;
+        background: #e0ffe9;
+        color: #01b637;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+        white-space: nowrap;
+    }
+    &__quote { font-size: 14px; line-height: 20px; color: #1c1c1c; }
+    &__title { margin: 0; font-size: 16px; font-weight: 500; line-height: 20px; color: #1c1c1c; }
+}
+.vv-close {
+    position: absolute;
+    top: 14px;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #313131;
+    font-size: 20px;
+    cursor: pointer;
+    svg { stroke-width: 3; }
+}
+
+/* ---------- loading ---------- */
+.vv-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0 0;
+    &__title { margin: 28px 0 0; font-size: 16px; font-weight: 600; line-height: 24px; text-align: center; color: #1c1c1c; }
+    &__sub { margin: 4px 0 0; font-size: 12px; line-height: 16px; text-align: center; color: #1c1c1c; }
+}
+.vv-gears {
+    position: relative;
+    width: 62px;
+    height: 64px;
+    &__big { position: absolute; left: 0; top: 0; width: 36px; height: 36px; color: #f59e0b; animation: vv-spin 3s linear infinite; }
+    &__small { position: absolute; left: 36px; top: 16px; width: 24px; height: 24px; color: #f59e0b; animation: vv-spin 3s linear infinite reverse; }
+    &__bar {
+        position: absolute;
+        left: 0;
+        bottom: 2px;
+        width: 62px;
+        height: 16px;
+        border: 2px solid $navy;
+        border-radius: 8px;
+        background: #fff;
+        overflow: hidden;
+        i {
+            display: block;
+            width: 45%;
+            margin: 2px;
+            height: calc(100% - 4px);
+            border-radius: 6px;
+            background: linear-gradient(90deg, $green, #8bd650);
+            animation: vv-bar 1.6s ease-in-out infinite alternate;
+        }
+    }
+}
+@keyframes vv-spin { to { transform: rotate(360deg) } }
+@keyframes vv-bar { from { width: 25% } to { width: 75% } }
+
+.vv-steps {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 8px 12px;
+    width: 450px;
+    max-width: 100%;
+    border-radius: 12px;
+    background: #f8fafc;
+    li {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 25px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #46546b;
+        svg { width: 12px; height: 12px; flex: none; }
+        &.is-done, &.is-active { color: $green; }
+    }
+    &__dot { width: 6px; height: 6px; margin: 0 3px; border-radius: 50%; background: $green; flex: none; }
+    &__ring { width: 6px; height: 6px; margin: 0 3px; border-radius: 50%; border: 1px solid #8a94a6; flex: none; }
+}
+
+/* ---------- result ---------- */
+.vv-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 16px;
+    &__left { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: 12px; line-height: 16px; color: #1c1c1c; strong { font-size: 14px; font-weight: 600; line-height: 20px; margin-top: 1px; } }
+    &__eyebrow { color: $green; font-weight: 600; letter-spacing: 0.1px; }
+    &__right { flex: none; width: 180px; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: #1c1c1c; }
+    &__badge {
+        align-self: stretch;
+        padding: 5px 7px;
+        border: 1px solid #e3e8ee;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+        white-space: nowrap;
+        text-align: center;
+    }
+}
+
+.vv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+}
+.vv-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 70px;
+    padding: 0 8px 0 16px;
+    border: 1px solid $green;
+    border-radius: 8px;
+    background: #e6faf5;
+    min-width: 0;
+    &.is-bad { border-color: #f4c1c1; background: #fff1f1; }
+    &__icon {
+        flex: none;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: $green;
+        color: #fff;
+        font-size: 12px;
+        svg { stroke-width: 4; }
+    }
+    &.is-bad &__icon { background: transparent; color: #d63131; font-size: 20px; svg { stroke-width: 2.5; fill: #d63131; stroke: #d63131; } }
+    &__body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+    &__top { display: flex; align-items: center; gap: 12px; }
+    &__title { font-size: 16px; font-weight: 500; line-height: 20px; color: #1c1c1c; white-space: nowrap; }
+    &__pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 1px 8px;
+        border-radius: 12px;
+        background: #e0ffe9;
+        color: #1dbf4d;
+        font-size: 12px;
+        line-height: 16px;
+        svg { width: 10px; height: 10px; }
+        &.is-bad { background: #d63131; color: #fff; padding: 2px 10px 2px 8px; border-radius: 16px; svg { width: 12px; height: 12px; stroke: #fff; fill: none; } }
+    }
+    &__desc {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1c1c1c;
+        svg { width: 10px; height: 10px; flex: none; }
+    }
+}
+
+.vv-actions {
+    display: flex;
+    justify-content: center;
+    gap: 13px;
+    margin-top: 17px;
+    padding-top: 14px;
+    border-top: 1px solid #e3e8ee;
+}
+.vv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    svg { width: 16px; height: 16px; }
+    &--ghost { background: #fff; color: #1c1c1c; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); }
+    &--primary { background: $navy; color: #fff; box-shadow: 0 4px 14px rgba(7, 34, 86, 0.3); }
+}
+
+@media (max-width: 768px) {
+    .vv-grid { grid-template-columns: 1fr; gap: 12px; }
+    .vv-status { flex-direction: column; }
+    .vv-status__right { width: auto; flex-direction: row; align-items: center; flex-wrap: wrap; }
+    .vv-status__badge { align-self: auto; }
+    .vv-card__title { white-space: normal; }
+    .vv-card { height: auto; min-height: 70px; padding: 12px 16px; }
+}
+@media (max-width: 480px) {
+    .vv-overlay { padding: 65px 8px 8px; }
+    .vv-modal { padding: 16px; }
+    .vv-head { align-items: flex-start; &__car { width: 32px; height: 32px; } }
+    .vv-card__top { flex-wrap: wrap; gap: 4px 8px; }
+    .vv-actions { flex-wrap: wrap; }
+    .vv-btn { padding: 0 18px; }
+}
