@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import "./HomePage.scss"
 import Header from '../../../../shared/layouts/header/Header'
-import HomeHero from '../../components/home-hero/HomeHero'
+import HomeHero, { HomeQuoteCard } from '../../components/home-hero/HomeHero'
 import TrustedInsurers from '../../components/trusted-insurers/TrustedInsurers'
 import ProtectionServices from '../../components/protection-services/ProtectionServices'
 import ProductsPlans from '../../components/products-plans/ProductsPlans'
@@ -17,7 +17,8 @@ import MobileApp from '../../components/mobile-app/MobileApp'
 import RatingSection from '../../components/rating-section/RatingSection'
 import FaqSection from '../../components/faq-section/FaqSection'
 import Footer from '../../../../shared/layouts/footer/Footer'
-import AuthHero from '../../../auth/components/auth-hero/AuthHero'
+import AuthHero, { AuthHeroLayout } from '../../../auth/components/auth-hero/AuthHero'
+import { tokenService } from '../../../../shared/services/token.service'
 import AuthStats from '../../../auth/components/auth-hero/AuthStats'
 
 const HomePage = () => {
@@ -28,13 +29,16 @@ const HomePage = () => {
     setShowLogin(!!location.state?.openLogin)
   }, [location.key])
 
+  const loggedIn = tokenService.isAuthenticated()
+  const showAuthLayout = showLogin || loggedIn
+
   return <>
   <Header onLoginClick={() => setShowLogin(true)} />
   <section className="hp">
     <main className="hp__container">
-        {showLogin ? <AuthHero /> : <HomeHero />}
+        {loggedIn ? <AuthHeroLayout card={<HomeQuoteCard />} centerCard /> : showLogin ? <AuthHero /> : <HomeHero />}
         <TrustedInsurers/>
-        {showLogin && <AuthStats />}
+        {showAuthLayout && <AuthStats />}
         <ProtectionServices/>
         <ProductsPlans/>
         <PaymentFeatures/>

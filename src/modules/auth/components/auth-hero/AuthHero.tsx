@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, type ReactNode } from 'react'
 import './AuthHero.scss'
 import LoginCard from '../login-card/LoginCard'
 import RegisterCard from '../auth-cards/RegisterCard'
@@ -33,26 +33,18 @@ const SERVICES = [
 
 type Step = 'login' | 'register' | 'otp' | 'account-ready'
 
-const AuthHero = () => {
-    const [step, setStep] = useState<Step>('login')
-    const [otpTarget, setOtpTarget] = useState('')
+type AuthHeroLayoutProps = {
+    // Content of the right-hand card slot (the login flow in AuthHero)
+    card: ReactNode
+    // Vertically centre the card against the artwork (used by the quote card)
+    centerCard?: boolean
+}
 
-    const sendOtp = (target: string) => {
-        // No backend yet: call the "send OTP" API here
-        setOtpTarget(target)
-        setStep('otp')
-    }
-
-    const verifyOtp = () => {
-        // No backend yet: call the "verify OTP" API here
-        tokenService.setIsAuthenticated('true')
-        setStep('account-ready')
-    }
-
+export const AuthHeroLayout = ({ card, centerCard }: AuthHeroLayoutProps) => {
     return (
         <div className="auth-hero-wrap" style={{ backgroundImage: `url(${heroBg})` }}>
             <section className="auth-hero">
-                <div className="auth-hero__container">
+                <div className={`auth-hero__container${centerCard ? ' auth-hero__container--center' : ''}`}>
                     <div className="auth-hero__content">
                         <div className="auth-hero__intro">
                             <h1 className="auth-hero__title">
@@ -80,30 +72,7 @@ const AuthHero = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="auth-hero__card">
-                        {step === 'login' && (
-                            <LoginCard
-                                onSendOtp={sendOtp}
-                                onEmailLogin={verifyOtp}
-                                onCreateAccount={() => setStep('register')}
-                            />
-                        )}
-                        {step === 'register' && (
-                            <RegisterCard onRegister={sendOtp} onSignIn={() => setStep('login')} />
-                        )}
-                        {step === 'otp' && (
-                            <OtpCard
-                                target={otpTarget}
-                                onVerify={verifyOtp}
-                                onChangeNumber={() => setStep('login')}
-                                onResend={() => undefined}
-                                onCreateAccount={() => setStep('register')}
-                            />
-                        )}
-                        {step === 'account-ready' && (
-                            <AccountReadyCard onGetStarted={() => { window.location.href = '/' }} />
-                        )}
-                    </div>
+                    <div className="auth-hero__card">{card}</div>
                 </div>
             </section>
 
@@ -121,6 +90,52 @@ const AuthHero = () => {
             </div>
         </div>
     )
+}
+
+const AuthHero = () => {
+    const [step, setStep] = useState<Step>('login')
+    const [otpTarget, setOtpTarget] = useState('')
+
+    const sendOtp = (target: string) => {
+        // No backend yet: call the "send OTP" API here
+        setOtpTarget(target)
+        setStep('otp')
+    }
+
+    const verifyOtp = () => {
+        // No backend yet: call the "verify OTP" API here
+        tokenService.setIsAuthenticated('true')
+        setStep('account-ready')
+    }
+
+    const card = (
+        <>
+            {step === 'login' && (
+                <LoginCard
+                    onSendOtp={sendOtp}
+                    onEmailLogin={verifyOtp}
+                    onCreateAccount={() => setStep('register')}
+                />
+            )}
+            {step === 'register' && (
+                <RegisterCard onRegister={sendOtp} onSignIn={() => setStep('login')} />
+            )}
+            {step === 'otp' && (
+                <OtpCard
+                    target={otpTarget}
+                    onVerify={verifyOtp}
+                    onChangeNumber={() => setStep('login')}
+                    onResend={() => undefined}
+                    onCreateAccount={() => setStep('register')}
+                />
+            )}
+            {step === 'account-ready' && (
+                <AccountReadyCard onGetStarted={() => { window.location.href = '/' }} />
+            )}
+        </>
+    )
+
+    return <AuthHeroLayout card={card} />
 }
 
 export default AuthHero

@@ -322,8 +322,8 @@ const ReviewCheckout = ({ onContinue }:any) => {
                             <div className="order-summary__total-value">
                                 <span className="order-summary__total-currency">RM</span>
                                 <span>1,369</span>
+                                <span className="order-summary__total-monthly">or RM 107/mo</span>
                             </div>
-                            <p className="order-summary__total-monthly">or RM 107/mo</p>
                         </div>
 
                         <button type="button" className="order-summary__next-btn" onClick={onContinue}>

@@ -1,22 +1,16 @@
 import React from 'react';
 import {
     FiCheck,
-    FiDownload,
-    FiShare2,
     FiClock,
     FiRefreshCw,
-    FiArrowRight,
-    FiSend,
+    FiArrowRight, FiSend,
 } from 'react-icons/fi';
-import { HiOutlineShieldCheck } from 'react-icons/hi';
 import {
-    PiFileTextBold,
-    PiGlobeBold,
-    PiWalletBold,
-    PiCreditCardBold,
+    PiFileText, PiGlobe, PiWallet,  PiDownloadSimple, PiShareNetwork, PiClockCounterClockwise, PiShield,
 } from 'react-icons/pi';
 import './SuccessScreen.scss';
-import { FaCheck } from 'react-icons/fa';
+import { TbReceiptDollar } from "react-icons/tb";
+import { FaCheck } from "react-icons/fa";
 import { BsPatchCheck } from 'react-icons/bs';
 import { CiDeliveryTruck } from 'react-icons/ci';
 
@@ -30,7 +24,7 @@ const RECEIPT_FIELDS = [
     { label: 'Vehicle', value: 'WXD 1234' },
     { label: 'Duration', value: '12 Months' },
     { label: 'Amount Paid', value: 'RM 95.00' },
-    { label: 'Exp. Delivery', value: '25-26 Jun 2026' },
+    { label: 'Exp. Delivery', value: '25–26 Jun 2026' },
     { label: 'Valid Until', value: '31 Jul 2026' },
     { label: 'JPJ Status', value: 'Activated' },
 ];
@@ -38,7 +32,7 @@ const RECEIPT_FIELDS = [
 const TRACKING_FIELDS = [
     { label: 'Courier Partner', value: 'PosLaju Malaysia' },
     { label: 'Tracking Number', value: 'EX123456789MY' },
-    { label: 'Expected Delivery', value: '25-26 Jun 2026' },
+    { label: 'Expected Delivery', value: '25–26 Jun 2026' },
     { label: 'Current Status', value: 'Printing in progress' },
     { label: 'Delivery Address', value: 'Jalan Kenanga 5/2, Subang Jaya' },
 ];
@@ -55,38 +49,38 @@ const JOURNEY_STEPS = [
 ];
 
 const QUICK_ACTIONS = [
-    { id: 'download', icon: <FiDownload />, label: 'Download Receipt' },
+    { id: 'download', icon: <PiDownloadSimple />, label: 'Download Receipt' },
     { id: 'track', icon: <FiSend />, label: 'Track Delivery' },
-    { id: 'share', icon: <FiShare2 />, label: 'Share Receipt' },
-    { id: 'wallet', icon: <PiCreditCardBold />, label: 'Add to Wallet' },
-    { id: 'history', icon: <FiClock />, label: 'View History' },
+    { id: 'share', icon: <PiShareNetwork />, label: 'Share Receipt' },
+    { id: 'wallet', icon: <PiWallet />, label: 'Add to Wallet' },
+    { id: 'history', icon: <PiClockCounterClockwise />, label: 'View History' },
 ];
 
 const SERVICES = [
     {
         id: 'motor',
-        icon: <HiOutlineShieldCheck />,
+        icon: <PiShield />,
         tone: 'blue',
         title: 'Motor Insurance Renewal',
         desc: 'Policy expires in 5 months',
     },
     {
         id: 'claims',
-        icon: <PiFileTextBold />,
+        icon: <PiFileText />,
         tone: 'orange',
         title: 'Claims Assistance',
         desc: 'File or track a claim',
     },
     {
         id: 'travel',
-        icon: <PiGlobeBold />,
+        icon: <PiGlobe />,
         tone: 'green',
         title: 'Travel Insurance',
         desc: 'Explore travel plans',
     },
     {
         id: 'policy',
-        icon: <PiWalletBold />,
+        icon: <PiWallet />,
         tone: 'green',
         title: 'Policy Wallet',
         desc: 'View all active policies',
@@ -139,7 +133,7 @@ const SuccessScreen = ({ onStartNewRenewal }:any) => {
                             </span>
                         </div>
                         <span className="success-screen__receipt-icon">
-                            <PiCreditCardBold />
+                            <TbReceiptDollar />
                         </span>
                     </div>
 
@@ -189,7 +183,7 @@ const SuccessScreen = ({ onStartNewRenewal }:any) => {
                 <div className="success-screen__journey-track">
                     {JOURNEY_STEPS.map((step, index) => (
                         <React.Fragment key={step.id}>
-                            <div className="success-screen__journey-step">
+                            <div className={['success-screen__journey-step', index < JOURNEY_STEPS.length - 1 ? `has-line has-line--${step.status}` : ''].join(' ').trim()}>
                                 <span
                                     className={[
                                         'success-screen__journey-dot',
@@ -210,16 +204,6 @@ const SuccessScreen = ({ onStartNewRenewal }:any) => {
                                     {step.label}
                                 </span>
                             </div>
-                            {index < JOURNEY_STEPS.length - 1 && (
-                                <span
-                                    className={[
-                                        'success-screen__journey-connector',
-                                        step.status === 'done'
-                                            ? 'success-screen__journey-connector--done'
-                                            : '',
-                                    ].join(' ').trim()}
-                                />
-                            )}
                         </React.Fragment>
                     ))}
                 </div>

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {
     FiCalendar,
+    FiTruck,
+    FiCheckCircle,
+    FiShield,
     FiMapPin,
     FiCheck,
     FiLock,
@@ -8,8 +11,7 @@ import {
     FiGlobe,
     FiSmartphone,
 } from 'react-icons/fi';
-import { PiCarProfileBold, PiLightningBold, PiWalletBold } from 'react-icons/pi';
-import { HiOutlineShieldCheck } from 'react-icons/hi';
+import { PiCarProfileBold, PiWalletBold } from 'react-icons/pi';
 import './ReviewPayment.scss';
 
 const SUMMARY_CARDS = [
@@ -27,9 +29,9 @@ const SUMMARY_CARDS = [
     },
     {
         id: 'delivery',
-        icon: <PiLightningBold />,
+        icon: <FiTruck />,
         label: 'Delivery',
-        value: 'Express Delivery · 1-2 Business Days',
+        value: 'Express Delivery · 1–2 Business Days',
     },
     {
         id: 'address',
@@ -260,11 +262,11 @@ const ReviewPayment = ({ onContinue }:any) => {
                                 PCI-DSS
                             </span>
                             <span className="review-payment__trust-item">
-                                <FiCheck />
+                                <FiShield />
                                 SSL Secured
                             </span>
                             <span className="review-payment__trust-item">
-                                <HiOutlineShieldCheck />
+                                <FiCheckCircle />
                                 Fraud Protection
                             </span>
                         </div>
@@ -301,7 +303,7 @@ const ReviewPayment = ({ onContinue }:any) => {
                                 <span className="review-payment__summary-total-currency">
                                     RM
                                 </span>{' '}
-                                <span className="review-payment__figure">105.00</span>
+                                105.00
                             </span>
                         </div>
 

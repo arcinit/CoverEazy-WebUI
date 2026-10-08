@@ -21,13 +21,17 @@ import {
     IoShieldCheckmarkOutline,
     IoClose,
     IoCheckmark,
-    IoInformationCircleOutline,
+    IoStarOutline,
+    IoSparklesOutline,
+    IoShieldOutline,
+    IoRibbonOutline,
+    IoBuildOutline,
 } from 'react-icons/io5'
-import carImage from "./images/car.png"
+import carImage from "./images/car-thumb.png"
 import { FaCheck } from 'react-icons/fa'
-import allianzPlanLogo from "./images/plans-images/allianz.png";
-import zurkPlanLogo from "./images/plans-images/zurk.png";
-import tokioPlanLogo from "./images/plans-images/tokio.png";
+import allianzPlanLogo from "./images/plans-images/allianz-logo.png";
+import zurkPlanLogo from "./images/plans-images/zurich-logo.png";
+import tokioPlanLogo from "./images/plans-images/tokio-logo.png";
 import PlanDetailsModal from '../plan-details-modal/PlanDetailsModal'
 
 // ---------------------------------------------------------------
@@ -101,7 +105,7 @@ const sections: any = [
     {
         title: null,
         rows: [
-            { label: 'Sum Insured', icon: IoCashOutline, values: ['RM 142.8K', 'RM 142.8K', 'RM 142.8K'] },
+            { label: 'Sum Insured', icon: IoShieldOutline, values: ['RM 142.8K', 'RM 142.8K', 'RM 142.8K'] },
         ],
     },
     {
@@ -110,7 +114,7 @@ const sections: any = [
             { label: 'Flood Protection', icon: IoWaterOutline, values: [{ type: 'tag', color: 'blue', text: 'Full Cover' }, { type: 'tag', color: 'blue', text: 'Full Cover' }, { type: 'cross' }] },
             { label: 'Windscreen Protection', icon: IoCarSportOutline, values: ['RM 3K', 'RM 2K', 'RM 1.5K'] },
             { label: 'Passenger Coverage', icon: IoPeopleOutline, values: ['RM 50K', 'RM 30K', 'RM 25K'] },
-            { label: 'Unlimited Drivers', icon: IoPersonOutline, values: [{ type: 'tag', color: 'green', text: 'Unlimited' }, '+RM 45', { type: 'cross' }] },
+            { label: 'Unlimited Drivers', icon: IoPersonOutline, values: [{ type: 'tag', color: 'green', text: 'Unlimited' }, { type: 'tag', color: 'gray', text: '+RM 45' }, { type: 'cross' }] },
         ],
     },
     {
@@ -151,11 +155,13 @@ const VehicleBar = () => (
                 <img src={carImage} alt="car" />
             </div>
             <div className="vehicle-bar__info">
-                <span className="vehicle-bar__label">Your Vehicle</span>
+                <span className="vehicle-bar__label"><IoCarSportOutline className="icon" /> Your Vehicle</span>
                 <h3 className="vehicle-bar__name">{vehicle.name}</h3>
                 <p className="vehicle-bar__meta">
                     <span>{vehicle.year}</span>
+                    <span className="vehicle-bar__dot" />
                     <span><IoSpeedometerOutline className="icon" /> {vehicle.transmission}</span>
+                    <span className="vehicle-bar__dot" />
                     <span><IoWaterOutline className="icon" /> {vehicle.fuel}</span>
                 </p>
             </div>
@@ -170,8 +176,8 @@ const VehicleBar = () => (
                 <span className="vehicle-bar__stat-value">{vehicle.ncd}</span>
             </div>
             <div className="vehicle-bar__stat">
-                <span className="vehicle-bar__stat-label"><IoCalendarOutline className="icon" /> Renewal</span>
-                <span className="vehicle-bar__stat-value">{vehicle.renewal}</span>
+                <span className="vehicle-bar__stat-label">Renewal</span>
+                <span className="vehicle-bar__stat-value"><IoCalendarOutline className="icon" /> {vehicle.renewal}</span>
             </div>
         </div>
     </div>
@@ -207,16 +213,16 @@ const PlanCompareCard = ({ plan, isSelected, onSelect }: any) => (
 
         <div className="plan-compare-card__badges">
             <span className="plan-compare-card__pill plan-compare-card__pill--blue">
-                <IoShieldCheckmarkOutline className="icon" /> {plan.score} Score
+                <IoRibbonOutline className="icon" /> <b>{plan.score}</b> Score
             </span>
             <span className="plan-compare-card__pill plan-compare-card__pill--yellow">
-                <IoStar className="icon plan-compare-card__star" /> {plan.rating} · {plan.reviews}
+                <IoStarOutline className="icon plan-compare-card__star" /> <b>{plan.rating}</b> <small>{plan.reviews}</small>
             </span>
             <span className="plan-compare-card__pill plan-compare-card__pill--green">
-                <IoCheckmark className="icon" /> {plan.digital}
+                <IoPhonePortraitOutline className="icon" /> <b>Yes</b> Digital
             </span>
             <span className="plan-compare-card__pill">
-                <IoConstructOutline className="icon" /> {plan.workshops}
+                <IoBuildOutline className="icon" /> <b>320+</b> Workshops
             </span>
         </div>
 
@@ -249,7 +255,7 @@ const CompareGrid = ({ selectedPlanId, onSelectPlan }: any) => (
                 <span className="compare-grid__features-count">14 compared</span>
             </div>
             {plans.map((plan: any) => (
-                <div className="compare-grid__cell" key={plan.id}>
+                <div className={`compare-grid__cell${plan.highlight ? ' compare-grid__cell--highlight' : ''}`} key={plan.id}>
                     <PlanCompareCard
                         plan={plan}
                         isSelected={selectedPlanId === plan.id}
@@ -262,14 +268,19 @@ const CompareGrid = ({ selectedPlanId, onSelectPlan }: any) => (
         {sections.map((section: any, sIdx: any) => (
             <React.Fragment key={sIdx}>
                 {section.title && (
-                    <div className="compare-grid__section-title">{section.title}</div>
+                    <div className="compare-grid__section-title">
+                        <span className="compare-grid__section-label">{section.title}</span>
+                        <span className="compare-grid__section-hl" />
+                        <span />
+                        <span />
+                    </div>
                 )}
                 {section.rows.map((row: any, rIdx: any) => {
                     const Icon = row.icon
                     return (
                         <div className="compare-grid__row compare-grid__row--feature" key={rIdx}>
                             <div className="compare-grid__feature-label">
-                                <Icon className="icon" /> {row.label}
+                                <span className="compare-grid__icon-badge"><Icon className="icon" /></span> {row.label}
                             </div>
                             {row.values.map((v: any, i: any) => (
                                 <div
@@ -291,7 +302,7 @@ const RecommendedCard = ({ onViewBenefits, onChooseRecommended }: any) => (
     <div className="recommended-card">
         <div className="recommended-card__main">
             <p className="recommended-card__eyebrow">
-                <IoSparkles className="icon" /> Recommended Choice
+                <IoSparklesOutline className="icon" /> Recommended Choice
             </p>
             <h2 className="recommended-card__title">Allianz General</h2>
             <p className="recommended-card__subtitle">Best Value Plan · Comprehensive Plus</p>
@@ -307,7 +318,7 @@ const RecommendedCard = ({ onViewBenefits, onChooseRecommended }: any) => (
                 </div>
                 <div className="recommended-card__stat">
                     <span className="recommended-card__stat-label">Customer Rating</span>
-                    <span className="recommended-card__stat-value"><IoStar className="icon recommended-card__star" /> 4.8</span>
+                    <span className="recommended-card__stat-value">4.8 <IoStar className="icon recommended-card__star" /></span>
                 </div>
             </div>
 
@@ -319,8 +330,7 @@ const RecommendedCard = ({ onViewBenefits, onChooseRecommended }: any) => (
             </div>
 
             <p className="recommended-card__why">
-                <IoInformationCircleOutline className="icon" />
-                <span><strong>Why recommended:</strong> highest coverage score against your profile, fastest claims turnaround, and the largest panel workshop network in Klang Valley.</span>
+                <strong>Why recommended:</strong> highest coverage score against your profile, fastest claims turnaround, and the largest panel workshop network in Klang Valley.
             </p>
         </div>
 
@@ -344,7 +354,7 @@ const RecommendedCard = ({ onViewBenefits, onChooseRecommended }: any) => (
 const CheckoutBar = ({ selectedPlan, onContinue }: any) => (
     <div className="checkout-bar">
         <div className="checkout-bar__plan">
-            <span className="checkout-bar__logo">{selectedPlan.name.charAt(0)}</span>
+            <span className="checkout-bar__logo"><img src={selectedPlan.logo} alt="" /></span>
             <span>
                 <span className="checkout-bar__plan-label">Selected Plan</span>
                 <span className="checkout-bar__plan-name">{selectedPlan.name}</span>

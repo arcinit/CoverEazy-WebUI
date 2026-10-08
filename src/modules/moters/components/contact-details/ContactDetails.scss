@@ -32,9 +32,6 @@ $radius-sm: 10px;
 // ---------------------------------------------------------------
 @mixin surface-card {
     background: $bg-panel;
-    border: 1px solid $border;
-    border-radius: $radius-md;
-    overflow: hidden;
 }
 
 @mixin section-header-row {
@@ -44,27 +41,27 @@ $radius-sm: 10px;
     width: 100%;
     border: none;
     background: none;
-    padding: 20px 24px;
+    padding: 25px 24px;
+    min-height: 109px;
+    box-sizing: border-box;
     cursor: pointer;
     text-align: left;
 
     background: linear-gradient(90deg, #F8FAFC 0%, #FAFCFD 33.33%, #FDFDFE 66.67%, #FFFFFF 100%);
-    border-bottom: 0.67px solid #E2E8F0;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    margin-bottom: 20px;
+    border-bottom: 1px solid #E8EDF3;
+    margin: 0;
 }
 
 @mixin section-header-left {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 @mixin section-icon-badge {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,61 +70,64 @@ $radius-sm: 10px;
     color: $blue;
 
     .icon {
-        font-size: 19px;
+        font-size: 22px;
     }
 }
 
 @mixin section-title-text {
     margin: 0;
-    font-size: 18px;
+    font-size: 24px;
+    line-height: 30px;
     font-weight: 700;
     color: $text-dark;
 }
 
 @mixin section-subtitle-text {
-    margin: 2px 0 0;
-    font-size: 12.5px;
+    margin: 6px 0 0;
+    font-size: 16px;
+    line-height: 22px;
     color: $text-muted;
 }
 
 @mixin section-chevron {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
     border-radius: 50%;
-    background: $bg-page;
+    background: #EEF2FB;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .icon {
         font-size: 20px;
-        color: $text-dark;
+        color: #111;
     }
 }
 
 @mixin section-body-padding {
-    padding: 0 24px 24px;
+    padding: 17px 16px 16px;
 }
 
 @mixin form-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 24px;
+    gap: 20px 16px;
 }
 
 @mixin notice-banner {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    border-radius: $radius-sm;
-    padding: 14px 16px;
-    font-size: 12.5px;
-    line-height: 1.5;
+    border-radius: 12px;
+    padding: 16px 16px;
+    font-size: 14px;
+    line-height: 26px;
 
     .icon {
         flex-shrink: 0;
-        font-size: 16px;
-        margin-top: 1px;
+        font-size: 20px;
+        margin-top: 3px;
     }
 }
 
@@ -142,24 +142,36 @@ $radius-sm: 10px;
     &__container {
         max-width: 100%;
         margin: 0 auto;
-        display: flex;
-        align-items: flex-start;
-        gap: 24px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 397px;
+        align-items: start;
+        gap: 23px;
     }
 
     &__main {
-        flex: 1.9;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
         min-width: 0;
     }
 
+    &__card {
+        background: #fff;
+        border: 1px solid #ECF0F6;
+        border-radius: 16px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+    }
+
     &__aside {
-        flex: 1;
-        max-width: 340px;
+        width: 100%;
         position: sticky;
         top: 24px;
+    }
+
+    &,
+    & * {
+        font-family: 'Inter', sans-serif;
     }
 }
 
@@ -409,19 +421,24 @@ $radius-sm: 10px;
 .page-intro {
     &__title {
         margin: 0;
-        font-size: 44px;
-        font-weight: 500;
+        font-family: 'Lato', sans-serif !important;
+        font-size: 45px;
+        line-height: 52px;
+        font-weight: 400;
         color: $text-navy;
 
         span {
+            font-family: 'Lato', sans-serif !important;
             color: $green-dark;
             font-style: italic;
         }
     }
 
     &__subtitle {
-        margin: 6px 0 0;
-        font-size: 16px;
+        margin: 14px 0 0;
+        max-width: 390px;
+        font-size: 14px;
+        line-height: 20px;
         color: $text-muted;
         font-weight: 400;
     }
@@ -435,11 +452,14 @@ $radius-sm: 10px;
     align-items: center;
     gap: 12px;
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-    border-top: 0.67px #EDFFFA;
-    border-radius: $radius-md;
-    padding: 16px 18px;
+    background: #E8F8F3;
+    border-radius: 14px;
+    padding: 0 16px;
+    min-height: 81px;
+    box-sizing: border-box;
 
     &__icon {
+        display: flex;
 
         .icon {
             font-size: 20px;
@@ -450,17 +470,20 @@ $radius-sm: 10px;
     &__text {
         margin: 0;
         font-size: 14px;
-        line-height: 1.6;
+        line-height: 20px;
         display: flex;
         flex-direction: column;
+        gap: 8px;
         font-weight: 500;
 
         strong {
             color: $text-dark;
+            font-weight: 600;
+            padding-left: 2px;
         }
 
         span {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             color: $text-muted;
         }
@@ -470,20 +493,21 @@ $radius-sm: 10px;
 // ---------------------------------------------------------------
 // Form field primitives — shared across every section
 // ---------------------------------------------------------------
-.form-field {
+.cd-field {
     display: flex;
     flex-direction: column;
     gap: 7px;
 
     &__label {
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 14.5px;
+        line-height: 16px;
+        font-weight: 400;
         color: $text-dark;
     }
 
     &__required {
         color: $red;
-        margin-left: 2px;
+        margin-left: 0;
     }
 
     &__control {
@@ -491,12 +515,15 @@ $radius-sm: 10px;
         display: flex;
         align-items: center;
         border: 1px solid #E3E8EE;
-        border-radius: 12px;
+        border-radius: 14px;
         background: #ffffff;
+        height: 43px;
+        box-sizing: border-box;
 
         &--verified {
             border-color: #01B637;
             background: #EDFFFA;
+            height: 49px;
         }
 
         &--select {
@@ -504,17 +531,30 @@ $radius-sm: 10px;
         }
 
         &--phone {
-            padding-left: 12px;
-            gap: 8px;
+            height: 47px;
+            padding-left: 14px;
+            gap: 6px;
         }
     }
 
     &__flag {
-        font-size: 13px;
-        font-weight: 600;
-        color: $text-dark;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #111;
         white-space: nowrap;
         flex-shrink: 0;
+        padding-right: 6px;
+        border-right: 1px solid #D5DAE1;
+        line-height: 20px;
+
+        svg {
+            width: 20px;
+            height: 14px;
+            display: block;
+        }
     }
 
     &__input {
@@ -523,28 +563,30 @@ $radius-sm: 10px;
         border: none;
         outline: none;
         background: transparent;
-        padding: 11px 14px;
-        font-size: 13px;
+        padding: 0 14px;
+        height: 100%;
+        font-size: 14px;
         color: $text-dark;
         appearance: none;
+        min-width: 0;
 
         &::placeholder {
-            color: $text-faint;
+            color: #7A8697;
         }
     }
 
     &__check {
         position: absolute;
-        right: 12px;
-        font-size: 17px;
+        right: 14px;
+        font-size: 22px;
         color: $green-dark;
     }
 
     &__caret {
         position: absolute;
-        right: 14px;
-        font-size: 13px;
-        color: $text-faint;
+        right: 16px;
+        font-size: 16px;
+        color: #111;
         pointer-events: none;
     }
 
@@ -552,12 +594,14 @@ $radius-sm: 10px;
         display: flex;
         align-items: center;
         gap: 4px;
-        font-size: 11px;
-        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
         color: $green-dark;
+        padding-bottom: 5px;
 
         .icon {
-            font-size: 12px;
+            font-size: 15px;
         }
     }
 }
@@ -570,27 +614,29 @@ $radius-sm: 10px;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    border: 0.67px solid #E2E8F0;
+    border: 1px solid #E8EDF3;
     background: #ffffff;
     border-radius: 14px;
-    padding: 16px;
+    padding: 16px 16px;
+    min-height: 83px;
+    box-sizing: border-box;
 
     &__title {
         margin: 0;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 700;
         color: $text-dark;
     }
 
     &__desc {
-        margin: 3px 0 0;
-        font-size: 12px;
+        margin: 12px 0 0;
+        font-size: 14px;
         color: $text-muted;
     }
 
     &__switch {
-        width: 40px;
-        height: 22px;
+        width: 44px;
+        height: 24px;
         border-radius: 20px;
         background: #dde3ea;
         border: none;
@@ -607,8 +653,8 @@ $radius-sm: 10px;
     }
 
     &__knob {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
         background: #fff;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -619,13 +665,14 @@ $radius-sm: 10px;
 // Occupation Details — independent, plain (no card) block
 // ---------------------------------------------------------------
 .occupation-details {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid $border-soft;
+    margin-top: 15px;
+    padding-top: 14px;
+    border-top: 1px solid #ECF0F6;
 
     &__title {
-        margin: 0 0 16px;
-        font-size: 16px;
+        margin: 0 0 12px;
+        font-size: 24px;
+        line-height: 30px;
         font-weight: 700;
         color: $text-dark;
     }
@@ -638,7 +685,7 @@ $radius-sm: 10px;
 // ---------------------------------------------------------------
 // Personal Information — independent block
 // ---------------------------------------------------------------
-.personal-info {
+.cd-personal {
     @include surface-card;
 
     &__header {
@@ -710,21 +757,27 @@ $radius-sm: 10px;
 
     &__grid {
         @include form-grid-2;
-        margin-bottom: 18px;
+        margin-bottom: 17px;
     }
 
     &__notice {
         @include notice-banner;
-        background: $orange-bg;
-        border: 1px solid $orange-border;
-        color: $orange;
+        background: #FFF6E8;
+        border: 1px solid #F9BF5D;
+        color: #F59E0B;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 16px 48px 16px 16px;
+        align-items: center;
 
         .icon {
-            color: $orange;
+            color: #F59E0B;
+            margin-top: 0;
         }
 
         strong {
-            color: $orange;
+            color: #F59E0B;
+            font-weight: 700;
         }
     }
 }
@@ -804,7 +857,7 @@ $radius-sm: 10px;
 
     &__grid {
         @include form-grid-2;
-        margin-top: 20px;
+        margin-top: 17px;
 
         &--single {
             grid-template-columns: 1fr;
@@ -812,10 +865,14 @@ $radius-sm: 10px;
     }
 
     &__subheading {
-        margin: 24px 0 16px;
-        font-size: 15px;
+        margin: 0;
+        padding-top: 27px;
+        margin-bottom: -8px;
+        border-top: 1px solid #ECF0F6;
+        font-size: 24px;
+        line-height: 30px;
         font-weight: 700;
-        color: $text-dark;
+        color: $text-navy;
     }
 }
 
@@ -825,10 +882,11 @@ $radius-sm: 10px;
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: $green-bg-soft;
-    border: 1px solid #cdf1de;
-    border-radius: $radius-sm;
-    padding: 16px 18px;
+    background: #E9F8F3;
+    border: 1px solid #E0F3EC;
+    border-radius: 14px;
+    padding: 18px 20px 14px;
+    box-sizing: border-box;
 
     &__icon {
         width: 22px;
@@ -839,49 +897,58 @@ $radius-sm: 10px;
         justify-content: center;
         color: $green-dark;
         flex-shrink: 0;
-        margin-top: 1px;
+        margin-top: 12px;
 
         .icon {
-            font-size: 18px;
+            font-size: 20px;
         }
+    }
+
+    > div:last-child {
+        flex: 1;
+        min-width: 0;
     }
 
     &__title {
         margin: 0;
-        font-size: 16px;
+        font-size: 15px;
+        line-height: 20px;
         font-weight: 600;
         color: $text-dark;
     }
 
     &__subtitle {
-        margin: 10px 0 14px;
+        margin: 12px 0 14px;
         font-size: 14px;
+        line-height: 20px;
         color: $text-muted;
-        font-weight: 300;
+        font-weight: 400;
     }
 
     &__grid {
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-left: -34px;
+        width: calc(100% + 34px);
     }
 
     &__item {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 14px;
     }
 
     &__label {
         font-size: 12px;
-        font-weight: 300;
+        font-weight: 400;
         color: $text-muted;
     }
 
     &__value {
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 700;
         color: $text-dark;
     }
 }
@@ -922,13 +989,17 @@ $radius-sm: 10px;
 
     &__notice {
         @include notice-banner;
-        background: $lavender-bg;
-        border: 1px solid #dfe2f7;
-        color: $text-muted;
-        margin-bottom: 18px;
+        background: #FBFCFE;
+        border: 1px solid #E8EDF3;
+        color: $text-dark;
+        margin-bottom: 17px;
+        padding: 16px 40px 16px 16px;
+        line-height: 20px;
+        align-items: center;
 
         .icon {
-            color: $lavender-text;
+            color: #2563eb;
+            margin-top: 0;
         }
 
         strong {
@@ -938,7 +1009,8 @@ $radius-sm: 10px;
 
     &__grid {
         @include form-grid-2;
-        margin-bottom: 20px;
+        grid-template-columns: 1fr;
+        margin-bottom: 17px;
     }
 
     &__toggles {
@@ -953,10 +1025,13 @@ $radius-sm: 10px;
     display: flex;
     align-items: center;
     gap: 16px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-    border-top: 0.67px solid #10B9814D;
-    border-radius: $radius-md;
-    padding: 16px 18px;
+    background: #E3F4F0;
+    border: 1px solid #CBEDE4;
+    border-radius: 14px;
+    padding: 0 16px;
+    min-height: 80px;
+    box-sizing: border-box;
+    margin: 0;
 
 
     &__icon {
@@ -976,30 +1051,34 @@ $radius-sm: 10px;
 
     &__title {
         margin: 0;
-        font-size: 16px;
-        font-weight: 600;
-        color: $text-dark;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 700;
+        color: $text-navy;
     }
 
     &__subtitle {
-        margin: 15px 0 0;
-        font-size: 14px;
-        color: $text-muted;
-        font-weight: 300
+        margin: 10px 0 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: $text-navy;
+        font-weight: 400;
     }
 }
 
 // ---------------------------------------------------------------
 // Order Summary — independent block
 // ---------------------------------------------------------------
-.order-summary {
+.cd-order-summary {
     background: #fff;
     border-radius: 20px;
-    padding: 22px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    border: 1px solid #e3e8ee;
+    gap: 16px;
+    border: 1px solid #ECF0F6;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    margin-top: -9px;
 
     &__title {
         margin: 0;
@@ -1011,22 +1090,21 @@ $radius-sm: 10px;
     &__plan {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 14px;
     }
 
     &__plan-logo {
-        width: 34px;
-        height: 34px;
+        width: 48px;
+        height: 48px;
         border-radius: 8px;
-        border: 1px solid #e3e8ee;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
 
         img {
-            width: 22px;
-            height: 22px;
+            width: 46px;
+            height: 46px;
             object-fit: contain;
         }
     }
@@ -1034,13 +1112,15 @@ $radius-sm: 10px;
     &__plan-name {
         margin: 0;
         font-size: 18px;
-        font-weight: 500;
+        line-height: 24px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__plan-type {
-        margin: 6px 0 0;
+        margin: 8px 0 0;
         font-size: 14px;
+        line-height: 20px;
         font-weight: 400;
         color: $text-muted;
     }
@@ -1048,34 +1128,37 @@ $radius-sm: 10px;
     &__meta {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
+        padding: 16px 16px 12px;
     }
 
     &__meta-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 12px;
-        color: #7c8698;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text-muted;
 
         span:last-child {
-            color: #101828;
+            color: $text-dark;
             font-weight: 700;
         }
     }
 
     &__divider {
         height: 1px;
+        margin-bottom: -4px;
         background: #e3e8ee;
     }
 
     &__lines {
         display: flex;
         flex-direction: column;
-        gap: 9px;
+        gap: 12px;
 
         &--muted {
-            .order-summary__line {
+            .cd-order-summary__line {
                 color: #7c8698;
             }
         }
@@ -1086,8 +1169,9 @@ $radius-sm: 10px;
         align-items: flex-start;
         justify-content: space-between;
         gap: 12px;
-        font-size: 12.5px;
-        color: #7c8698;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text-muted;
 
         span:first-child {
             flex: 1;
@@ -1095,53 +1179,63 @@ $radius-sm: 10px;
 
         span:last-child {
             font-weight: 700;
-            color: #101828;
+            color: $text-dark;
             white-space: nowrap;
         }
 
         &--bold {
-            font-size: 13.5px;
+            font-size: 14px;
 
             span:first-child {
-                font-weight: 700;
-                color: #101828;
+                font-weight: 600;
+                color: $text-muted;
             }
 
             span:last-child {
-                font-weight: 800;
-                color: #101828;
+                font-weight: 700;
+                color: $text-dark;
             }
         }
     }
 
     // ---- Add-ons box ----
     &__addons {
-        background: #F9FAFB;
+        background: #F8FAFC;
         border-radius: 12px;
-        padding: 12px 14px;
+        padding: 12px;
         display: flex;
         flex-direction: column;
-        gap: 9px;
+        gap: 10px;
+
+        .cd-order-summary__line {
+            font-size: 12px;
+            line-height: 16px;
+
+            span:last-child {
+                font-size: 14px;
+            }
+        }
     }
 
     &__addons-title {
         margin: 0;
-        font-size: 12px;
-        font-weight: 700;
-        color: #101828;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        color: $text-muted;
     }
 
     &__addons-divider {
         height: 1px;
         background: #e3e8ee;
-        margin: 2px 0 3px;
+        margin: -4px 0 -3px;
     }
 
     // ---- Blue summary box: gross premium → total → excess/commission ----
     &__summary-box {
         background: #F0F5FF;
         border-radius: 14px;
-        padding: 14px 16px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -1155,19 +1249,20 @@ $radius-sm: 10px;
     &__excess {
         background: #FFFFFF;
         border-radius: 10px;
-        padding: 12px 14px;
+        padding: 12px;
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        .order-summary__line {
-            font-size: 12px;
+        .cd-order-summary__line {
+            font-size: 14px;
+            line-height: 20px;
         }
     }
 
     &__section-label {
         margin: 4px 0 0;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 700;
         color: $text-dark;
     }
@@ -1176,7 +1271,7 @@ $radius-sm: 10px;
     &__payments {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 11px;
     }
 
     &__payment {
@@ -1186,8 +1281,9 @@ $radius-sm: 10px;
         border: 1px solid #E3E8EE;
         background: #f7f8fa;
         border-radius: 14px;
-        padding: 13px 16px;
-        font-size: 14px;
+        padding: 0 12px;
+        height: 46px;
+        font-size: 16px;
         font-weight: 700;
         color: $text-dark;
         cursor: pointer;
@@ -1236,7 +1332,7 @@ $radius-sm: 10px;
         display: flex;
         align-items: baseline;
         gap: 6px;
-        font-size: 42px;
+        font-size: 40px;
         font-weight: 700;
         color: $text-dark;
     }
@@ -1248,9 +1344,9 @@ $radius-sm: 10px;
     }
 
     &__total-monthly {
-        margin: 2px 0 0;
+        margin: 0 0 0 4px;
         font-weight: 400;
-        font-size: 12px;
+        font-size: 13px;
         color: $text-dark;
     }
 
@@ -1264,7 +1360,9 @@ $radius-sm: 10px;
         background: $navy;
         color: #fff;
         border-radius: 30px;
-        padding: 16px;
+        height: 48px;
+        padding: 0 16px;
+        box-shadow: 0 8px 16px -4px rgba(6, 33, 85, 0.35);
         font-size: 15px;
         font-weight: 700;
         cursor: pointer;
@@ -1286,11 +1384,10 @@ $radius-sm: 10px;
 @media (max-width: 1024px) {
     .confirm-details-page {
         &__container {
-            flex-direction: column;
+            grid-template-columns: minmax(0, 1fr);
         }
 
         &__aside {
-            max-width: 100%;
             width: 100%;
             position: static;
         }
@@ -1308,7 +1405,7 @@ $radius-sm: 10px;
         }
     }
 
-    .personal-info__grid,
+    .cd-personal__grid,
     .contact-details__grid,
     .address-info__grid,
     .vehicle-details__grid,
@@ -1318,4 +1415,58 @@ $radius-sm: 10px;
     .vehicle-retrieved__grid {
         grid-template-columns: 1fr;
     }
+
+    .vehicle-retrieved__grid {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .confirm-details-page__main {
+        gap: 16px;
+    }
+
+    .page-intro__title {
+        font-size: 30px !important;
+        line-height: 38px !important;
+    }
+
+    .section-title-fix,
+    .cd-personal__title,
+    .contact-details__title,
+    .address-info__title,
+    .vehicle-details__title,
+    .claims-history__title {
+        font-size: 18px;
+    }
+
+    .cd-personal__subtitle,
+    .contact-details__subtitle,
+    .address-info__subtitle,
+    .vehicle-details__subtitle,
+    .claims-history__subtitle {
+        font-size: 13px;
+    }
+
+    .cd-personal__header,
+    .contact-details__header,
+    .address-info__header,
+    .vehicle-details__header,
+    .claims-history__header {
+        padding: 20px 16px;
+        min-height: 0;
+    }
+}
+.confirm-details-page__footer {
+    background: #F8FAFC;
+    border-top: 1px solid #E8EDF3;
+    padding: 17px 16px 16px;
+}
+
+.claims-history__title,
+.claims-history__header .claims-history__title {
+    color: $text-navy;
+}
+
+.claims-history__icon {
+    background: #E8EDFB;
 }

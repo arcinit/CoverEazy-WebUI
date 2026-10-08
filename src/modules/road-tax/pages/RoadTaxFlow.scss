@@ -12,11 +12,11 @@ $blue: #2563eb;
 $blue-bg: #eaf1ff;
 $border: #e7e9ee;
 $muted: #586474;
-$bg: #f7f8fa;
+$bg: #f1f5fb;
 
 .road-tax-flow {
     min-height: 100vh;
-    background: $bg;
+    background: #fff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: $navy;
 
@@ -163,86 +163,121 @@ $bg: #f7f8fa;
     }
 
     // -------------------------------------------------------------
-    // Sub-header
+    // Sub-header (Figma: 65px header, then a 90px white strip with a hairline under it; 1240px column)
     // -------------------------------------------------------------
     &__subheader {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 32px;
         background: #fff;
-        border-bottom: 1px solid $border;
+        border-bottom: 1px solid #f1f4f9;
+    }
+
+    &__subheader-inner {
+        width: min(1240px, calc(100% - 48px));
+        min-height: 90px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 21px 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
     }
 
     &__subheader-left {
+        position: relative;
         display: flex;
-        align-items: center;
-        gap: 14px;
+        flex-direction: column;
     }
 
     &__subheader-icon {
-        width: 40px;
-        height: 40px;
+        position: absolute;
+        left: 0;
+        top: -1px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         background: $navy;
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        flex-shrink: 0;
+        font-size: 14px;
+    }
+
+    &__subheader-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
     &__subheader-title {
-        font-size: 18px;
-        font-weight: 700;
         margin: 0;
+        padding-left: 36px;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 700;
         color: $navy;
     }
 
     &__subheader-desc {
+        margin: 0;
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin: 6px 0 0;
-        font-size: 13px;
+        gap: 6px;
+        font-size: 12px;
+        line-height: 16px;
         color: $muted;
-        font-weight: 300;
+        font-weight: 400;
     }
 
-    &__dot {
-        color: #cbd2db;
+    &__sub-icon {
+        font-size: 12px;
+        color: $navy;
+
+        &--blue { color: $blue; }
     }
+
+    &__dot { color: #cbd2db; margin: 0 4px; }
 
     &__subheader-right {
         display: flex;
         align-items: center;
         gap: 12px;
+
+        @media (max-width: 900px) {
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
     }
 
     &__stat {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         padding: 8px 14px;
-        background: $bg;
-        border-radius: 10px;
+        box-sizing: border-box;
+        min-height: 48px;
+        background: #fcfdff;
+        border: 1px solid #e9eef5;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(14, 34, 83, 0.05);
     }
 
     &__stat-icon {
-        font-size: 17px;
+        font-size: 16px;
 
-        &--orange {
-            color: $orange;
-        }
-
-        &--green {
-            color: $green;
-        }
-
-        &--blue {
-            color: $blue;
-        }
+        &--orange { color: $orange; }
+        &--green { color: #00b894; }
+        &--blue { color: $blue; }
     }
 
     &__stat-copy {
@@ -252,33 +287,45 @@ $bg: #f7f8fa;
     }
 
     &__stat-value {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: $navy;
+        color: #313131;
     }
 
     &__stat-label {
-        font-size: 11px;
+        font-size: 12px;
         color: $muted;
     }
 
     // -------------------------------------------------------------
-    // Stepper row
+    // Stepper row (Figma: 50px pill, 17px under the sub-header; 40px back circle on the left edge)
     // -------------------------------------------------------------
     &__stepper-row {
-        display: flex;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 13px 0 0;
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr) 40px;
         align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 28px 32px 12px;
+        gap: 16px;
+
+        @media (max-width: 600px) {
+            width: calc(100% - 24px);
+            gap: 8px;
+        }
     }
 
+    &__stepper-spacer { width: 40px; }
+
     &__back-btn {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
+        margin-top: 10px;
         border-radius: 50%;
-        border: 1px solid $border;
+        border: 0;
+        padding: 0;
         background: #fff;
+        box-shadow: 0 2px 8px rgba(14, 34, 83, 0.14);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -293,23 +340,36 @@ $bg: #f7f8fa;
         align-items: center;
         justify-content: center;
         list-style: none;
-        margin: 0;
-        padding: 12px 40px;
+        margin: 0 auto;
+        min-width: 0;
+        max-width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 0 16px;
         background: #fff;
         border-radius: 999px;
         border: 1px solid $border;
+        box-shadow: 0 6px 14px -6px rgba(14, 34, 83, 0.12);
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar { display: none; }
     }
 
     &__step {
         display: flex;
         align-items: center;
-        gap: 10px;
-        position: relative;
-        padding-right: 28px;
+        flex-shrink: 0;
+    }
 
-        &:last-child {
-            padding-right: 0;
-        }
+    &__step-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        box-sizing: border-box;
+        padding: 0 12px;
+        border-radius: 999px;
     }
 
     &__step-index {
@@ -317,57 +377,71 @@ $bg: #f7f8fa;
         height: 24px;
         border-radius: 50%;
         background: $bg;
-        color: $muted;
+        color: #586474;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 12px;
-        font-weight: 700;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
     }
 
     &__step-label {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
-        color: $muted;
+        color: #586474;
         white-space: nowrap;
     }
 
     &__step-divider {
-        width: 28px;
+        width: 14px;
         height: 1px;
         background: $border;
-        margin-left: 8px;
+        margin: 0 2px;
+        flex-shrink: 0;
     }
 
     &__step--active {
+        .road-tax-flow__step-content { background: #f4f4f4; }
+
         .road-tax-flow__step-index {
-            background: $navy;
-            color: #fff;
+            background: #fff;
+            color: $navy;
         }
 
         .road-tax-flow__step-label {
             color: $navy;
-            font-weight: 700;
+            font-weight: 600;
         }
     }
 
     &__step--done {
         .road-tax-flow__step-index {
-            background: $green;
+            background: #00b894;
             color: #fff;
         }
 
         .road-tax-flow__step-label {
             color: $navy;
+            font-weight: 600;
         }
+
+        .road-tax-flow__step-divider { background: #00b894; }
     }
 
     // -------------------------------------------------------------
-    // Content area
+    // Content area (Figma content column: x = 100..1340)
     // -------------------------------------------------------------
     &__content {
-        padding: 8px 32px 48px;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 36px 0 48px;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
     }
+
+    // src/styles/style.scss sets a global `* { font-family }`; keep Inter as the flow default
+    & * { font-family: "Inter", sans-serif; }
 
     &__placeholder {
         padding: 80px 0;

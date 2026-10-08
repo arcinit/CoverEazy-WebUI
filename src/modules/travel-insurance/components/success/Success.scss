@@ -1,125 +1,112 @@
 // -----------------------------------------------------------------------------
-// Success.scss
-// BEM styling for the "Success" (policy issued) step
+// Success.scss - "Congratulations! You're Covered." step (all classes tr-done-*)
 // -----------------------------------------------------------------------------
 
 @use "sass:map";
 
-$su-color-bg: #ffffff;
-$su-color-white: #ffffff;
-$su-color-border: #e5e9f0;
-$su-color-navy: #062155;
-$su-color-navy-hover: #16294d;
-$su-color-green: #16a34a;
-$su-color-green-bg: #ECFDF5;
-$su-color-blue: #0F5BFF;
-$su-color-blue-bg: #EDF2FF;
-$su-color-orange: #e0722c;
-$su-color-orange-bg: #fdf0e0;
-$su-color-purple: #7c5fe0;
-$su-color-purple-bg: #f1ecfb;
-$su-color-text-primary: #313131;
-$su-color-text-secondary: #667085;
-$su-color-text-muted: #586474;
-$su-radius-lg: 16px;
-$su-radius-md: 12px;
-$su-shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+$su-navy: #062155;
+$su-green: #00b140;
+$su-border: #e5e9f0;
+$su-text: #1f2937;
+$su-muted: #586474;
 
 $su-tones: (
     "green": (bg: #e6f7ec, fg: #16a34a),
-    "blue": (bg: #e8f0fe, fg: #2f6fed),
-    "orange": (bg: #fdf0e0, fg: #e0722c),
+    "blue": (bg: #e8f0fe, fg: #2563eb),
+    "orange": (bg: #fdf0e0, fg: #f97316),
     "purple": (bg: #f1ecfb, fg: #7c5fe0),
 );
 
-@mixin su-card {
-    background: $su-color-white;
-    border: 1px solid $su-color-border;
-    border-radius: $su-radius-lg;
-    box-shadow: $su-shadow-card;
-}
+$su-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Courier New", monospace;
 
-.success {
-    padding: 40px 32px;
+.tr-done {
+    width: 100%;
     margin: 0 auto;
+    padding: 16px 0 56px;
+    color: $su-text;
 
-    // ---------------------------------------------------------------------
     // Headline
-    // ---------------------------------------------------------------------
     &__header {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         align-items: center;
         text-align: center;
-        margin-bottom: 28px;
+        margin-bottom: 59px;
     }
 
     &__check-badge {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 64px;
-        height: 64px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #16C47F 0%, #00B894 100%);
-        color: $su-color-white;
-        font-size: 28px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 20px rgba(22, 163, 74, 0.25);
+        background: linear-gradient(135deg, #16c47f 0%, #00b894 100%);
+        color: #fff;
+        font-size: 40px;
+        margin-bottom: 14px;
     }
 
     &__title {
-        margin: 0 0 10px;
-        font-size: 38px;
+        margin: 0 0 9px;
+        font-family: "Lato", "Inter", sans-serif;
+        font-size: 48px;
+        line-height: 1.2;
         font-weight: 400;
-        color: $su-color-navy;
-        letter-spacing: -0.02em;
+        color: $su-navy;
+        letter-spacing: 0;
+
+        @media (max-width: 560px) {
+            font-size: 32px;
+        }
     }
 
     &__title-accent {
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: "Lato", "Inter", sans-serif;
         font-style: italic;
-        font-weight: 500;
-        color: $su-color-green;
+        font-weight: 400;
+        color: $su-green;
     }
 
     &__subtitle {
-        margin: 0 0 16px;
-        font-size: 15px;
-        color: $su-color-text-secondary;
+        margin: 0 0 12px;
+        font-size: 16px;
+        line-height: 24px;
+        color: #333;
     }
 
     &__badges {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 16px;
     }
 
     &__badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 5px 12px;
+        height: 20px;
+        padding: 0 11px;
         border-radius: 999px;
-        background: $su-color-green-bg;
-        color: $su-color-green;
-        font-size: 11px;
-        font-weight: 400;
+        background: #e8faf1;
+        color: #00a35a;
+        font-size: 12px;
+        font-weight: 500;
+
+        svg {
+            font-size: 11px;
+        }
 
         &.global {
-            background: $su-color-blue-bg;
-            color: $su-color-blue;
+            background: #e8f0fe;
+            color: #1d5bff;
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Top grid: policy + emergency contacts
-    // ---------------------------------------------------------------------
     &__top-grid {
         display: grid;
-        grid-template-columns: 1.5fr 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 24px;
         margin-bottom: 24px;
 
@@ -128,24 +115,22 @@ $su-tones: (
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Section title (Quick Actions)
-    // ---------------------------------------------------------------------
     &__section-title {
         margin: 0 0 14px;
-        font-size: 15.5px;
+        font-size: 17px;
+        line-height: 24px;
         font-weight: 700;
-        color: $su-color-text-primary;
+        color: $su-text;
     }
 
-    &__quick-actions {
-        margin-bottom: 28px;
+    &__quick {
+        margin-bottom: 32px;
     }
 
-    &__quick-actions-grid {
+    &__quick-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 14px;
+        gap: 12px;
 
         @media (max-width: 860px) {
             grid-template-columns: repeat(3, 1fr);
@@ -156,9 +141,6 @@ $su-tones: (
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Footer
-    // ---------------------------------------------------------------------
     &__footer {
         display: flex;
         justify-content: center;
@@ -167,16 +149,23 @@ $su-tones: (
     &__home-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        border-radius: 999px;
-        border: 1px solid $su-color-border;
-        background: $su-color-white;
-        color: $su-color-text-primary;
-        font-size: 14px;
-        font-weight: 600;
+        justify-content: center;
+        gap: 12px;
+        height: 42px;
+        padding: 0 15px;
+        border-radius: 12px;
+        border: 1px solid $su-border;
+        background: #fff;
+        color: $su-text;
+        font-size: 15px;
+        font-weight: 500;
         cursor: pointer;
         transition: border-color 0.15s ease, background-color 0.15s ease;
+
+        svg {
+            font-size: 15px;
+            color: $su-muted;
+        }
 
         &:hover {
             background: #f7f8fa;
@@ -185,147 +174,150 @@ $su-tones: (
     }
 }
 
-// -----------------------------------------------------------------------------
 // Policy card
-// -----------------------------------------------------------------------------
-.policy-card {
-    @include su-card;
+.tr-done-policy {
+    min-width: 0;
     padding: 24px;
+    border-radius: 24px;
+    border: 1px solid #2662fe26;
     background:
-        radial-gradient(100% 80% at 100% 100%,
-            rgba(43, 196, 196, 0.18) 0%,
-            rgba(43, 196, 196, 0) 55%),
-        radial-gradient(120% 80% at 0% 0%,
-            #F4F8FF 0%,
-            #F4F8FF 55%),
-        linear-gradient(180deg,
-            #FFFFFF 0%,
-            #F4F8FF 100%);
-    box-shadow: 0px 12px 32px -12px #0F172A1F;
-    box-shadow: 0px 1px 2px 0px #0F172A0A;
-
-    border: 1px solid #2662FE26;
+        radial-gradient(90% 70% at 100% 100%, rgba(43, 196, 214, 0.2) 0%, rgba(43, 196, 214, 0) 100%),
+        linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+    box-shadow: 0 12px 32px -12px #0f172a1f;
+    display: flex;
+    flex-direction: column;
 
     &__header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 20px;
+        padding-bottom: 16px;
+        margin-bottom: 9px;
+        border-bottom: 1px solid #e8ecf2;
     }
 
     &__label {
         display: block;
         font-size: 12px;
-        color: $su-color-text-muted;
-        margin-bottom: 8px;
+        line-height: 16px;
+        color: $su-muted;
+        margin-bottom: 2px;
     }
 
     &__number {
         display: block;
+        font-family: $su-mono;
         font-size: 17px;
+        line-height: 24px;
         font-weight: 700;
-        color: $su-color-text-primary;
+        color: #1f2937;
     }
 
     &__icon {
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        border: 1px solid $su-color-border;
-        color: $su-color-text-secondary;
-        font-size: 14px;
+        color: #8a8f98;
+        font-size: 26px;
+        margin-top: 4px;
     }
 
     &__details {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        row-gap: 16px;
-        column-gap: 16px;
-        margin-bottom: 22px;
+        row-gap: 10px;
+        column-gap: 0;
+        margin-bottom: 33px;
     }
 
     &__detail {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 4px;
+        min-width: 0;
     }
 
     &__detail-label {
         font-size: 12px;
-        color: $su-color-text-muted;
+        line-height: 16px;
+        color: $su-muted;
     }
 
     &__detail-value {
         font-size: 14px;
+        line-height: 20px;
         font-weight: 700;
-        color: $su-color-text-primary;
+        color: $su-text;
     }
 
     &__actions {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
+        margin-top: auto;
     }
 
     &__action-btn {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 9px 16px;
+        height: 32px;
+        padding: 0 14px;
         border-radius: 999px;
-        border: 1px solid $su-color-border;
-        background: $su-color-white;
-        color: $su-color-text-primary;
-        font-size: 12.5px;
-        font-weight: 600;
+        border: 0;
+        background: #fff;
+        color: $su-text;
+        font-size: 12px;
+        font-weight: 500;
         cursor: pointer;
-        transition: border-color 0.15s ease, background-color 0.15s ease;
-        box-shadow: 0px 4px 16px 0px #00000040;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
+
+        svg {
+            font-size: 12px;
+        }
 
         &:hover {
             background: #f7f8fa;
-            border-color: #c9d2e0;
         }
     }
 }
 
-// -----------------------------------------------------------------------------
-// Emergency contacts card
-// -----------------------------------------------------------------------------
-.contacts-card {
-    @include su-card;
+// Emergency contacts
+.tr-done-contacts {
+    min-width: 0;
     padding: 24px;
+    border-radius: 24px;
+    border: 1px solid $su-border;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     &__header {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 18px;
+        gap: 8px;
+        margin-bottom: 14px;
     }
 
     &__header-icon {
-        color: $su-color-orange;
+        color: #f97316;
         font-size: 17px;
     }
 
     &__title {
         margin: 0;
-        font-size: 15.5px;
-        font-weight: 700;
-        color: $su-color-text-primary;
-        flex: 1;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 600;
+        color: $su-text;
     }
 
     &__badge {
-        padding: 3px 10px;
+        padding: 2px 8px;
         border-radius: 999px;
-        background: $su-color-orange-bg;
-        color: $su-color-orange;
-        font-size: 11.5px;
-        font-weight: 700;
+        background: #fdf0e0;
+        color: #f97316;
+        font-size: 12px;
+        font-weight: 500;
     }
 
     &__list {
@@ -334,34 +326,32 @@ $su-tones: (
     }
 }
 
-.contact-row {
+.tr-done-contact {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid $su-color-border;
-
-    &:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
+    height: 54.5px;
+    border-bottom: 1px solid #e8ecf2;
 
     &__copy {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 2px;
         min-width: 0;
     }
 
     &__name {
-        font-size: 13.5px;
-        font-weight: 700;
-        color: $su-color-text-primary;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 500;
+        color: $su-text;
     }
 
     &__number {
-        font-size: 12.5px;
+        font-family: $su-mono;
+        font-size: 10.5px;
+        line-height: 14px;
         font-weight: 500;
 
         @each $tone, $colors in $su-tones {
@@ -379,7 +369,7 @@ $su-tones: (
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        font-size: 13px;
+        font-size: 14px;
 
         @each $tone, $colors in $su-tones {
             &--#{$tone} {
@@ -390,26 +380,27 @@ $su-tones: (
     }
 }
 
-// -----------------------------------------------------------------------------
 // Pre-departure checklist
-// -----------------------------------------------------------------------------
-.checklist-card {
-    @include su-card;
-    padding: 24px;
-    margin-bottom: 24px;
+.tr-done-checklist {
+    padding: 23px 24px 24px;
+    margin-bottom: 21px;
+    border-radius: 24px;
+    border: 1px solid $su-border;
+    background: #fff;
 
     &__title {
-        margin: 0 0 18px;
-        font-size: 15.5px;
-        font-weight: 700;
-        color: $su-color-text-primary;
+        margin: 0 0 16px;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 600;
+        color: $su-text;
     }
 
     &__grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        row-gap: 16px;
-        column-gap: 16px;
+        row-gap: 12px;
+        column-gap: 12px;
 
         @media (max-width: 760px) {
             grid-template-columns: repeat(2, 1fr);
@@ -421,12 +412,14 @@ $su-tones: (
     }
 }
 
-.checklist-item {
+.tr-done-check {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13.5px;
-    color: $su-color-text-primary;
+    gap: 12px;
+    height: 44px;
+    padding: 0 12px;
+    font-size: 15px;
+    color: $su-text;
 
     &__check {
         flex-shrink: 0;
@@ -436,41 +429,41 @@ $su-tones: (
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: $su-color-green;
-        color: $su-color-white;
-        font-size: 11px;
+        background: #00b83d;
+        color: #fff;
+        font-size: 12px;
     }
 }
 
-// -----------------------------------------------------------------------------
-// Quick action card
-// -----------------------------------------------------------------------------
-.quick-action {
+// Quick actions
+.tr-done-qa {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 20px 12px;
-    border: 1px solid $su-color-border;
-    border-radius: $su-radius-md;
-    background: $su-color-white;
+    justify-content: center;
+    gap: 8px;
+    height: 103px;
+    padding: 0 12px;
+    border: 1px solid $su-border;
+    border-radius: 24px;
+    background: #fff;
     cursor: pointer;
     font-family: inherit;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
         border-color: #c9d2e0;
-        box-shadow: $su-shadow-card;
+        box-shadow: 0 2px 8px rgba(16, 24, 40, 0.08);
     }
 
     &__icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 17px;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        font-size: 20px;
 
         @each $tone, $colors in $su-tones {
             &--#{$tone} {
@@ -481,9 +474,9 @@ $su-tones: (
     }
 
     &__label {
-        font-size: 12.5px;
-        font-weight: 600;
-        color: $su-color-text-primary;
+        font-size: 15px;
+        font-weight: 500;
+        color: $su-text;
         text-align: center;
     }
 }

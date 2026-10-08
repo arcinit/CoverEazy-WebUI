@@ -12,7 +12,7 @@ $blue: #2563eb;
 $blue-bg: #eaf1ff;
 $border: #e3e8ee;
 $muted: #6b7280;
-$bg: #f5f7fb;
+$bg: #f8fafd;
 
 .travel-insurance-flow {
     min-height: 100vh;
@@ -21,190 +21,67 @@ $bg: #f5f7fb;
     color: $navy;
 
     // -------------------------------------------------------------
-    // Navbar
-    // -------------------------------------------------------------
-    &__navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 32px;
-        background: #fff;
-        border-bottom: 1px solid $border;
-    }
-
-    &__logo {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__logo-icon {
-        font-size: 26px;
-        color: $green;
-    }
-
-    &__logo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.1;
-    }
-
-    &__logo-title {
-        font-size: 19px;
-        font-weight: 700;
-        color: $navy;
-    }
-
-    &__logo-subtitle {
-        font-size: 8px;
-        letter-spacing: 0.12em;
-        color: $muted;
-        font-weight: 600;
-    }
-
-    &__nav {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
-    &__nav-link {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 14px;
-        font-weight: 500;
-        color: $text-dark;
-        text-decoration: none;
-
-        &--active {
-            color: $blue;
-            font-weight: 600;
-        }
-    }
-
-    &__nav-caret {
-        font-size: 12px;
-    }
-
-    &__navbar-right {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    &__ai-mode {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 14px;
-        border-radius: 999px;
-        border: 1px solid $border;
-        background: #fbfdfc;
-        font-size: 13px;
-        font-weight: 600;
-        color: $navy;
-        cursor: pointer;
-    }
-
-    &__ai-sparkle {
-        color: $green;
-    }
-
-    &__ai-badge {
-        background: $green;
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        padding: 1px 6px;
-        border-radius: 999px;
-    }
-
-    &__get-quote {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 18px;
-        border-radius: 10px;
-        border: none;
-        background: $navy;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    &__get-quote-arrow {
-        font-size: 14px;
-    }
-
-    &__user {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-left: 8px;
-    }
-
-    &__user-avatar {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: $border;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 15px;
-    }
-
-    &__user-name {
-        font-size: 14px;
-        font-weight: 600;
-        color: $navy;
-    }
-
-    // -------------------------------------------------------------
-    // Sub-header
+    // Sub-header (Figma: 65px header, then an 87px white strip with a hairline; 1240px column)
     // -------------------------------------------------------------
     &__subheader {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 32px;
         background: #fff;
-        border-bottom: 1px solid $border;
-        flex-wrap: wrap;
+        border-bottom: 1px solid #f2f4f9;
+    }
+
+    &__subheader-inner {
+        width: min(1240px, calc(100% - 48px));
+        min-height: 86px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 20px 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
         gap: 16px;
+        flex-wrap: wrap;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
     }
 
     &__subheader-left {
+        position: relative;
         display: flex;
-        align-items: center;
-        gap: 14px;
+        flex-direction: column;
     }
 
     &__subheader-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
         background: $navy;
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        flex-shrink: 0;
+        font-size: 14px;
+    }
+
+    &__subheader-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
     }
 
     &__subheader-title-row {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+        padding-left: 36px;
     }
 
     &__subheader-title {
-        font-size: 19px;
-        font-weight: 700;
         margin: 0;
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 700;
         color: $navy;
     }
 
@@ -212,73 +89,76 @@ $bg: #f5f7fb;
         display: flex;
         align-items: center;
         gap: 4px;
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 10px;
+        line-height: 14px;
+        font-weight: 600;
         color: $green;
-        background: $green-bg;
-        padding: 3px 10px;
+        background: #e6faf5;
+        padding: 3px 8px;
         border-radius: 999px;
     }
 
     &__subheader-desc {
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin: 4px 0 0;
-        font-size: 13px;
+        gap: 6px;
+        margin: 0;
+        padding-left: 20px;
+        font-size: 11px;
+        line-height: 16px;
         color: $muted;
 
         span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
     }
 
     &__desc-icon {
-        font-size: 13px;
-        color: $muted;
+        font-size: 12px;
+        color: #586474;
     }
 
-    &__dot {
-        color: #cbd2db;
-    }
+    &__dot { color: #cbd2db; margin: 0 4px; }
 
     &__subheader-right {
         display: flex;
         align-items: center;
         gap: 12px;
-        flex-wrap: wrap;
+
+        @media (max-width: 1100px) {
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
     }
 
     &__stat {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 14px;
-        background: $bg;
-        border: 1px solid $border;
-        border-radius: 10px;
+        gap: 10px;
+        box-sizing: border-box;
+        min-height: 46px;
+        padding: 6px 14px;
+        background: #fcfdff;
+        border: 1px solid #f2f4f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(14, 34, 83, 0.05);
     }
 
     &__stat-icon {
-        font-size: 17px;
+        font-size: 16px;
 
-        &--green {
-            color: $green;
-        }
-
-        &--orange {
-            color: $orange;
-        }
-
-        &--blue {
-            color: $blue;
-        }
-
-        &--navy {
-            color: $navy;
-        }
+        &--green { color: #00b894; }
+        &--orange { color: $orange; }
+        &--blue { color: $blue; }
+        &--navy { color: #00b894; }
     }
 
     &__stat-copy {
@@ -288,155 +168,164 @@ $bg: #f5f7fb;
     }
 
     &__stat-value {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
-        color: $navy;
+        color: #313131;
     }
 
     &__stat-label {
-        font-size: 11px;
+        font-size: 12px;
         color: $muted;
+    }
+
+    // -------------------------------------------------------------
+    // Stepper row (Figma: 50px pill, 16px under the sub-header; 40px back circle on the left edge)
+    // -------------------------------------------------------------
+    &__stepper-row {
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 12px 0 0;
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr) 40px;
+        align-items: center;
+        gap: 16px;
+
+        @media (max-width: 600px) {
+            width: calc(100% - 24px);
+            gap: 8px;
+        }
+    }
+
+    &__stepper-spacer { width: 40px; }
+
+    &__back-btn {
+        width: 40px;
+        height: 40px;
+        margin-top: 10px;
+        border-radius: 50%;
+        border: 0;
+        padding: 0;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(14, 34, 83, 0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: $navy;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    &__stepper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        margin: 0 auto;
+        min-width: 0;
+        max-width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 0 16px;
+        background: #fff;
+        border-radius: 999px;
+        border: 1px solid $border;
+        box-shadow: 0 6px 14px -6px rgba(14, 34, 83, 0.12);
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar { display: none; }
+    }
+
+    &__step {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    &__step-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        box-sizing: border-box;
+        padding: 0 12px;
+        border-radius: 999px;
+    }
+
+    &__step-index {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #f1f5fb;
+        color: #586474;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    &__step-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #586474;
         white-space: nowrap;
     }
 
-    // -------------------------------------------------------------
-    // Stepper row
-    // -------------------------------------------------------------
+    &__step-divider {
+        width: 14px;
+        height: 1px;
+        background: $border;
+        margin: 0 2px;
+        flex-shrink: 0;
+    }
 
-        // Colors used by the stepper
-        $stepper-green: #00b894; // done-step check circle
-        $stepper-active-bg: #f4f4f4; // active-step pill background
-        $stepper-border: $border;
-        $stepper-muted: $muted;
-        $stepper-navy: $navy;
-    
-        &__stepper-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 28px 32px 12px;
-        }
-    
-        &__back-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid $stepper-border;
+    &__step--active {
+        .travel-insurance-flow__step-content { background: #f4f4f4; }
+
+        .travel-insurance-flow__step-index {
             background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: $stepper-navy;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-    
-        &__stepper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            list-style: none;
-            margin: 0;
-            padding: 8px 20px;
-            background: #fff;
-            border-radius: 999px;
-            border: 1px solid $stepper-border;
-            overflow-x: auto;
-        }
-    
-        &__step {
-            display: flex;
-            align-items: center;
-            position: relative;
-            flex-shrink: 0;
-        }
-    
-        &__step-content {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            transition: background-color 0.15s ease;
-        }
-    
-        &__step-index {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: $bg;
-            color: $stepper-muted;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-    
-        &__step-label {
-            font-size: 12.5px;
-            font-weight: 500;
-            color: $stepper-muted;
-            white-space: nowrap;
-        }
-    
-        &__step-divider {
-            width: 18px;
-            height: 1px;
-            background: $stepper-border;
-            margin: 0 4px;
-            flex-shrink: 0;
-        }
-    
-        // ---------------------------------------------------------------------
-        // Active step: light grey pill (#F4F4F4) behind the number + label
-        // ---------------------------------------------------------------------
-        &__step--active {
-            .travel-insurance-flow__step-content {
-                background: $stepper-active-bg;
-            }
-    
-            .travel-insurance-flow__step-index {
-                background: #fff;
-                color: $stepper-navy;
-            }
-    
-            .travel-insurance-flow__step-label {
-                color: $stepper-navy;
-                font-weight: 700;
-            }
-        }
-    
-        // ---------------------------------------------------------------------
-        // Done step: green (#00B894) check circle + connector
-        // ---------------------------------------------------------------------
-        &__step--done {
-            .travel-insurance-flow__step-index {
-                background: $stepper-green;
-                color: #fff;
-            }
-    
-            .travel-insurance-flow__step-label {
-                color: $stepper-navy;
-                font-weight: 600;
-            }
-    
-            // the connector right after a done step reads as "completed" too
-            .travel-insurance-flow__step-divider {
-                background: $stepper-green;
-            }
+            color: $navy;
         }
 
+        .travel-insurance-flow__step-label {
+            color: $navy;
+            font-weight: 600;
+        }
+    }
+
+    &__step--done {
+        .travel-insurance-flow__step-index {
+            background: #00b894;
+            color: #fff;
+        }
+
+        .travel-insurance-flow__step-label {
+            color: $navy;
+            font-weight: 600;
+        }
+
+        .travel-insurance-flow__step-divider { background: #00b894; }
+    }
+
     // -------------------------------------------------------------
-    // Content area
+    // Content area (Figma content column: x = 100..1340)
     // -------------------------------------------------------------
     &__content {
-        width: 90%;
-        margin: auto;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
     }
+
+    // Figma: the final "You're Covered" screen sits on plain white, the rest of the flow on #f8fafd
+    &--finished { background: #fff; }
+
+    // src/styles/style.scss sets a global `* { font-family }`; keep Inter as the flow default
+    & * { font-family: "Inter", sans-serif; }
 
     &__placeholder {
         padding: 80px 0;

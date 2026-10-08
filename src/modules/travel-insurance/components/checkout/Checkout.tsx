@@ -12,7 +12,6 @@ import {
     FiLock,
 } from 'react-icons/fi';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
-import { MdPayment } from 'react-icons/md';
 import { BiWallet } from 'react-icons/bi';
 import './Checkout.scss';
 
@@ -72,7 +71,7 @@ const PAYMENT_METHODS = [
     },
     {
         id: 'google-pay',
-        icon: MdPayment,
+        icon: FiSmartphone,
         title: 'Google Pay',
         subtitle: 'Fingerprint · PIN',
     },
@@ -96,8 +95,8 @@ const SST_RATE = 0.08;
 
 const Checkout = ({ onContinue }:any) => {
     const [contact, setContact] = useState({
-        name: 'Siti Rahimah binti Ismail',
-        relationship: 'Spouse',
+        name: '',
+        relationship: '',
         phone: '',
         email: '',
     });
@@ -151,15 +150,15 @@ const Checkout = ({ onContinue }:any) => {
                             {TRIP_OVERVIEW.map((item) => {
                                 const Icon = item.icon;
                                 return (
-                                    <div className="overview-item" key={item.id}>
-                                        <span className="overview-item__icon">
+                                    <div className="tr-co-ov" key={item.id}>
+                                        <span className="tr-co-ov__icon">
                                             <Icon />
                                         </span>
-                                        <div className="overview-item__copy">
-                                            <span className="overview-item__label">
+                                        <div className="tr-co-ov__copy">
+                                            <span className="tr-co-ov__label">
                                                 {item.label}
                                             </span>
-                                            <span className="overview-item__value">
+                                            <span className="tr-co-ov__value">
                                                 {item.value}
                                             </span>
                                         </div>
@@ -178,8 +177,8 @@ const Checkout = ({ onContinue }:any) => {
                             </span>
                         </div>
 
-                        <div className="travellers-table">
-                            <div className="travellers-table__head">
+                        <div className="tr-co-tt">
+                            <div className="tr-co-tt__head">
                                 <span>Traveller</span>
                                 <span>Type</span>
                                 <span>Passport No.</span>
@@ -188,31 +187,31 @@ const Checkout = ({ onContinue }:any) => {
                                 <span>Medical</span>
                             </div>
                             {TRAVELLERS.map((traveller) => (
-                                <div className="travellers-table__row" key={traveller.id}>
-                                    <span className="travellers-table__traveller">
-                                        <span className="travellers-table__avatar">
+                                <div className="tr-co-tt__row" key={traveller.id}>
+                                    <span className="tr-co-tt__traveller">
+                                        <span className="tr-co-tt__avatar">
                                             {traveller.initials}
                                         </span>
-                                        <span className="travellers-table__name-block">
-                                            <span className="travellers-table__name">
+                                        <span className="tr-co-tt__name-block">
+                                            <span className="tr-co-tt__name">
                                                 {traveller.name}
                                             </span>
                                             {traveller.primary && (
-                                                <span className="travellers-table__primary-tag">
+                                                <span className="tr-co-tt__primary-tag">
                                                     Primary Policyholder
                                                 </span>
                                             )}
                                         </span>
                                     </span>
                                     <span>
-                                        <span className="travellers-table__type-pill">
+                                        <span className="tr-co-tt__type-pill">
                                             {traveller.type}
                                         </span>
                                     </span>
                                     <span>{traveller.passport}</span>
                                     <span>{traveller.dob}</span>
                                     <span>{traveller.nationality}</span>
-                                    <span className="travellers-table__medical">
+                                    <span className="tr-co-tt__medical">
                                         <FiCheck />
                                         {traveller.medical}
                                     </span>
@@ -223,7 +222,7 @@ const Checkout = ({ onContinue }:any) => {
                         <div className="checkout__plan-strip">
                             <span className="checkout__plan-strip-label">
                                 <FiShield />
-                                Premium Plan · RM 145/pax × {TRAVELLERS.length} travellers
+                                Premium Plan · RM 145/pax x {TRAVELLERS.length} travellers
                             </span>
                             <span className="checkout__plan-strip-value">
                                 RM {BASE_PREMIUM}
@@ -232,45 +231,45 @@ const Checkout = ({ onContinue }:any) => {
                     </section>
 
                     {/* Emergency contact */}
-                    <section className="checkout__card">
+                    <section className="checkout__card checkout__card--contact">
                         <div className="checkout__card-header">
                             <h2 className="checkout__card-title">Emergency Contact</h2>
                         </div>
                         <div className="checkout__form-grid">
-                            <label className="form-field">
-                                <span className="form-field__label">Contact Name</span>
+                            <label className="tr-co-field">
+                                <span className="tr-co-field__label">Contact Name</span>
                                 <input
-                                    className="form-field__input"
+                                    className="tr-co-field__input"
                                     type="text"
                                     value={contact.name}
                                     onChange={handleContactChange('name')}
                                     placeholder="Siti Rahimah binti Ismail"
                                 />
                             </label>
-                            <label className="form-field">
-                                <span className="form-field__label">Relationship</span>
+                            <label className="tr-co-field">
+                                <span className="tr-co-field__label">Relationship</span>
                                 <input
-                                    className="form-field__input"
+                                    className="tr-co-field__input"
                                     type="text"
                                     value={contact.relationship}
                                     onChange={handleContactChange('relationship')}
                                     placeholder="Spouse"
                                 />
                             </label>
-                            <label className="form-field">
-                                <span className="form-field__label">Phone Number</span>
+                            <label className="tr-co-field">
+                                <span className="tr-co-field__label">Phone Number</span>
                                 <input
-                                    className="form-field__input"
+                                    className="tr-co-field__input"
                                     type="tel"
                                     value={contact.phone}
                                     onChange={handleContactChange('phone')}
                                     placeholder="+601X-XXX XXXX"
                                 />
                             </label>
-                            <label className="form-field">
-                                <span className="form-field__label">Email</span>
+                            <label className="tr-co-field">
+                                <span className="tr-co-field__label">Email</span>
                                 <input
-                                    className="form-field__input"
+                                    className="tr-co-field__input"
                                     type="email"
                                     value={contact.email}
                                     onChange={handleContactChange('email')}
@@ -281,7 +280,7 @@ const Checkout = ({ onContinue }:any) => {
                     </section>
 
                     {/* Payment method */}
-                    <section className="checkout__card">
+                    <section className="checkout__card checkout__card--payment">
                         <div className="checkout__card-header">
                             <h2 className="checkout__card-title">Payment Method</h2>
                         </div>
@@ -295,24 +294,24 @@ const Checkout = ({ onContinue }:any) => {
                                         key={method.id}
                                         type="button"
                                         className={[
-                                            'method-option',
-                                            isSelected ? 'method-option--selected' : '',
+                                            'tr-co-mo',
+                                            isSelected ? 'tr-co-mo--selected' : '',
                                         ].join(' ').trim()}
                                         onClick={() => setSelectedMethod(method.id)}
                                     >
-                                        <span className="method-option__icon">
+                                        <span className="tr-co-mo__icon">
                                             <Icon />
                                         </span>
-                                        <span className="method-option__copy">
-                                            <span className="method-option__title">
+                                        <span className="tr-co-mo__copy">
+                                            <span className="tr-co-mo__title">
                                                 {method.title}
                                             </span>
-                                            <span className="method-option__subtitle">
+                                            <span className="tr-co-mo__subtitle">
                                                 {method.subtitle}
                                             </span>
                                         </span>
                                         {isSelected && (
-                                            <span className="method-option__check">
+                                            <span className="tr-co-mo__check">
                                                 <FiCheck />
                                             </span>
                                         )}
@@ -321,34 +320,35 @@ const Checkout = ({ onContinue }:any) => {
                             })}
                         </div>
 
-                        {selectedMethod === 'card' && (
+                        <div className="tr-co-cardbox">
+                            {selectedMethod === 'card' && (
                             <>
-                                <div className="credit-card-preview">
-                                    <div className="credit-card-preview__top">
-                                        <span className="credit-card-preview__chip-dots">
+                                <div className="tr-co-cc">
+                                    <div className="tr-co-cc__top">
+                                        <span className="tr-co-cc__chip-dots">
                                             <span />
                                             <span />
                                             <span />
                                         </span>
-                                        <span className="credit-card-preview__brand">VISA</span>
+                                        <span className="tr-co-cc__brand">VISA</span>
                                     </div>
-                                    <div className="credit-card-preview__number">
+                                    <div className="tr-co-cc__number">
                                         {card.number || '•••• •••• •••• ••••'}
                                     </div>
-                                    <div className="credit-card-preview__bottom">
+                                    <div className="tr-co-cc__bottom">
                                         <span>
-                                            <span className="credit-card-preview__caption">
+                                            <span className="tr-co-cc__caption">
                                                 CARD HOLDER
                                             </span>
-                                            <span className="credit-card-preview__value">
+                                            <span className="tr-co-cc__value">
                                                 {card.holder || 'YOUR NAME'}
                                             </span>
                                         </span>
                                         <span>
-                                            <span className="credit-card-preview__caption">
+                                            <span className="tr-co-cc__caption">
                                                 EXPIRES
                                             </span>
-                                            <span className="credit-card-preview__value">
+                                            <span className="tr-co-cc__value">
                                                 {card.expiry || 'MM/YY'}
                                             </span>
                                         </span>
@@ -356,40 +356,40 @@ const Checkout = ({ onContinue }:any) => {
                                 </div>
 
                                 <div className="checkout__form-grid">
-                                    <label className="form-field">
-                                        <span className="form-field__label">Card Number</span>
+                                    <label className="tr-co-field">
+                                        <span className="tr-co-field__label">Card Number</span>
                                         <input
-                                            className="form-field__input"
+                                            className="tr-co-field__input"
                                             type="text"
                                             value={card.number}
                                             onChange={handleCardChange('number')}
                                             placeholder="1234 5678 9012 3456"
                                         />
                                     </label>
-                                    <label className="form-field">
-                                        <span className="form-field__label">Cardholder Name</span>
+                                    <label className="tr-co-field">
+                                        <span className="tr-co-field__label">Cardholder Name</span>
                                         <input
-                                            className="form-field__input"
+                                            className="tr-co-field__input"
                                             type="text"
                                             value={card.holder}
                                             onChange={handleCardChange('holder')}
                                             placeholder="As printed on card"
                                         />
                                     </label>
-                                    <label className="form-field">
-                                        <span className="form-field__label">Expiry</span>
+                                    <label className="tr-co-field">
+                                        <span className="tr-co-field__label">Expiry</span>
                                         <input
-                                            className="form-field__input"
+                                            className="tr-co-field__input"
                                             type="text"
                                             value={card.expiry}
                                             onChange={handleCardChange('expiry')}
                                             placeholder="MM/YY"
                                         />
                                     </label>
-                                    <label className="form-field">
-                                        <span className="form-field__label">CVV</span>
+                                    <label className="tr-co-field">
+                                        <span className="tr-co-field__label">CVV</span>
                                         <input
-                                            className="form-field__input"
+                                            className="tr-co-field__input"
                                             type="password"
                                             value={card.cvv}
                                             onChange={handleCardChange('cvv')}
@@ -404,12 +404,13 @@ const Checkout = ({ onContinue }:any) => {
                             {TRUST_BADGES.map((badge) => {
                                 const Icon = badge.icon;
                                 return (
-                                    <span className="trust-badge" key={badge.id}>
+                                    <span className="tr-co-trust" key={badge.id}>
                                         <Icon />
                                         {badge.label}
                                     </span>
                                 );
                             })}
+                        </div>
                         </div>
                     </section>
 
@@ -421,7 +422,7 @@ const Checkout = ({ onContinue }:any) => {
                             onChange={(event) => setAgreed(event.target.checked)}
                         />
                         <span className="checkout__terms-check">
-                            {agreed && <FiCheck />}
+                            <FiCheck />
                         </span>
                         <span className="checkout__terms-text">
                             I agree to the <a href="#terms">Terms &amp; Conditions</a> and{' '}

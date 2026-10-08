@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
-import {
-    FiChevronUp,
-    FiChevronDown,
-    FiCheck,
-    FiCalendar,
-    FiUserPlus,
-    FiGlobe,
-    FiArrowRight,
-} from 'react-icons/fi';
+import { FiChevronUp, FiChevronDown, FiCheck, FiArrowRight } from 'react-icons/fi';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { LuBrain, LuUserPlus } from 'react-icons/lu';
 import './TravellerDetails.scss';
 
 const INITIAL_TRAVELLERS = [
@@ -57,7 +51,9 @@ const TravellerDetails = ({ onContinue }:any) => {
 
     const toggleExpanded = (id:any) => {
         setTravellers((prev) =>
-            prev.map((t) => (t.id === id ? { ...t, expanded: !t.expanded } : t))
+            prev.map((t) =>
+                t.id === id ? { ...t, expanded: !t.expanded } : { ...t, expanded: false }
+            )
         );
     };
 
@@ -104,74 +100,74 @@ const TravellerDetails = ({ onContinue }:any) => {
     };
 
     return (
-        <div className="traveller-details">
-            <div className="traveller-details__heading">
-                <h2 className="traveller-details__title">
+        <div className="tr-trav">
+            <div className="tr-trav__heading">
+                <h2 className="tr-trav__title">
                     Traveller{' '}
-                    <span className="traveller-details__title--accent">details</span>
+                    <span className="tr-trav__title--accent">details</span>
                 </h2>
-                <p className="traveller-details__subtitle">
+                <p className="tr-trav__subtitle">
                     Add details for each traveller. Primary traveller is pre-filled
                     from your profile.
                 </p>
             </div>
 
-            <div className="traveller-details__grid">
+            <div className="tr-trav__grid">
                 {/* Left column */}
-                <div className="traveller-details__main">
+                <div className="tr-trav__main">
                     {travellers.map((traveller) => (
-                        <div className="traveller-details__card" key={traveller.id}>
+                        <div className={`tr-trav__card${traveller.expanded ? ' tr-trav__card--open' : ''}`} key={traveller.id}>
                             <button
                                 type="button"
-                                className="traveller-details__card-header"
+                                className="tr-trav__card-header"
                                 onClick={() => toggleExpanded(traveller.id)}
                             >
                                 <span
                                     className={[
-                                        'traveller-details__avatar',
-                                        `traveller-details__avatar--${traveller.tone}`,
+                                        'tr-trav__avatar',
+                                        `tr-trav__avatar--${traveller.tone}`,
                                     ].join(' ')}
                                 >
                                     {traveller.initials}
                                 </span>
 
-                                <div className="traveller-details__card-info">
-                                    <div className="traveller-details__card-name-row">
-                                        <span className="traveller-details__card-name">
+                                <div className="tr-trav__card-info">
+                                    <div className="tr-trav__card-name-row">
+                                        <span className="tr-trav__card-name">
                                             {traveller.name}
                                         </span>
                                         {traveller.isPrimary && (
-                                            <span className="traveller-details__badge traveller-details__badge--primary">
+                                            <span className="tr-trav__badge tr-trav__badge--primary">
                                                 Primary
                                             </span>
                                         )}
                                         {traveller.isVerified && (
-                                            <span className="traveller-details__badge traveller-details__badge--verified">
+                                            <span className="tr-trav__badge tr-trav__badge--verified">
                                                 <FiCheck />
                                                 Verified
                                             </span>
                                         )}
                                     </div>
-                                    <span className="traveller-details__card-meta">
+                                    <span className="tr-trav__card-meta">
                                         {traveller.meta}
                                     </span>
                                 </div>
 
-                                <span className="traveller-details__chevron">
+                                <span className="tr-trav__chevron">
                                     {traveller.expanded ? <FiChevronUp /> : <FiChevronDown />}
                                 </span>
                             </button>
 
                             {traveller.expanded && (
-                                <div className="traveller-details__card-body">
-                                    <div className="traveller-details__form-grid">
-                                        <label className="traveller-details__field">
-                                            <span className="traveller-details__field-label">
+                                <div className="tr-trav__card-body">
+                                    <div className="tr-trav__form-grid">
+                                        <label className="tr-trav__field">
+                                            <span className="tr-trav__field-label">
                                                 Full Name
                                             </span>
                                             <input
                                                 type="text"
-                                                className="traveller-details__input"
+                                                className="tr-trav__input"
                                                 value={traveller.fullName}
                                                 onChange={(e) =>
                                                     updateField(
@@ -183,15 +179,15 @@ const TravellerDetails = ({ onContinue }:any) => {
                                             />
                                         </label>
 
-                                        <label className="traveller-details__field">
-                                            <span className="traveller-details__field-label">
+                                        <label className="tr-trav__field">
+                                            <span className="tr-trav__field-label">
                                                 Date of Birth
                                             </span>
-                                            <div className="traveller-details__input-wrap">
-                                                <FiCalendar className="traveller-details__input-icon" />
+                                            <div className="tr-trav__input-wrap">
+                                                <FaCalendarAlt className="tr-trav__input-icon" />
                                                 <input
                                                     type="date"
-                                                    className="traveller-details__input traveller-details__input--with-icon"
+                                                    className={`tr-trav__input tr-trav__input--with-icon${traveller.dob ? '' : ' tr-trav__input--empty'}`}
                                                     value={traveller.dob}
                                                     onChange={(e) =>
                                                         updateField(traveller.id, 'dob', e.target.value)
@@ -200,13 +196,13 @@ const TravellerDetails = ({ onContinue }:any) => {
                                             </div>
                                         </label>
 
-                                        <label className="traveller-details__field">
-                                            <span className="traveller-details__field-label">
+                                        <label className="tr-trav__field">
+                                            <span className="tr-trav__field-label">
                                                 Passport Number
                                             </span>
                                             <input
                                                 type="text"
-                                                className="traveller-details__input"
+                                                className="tr-trav__input"
                                                 value={traveller.passport}
                                                 onChange={(e) =>
                                                     updateField(
@@ -218,13 +214,13 @@ const TravellerDetails = ({ onContinue }:any) => {
                                             />
                                         </label>
 
-                                        <label className="traveller-details__field">
-                                            <span className="traveller-details__field-label">
+                                        <label className="tr-trav__field">
+                                            <span className="tr-trav__field-label">
                                                 Nationality
                                             </span>
                                             <input
                                                 type="text"
-                                                className="traveller-details__input"
+                                                className="tr-trav__input"
                                                 value={traveller.nationality}
                                                 onChange={(e) =>
                                                     updateField(
@@ -237,21 +233,21 @@ const TravellerDetails = ({ onContinue }:any) => {
                                         </label>
                                     </div>
 
-                                    <div className="traveller-details__divider" />
+                                    <div className="tr-trav__divider" />
 
-                                    <div className="traveller-details__toggles">
+                                    <div className="tr-trav__toggles">
                                         <button
                                             type="button"
-                                            className="traveller-details__toggle"
+                                            className="tr-trav__toggle"
                                             onClick={() =>
                                                 toggleFlag(traveller.id, 'frequentTraveller')
                                             }
                                         >
                                             <span
                                                 className={[
-                                                    'traveller-details__toggle-check',
+                                                    'tr-trav__toggle-check',
                                                     traveller.frequentTraveller
-                                                        ? 'traveller-details__toggle-check--on'
+                                                        ? 'tr-trav__toggle-check--on'
                                                         : '',
                                                 ].join(' ').trim()}
                                             >
@@ -262,16 +258,16 @@ const TravellerDetails = ({ onContinue }:any) => {
 
                                         <button
                                             type="button"
-                                            className="traveller-details__toggle"
+                                            className="tr-trav__toggle"
                                             onClick={() =>
                                                 toggleFlag(traveller.id, 'preExistingCondition')
                                             }
                                         >
                                             <span
                                                 className={[
-                                                    'traveller-details__toggle-check',
+                                                    'tr-trav__toggle-check',
                                                     traveller.preExistingCondition
-                                                        ? 'traveller-details__toggle-check--on'
+                                                        ? 'tr-trav__toggle-check--on'
                                                         : '',
                                                 ].join(' ').trim()}
                                             >
@@ -287,31 +283,31 @@ const TravellerDetails = ({ onContinue }:any) => {
 
                     <button
                         type="button"
-                        className="traveller-details__add-btn"
+                        className="tr-trav__add-btn"
                         onClick={addTraveller}
                     >
-                        <FiUserPlus />
+                        <LuUserPlus />
                         Add Another Traveller
                     </button>
                 </div>
 
                 {/* Sidebar */}
-                <aside className="traveller-details__sidebar">
-                    <div className="traveller-details__summary-card">
-                        <span className="traveller-details__summary-title">
+                <aside className="tr-trav__sidebar">
+                    <div className="tr-trav__summary-card">
+                        <span className="tr-trav__summary-title">
                             Trip Overview
                         </span>
 
-                        <div className="traveller-details__summary-list">
+                        <div className="tr-trav__summary-list">
                             {TRIP_OVERVIEW.map((row) => (
                                 <div
-                                    className="traveller-details__summary-row"
+                                    className="tr-trav__summary-row"
                                     key={row.label}
                                 >
-                                    <span className="traveller-details__summary-label">
+                                    <span className="tr-trav__summary-label">
                                         {row.label}
                                     </span>
-                                    <span className="traveller-details__summary-value">
+                                    <span className={`tr-trav__summary-value${row.label === 'Travellers' ? ' tr-trav__summary-value--small' : ''}`}>
                                         {row.value}
                                     </span>
                                 </div>
@@ -320,7 +316,7 @@ const TravellerDetails = ({ onContinue }:any) => {
 
                         <button
                             type="button"
-                            className="traveller-details__cta"
+                            className="tr-trav__cta"
                             onClick={onContinue}
                         >
                             Continue to Travellers
@@ -328,11 +324,11 @@ const TravellerDetails = ({ onContinue }:any) => {
                         </button>
                     </div>
 
-                    <div className="traveller-details__ai-tip">
-                        <span className="traveller-details__ai-tip-icon">
-                            <FiGlobe />
+                    <div className="tr-trav__ai-tip">
+                        <span className="tr-trav__ai-tip-icon">
+                            <LuBrain />
                         </span>
-                        <p className="traveller-details__ai-tip-text">
+                        <p className="tr-trav__ai-tip-text">
                             <strong>AI Tip:</strong> Japan trips in summer have higher
                             medical costs. We recommend Premium or above.
                         </p>

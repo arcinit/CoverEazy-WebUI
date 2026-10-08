@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { PiBrain } from 'react-icons/pi';
 import { FiGlobe, FiCalendar, FiMinus, FiPlus, FiArrowRight } from 'react-icons/fi';
 import {
     PiAirplaneTiltBold,
-    PiBriefcaseBold,
+    PiBuildingsBold,
     PiLaptopBold,
-    PiUsersThreeBold,
+    PiUsersBold,
 } from 'react-icons/pi';
 import './TripDetails.scss';
 
@@ -23,7 +24,7 @@ const TRIP_TYPES = [
     },
     {
         id: 'business',
-        icon: <PiBriefcaseBold />,
+        icon: <PiBuildingsBold />,
         title: 'Business',
         desc: 'Corporate travel protection',
     },
@@ -35,7 +36,7 @@ const TRIP_TYPES = [
     },
     {
         id: 'family',
-        icon: <PiUsersThreeBold />,
+        icon: <PiUsersBold />,
         title: 'Family',
         desc: 'Group family coverage',
     },
@@ -133,7 +134,7 @@ const TripDetails = ({ onContinue }:any) => {
                                     <FiCalendar className="trip-details__input-icon" />
                                     <input
                                         type="date"
-                                        className="trip-details__input"
+                                        className={`trip-details__input${departureDate ? ' has-value' : ''}`}
                                         value={departureDate}
                                         onChange={(e) => setDepartureDate(e.target.value)}
                                     />
@@ -148,7 +149,7 @@ const TripDetails = ({ onContinue }:any) => {
                                     <FiCalendar className="trip-details__input-icon" />
                                     <input
                                         type="date"
-                                        className="trip-details__input"
+                                        className={`trip-details__input${returnDate ? ' has-value' : ''}`}
                                         value={returnDate}
                                         onChange={(e) => setReturnDate(e.target.value)}
                                     />
@@ -332,7 +333,7 @@ const TripDetails = ({ onContinue }:any) => {
 
                     <div className="trip-details__ai-tip">
                         <span className="trip-details__ai-tip-icon">
-                            <FiGlobe />
+                            <PiBrain />
                         </span>
                         <p className="trip-details__ai-tip-text">
                             <strong>AI Tip:</strong> Japan trips in summer have higher

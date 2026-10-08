@@ -3,12 +3,12 @@ import {
     FiArrowLeft,
     FiArrowRight,
     FiCheck,
-    FiMail,
     FiPackage,
     FiZap,
 } from "react-icons/fi";
 import {
-    MdOutlineLocalShipping,
+    MdEmail,
+    MdLocalShipping,
     MdOutlineApartment,
     MdDirectionsCarFilled,
     MdOutlineWaterDrop,
@@ -128,11 +128,11 @@ const PAYMENT_PLANS = [
 function RoadTaxCard() {
     return (
         <section className="road-tax-card">
-            <div className="road-tax-card__icon" aria-hidden="true">
-                <img src={raodTaxImage} alt="" />
-            </div>
-            <div className="road-tax-card__body">
+            <div className="road-tax-card__main">
                 <div className="road-tax-card__heading">
+                    <span className="road-tax-card__icon" aria-hidden="true">
+                        <img src={raodTaxImage} alt="" />
+                    </span>
                     <h2 className="road-tax-card__title">Road Tax Renewal</h2>
                     <span className="road-tax-card__badge">Eligible</span>
                 </div>
@@ -195,11 +195,11 @@ function DeliveryFormat({ value, onChange }: any) {
                     onClick={() => onChange("digital")}
                 >
                     <span className="format-card__icon format-card__icon--digital">
-                        <FiMail />
+                        <MdEmail />
                     </span>
                     <span className="format-card__text">
                         <span className="format-card__title">Digital Copy</span>
-                        <span className="format-card__subtitle">Instant Email Delivey</span>
+                        <span className="format-card__subtitle">Instant Email Delivery</span>
                     </span>
                     <span className="format-card__price">Free</span>
                 </button>
@@ -209,7 +209,7 @@ function DeliveryFormat({ value, onChange }: any) {
                     onClick={() => onChange("digital-physical")}
                 >
                     <span className="format-card__icon format-card__icon--physical">
-                        <MdOutlineLocalShipping />
+                        <MdLocalShipping />
                     </span>
                     <span className="format-card__text">
                         <span className="format-card__title">Digital+Physical</span>
@@ -228,7 +228,7 @@ function DeliveryFormat({ value, onChange }: any) {
 
 function DeliveryMethod({ value, onChange }: any) {
     return (
-        <section className="option-section">
+        <section className="option-section option-section--method">
             <h3 className="option-section__title">Delivery Method</h3>
             <p className="option-section__subtitle">Select how you&apos;d like to receive your road tax sticker.</p>
             <div className="delivery-grid">
@@ -246,7 +246,7 @@ function DeliveryMethod({ value, onChange }: any) {
                                 <span className="delivery-card__icon">
                                     <Icon />
                                 </span>
-                                <div className="delivery-card__price-bloack">
+                                <div className="delivery-card__price-block">
                                     <span className="delivery-card__price">
                                         {method.price}
                                     </span>
@@ -309,12 +309,12 @@ function AddOnsSection({ addOns, onToggle }: any) {
                                     type="button"
                                     role="switch"
                                     aria-checked={addon.checked}
-                                    className={`toggle-switch${addon.checked ? " toggle-switch--on" : ""}`}
+                                    className={`addon-toggle${addon.checked ? " addon-toggle--on" : ""}`}
                                     onClick={() => onToggle(addon.id)}
                                 >
-                                    <span className="toggle-switch__thumb" />
+                                    <span className="addon-toggle__thumb" />
                                 </button>
-                                <span className="addon-row__price">+RM {addon.price} /yr</span>
+                                <span className="addon-row__price">+RM {addon.price} <span>/yr</span></span>
                             </span>
                         </li>
                     );
@@ -326,95 +326,94 @@ function AddOnsSection({ addOns, onToggle }: any) {
 
 function OrderSummary({ selectedPlan, onSelectPlan, onContinue }: any) {
     return (
-        <aside className="order-summary">
-            <h2 className="order-summary__title">Order Summary</h2>
+        <aside className="addon-summary">
+            <h2 className="addon-summary__title">Order Summary</h2>
 
-            <div className="order-summary__plan">
-                <span className="order-summary__plan-icon">
+            <div className="addon-summary__plan">
+                <span className="addon-summary__plan-icon">
                     <img src={zurikPlanImage} alt="plain image" />
                 </span>
-                <span className="order-summary__plan-text">
-                    <span className="order-summary__plan-name">Zurich Takaful</span>
-                    <span className="order-summary__plan-type">Comprehensive Plan</span>
+                <span className="addon-summary__plan-text">
+                    <span className="addon-summary__plan-name">Zurich Takaful</span>
+                    <span className="addon-summary__plan-type">Comprehensive Plan</span>
                 </span>
             </div>
 
-            <dl className="order-summary__rows">
-                <div className="order-summary__row">
+            <dl className="addon-summary__rows addon-summary__rows--cover">
+                <div className="addon-summary__row">
                     <dt>Sum Insured/Sum Covered</dt>
                     <dd>RM 10,000</dd>
                 </div>
-                <div className="order-summary__row">
+                <div className="addon-summary__row">
                     <dt>Period of Cover</dt>
                     <dd>2026/06/01 - 2027/05/31</dd>
                 </div>
             </dl>
 
-            <dl className="order-summary__rows order-summary__rows--divided">
-                <div className="order-summary__row">
+            <dl className="addon-summary__rows addon-summary__rows--plain">
+                <div className="addon-summary__row">
                     <dt>Base Premium</dt>
                     <dd>RM 1180.00</dd>
                 </div>
-                <div className="order-summary__row">
+                <div className="addon-summary__row">
                     <dt>No-claim Discount (0%)</dt>
                     <dd>RM 0.00</dd>
                 </div>
-                <div className="order-summary__row">
+                <div className="addon-summary__row">
                     <dt>Net Premium/Contribution</dt>
                     <dd>RM 714.88</dd>
                 </div>
             </dl>
 
-            <div className="order-summary__addons">
-                <p className="order-summary__addons-label">Add-ons (2)</p>
-                <div className="order-summary__row">
-                    <dt>Windscreen</dt>
-                    <dd>RM 65.00</dd>
-                </div>
-                <div className="order-summary__row">
-                    <dt>Flood &amp; Natural Disaster</dt>
-                    <dd>RM 110.00</dd>
-                </div>
+            <div className="addon-summary__addons">
+                <p className="addon-summary__addons-label">Add-ons (2)</p>
+                <dl className="addon-summary__rows">
+                    <div className="addon-summary__row">
+                        <dt>Windscreen</dt>
+                        <dd>RM 65.00</dd>
+                    </div>
+                    <div className="addon-summary__row">
+                        <dt>Flood &amp; Natural Disaster</dt>
+                        <dd>RM 110.00</dd>
+                    </div>
+                </dl>
             </div>
 
-            <div className="order-summary__gross-premium-container">
-                <dl className="order-summary__rows order-summary__rows--divided">
-                    <div className="order-summary__row">
+            <div className="addon-summary__gross">
+                <dl className="addon-summary__gross-rows">
+                    <div className="addon-summary__row">
                         <dt>Gross Premium/Contribution</dt>
-                        <dd>RM 1180</dd>
+                        <dd>RM 1180.00</dd>
                     </div>
-                    <div className="order-summary__row">
+                    <div className="addon-summary__row">
                         <dt>SST (8%)</dt>
                         <dd>RM 0.00</dd>
                     </div>
-                    <div className="order-summary__row">
+                    <div className="addon-summary__row">
                         <dt>Stamp Duty</dt>
                         <dd>RM 714.88</dd>
                     </div>
                 </dl>
-
-                <dl className="order-summary__rows order-summary__rows--divided ">
-                    <div className="order-summary__row order-summary__row--strong">
+                <dl className="addon-summary__rows">
+                    <div className="addon-summary__row addon-summary__row--strong">
                         <dt>Total Premium/Contribution</dt>
                         <dd>RM 130.00</dd>
                     </div>
-                    <div className="order-summary__excess  bg-white">
-                        <div className="order-summary__row">
-                            <dt>Excess Amount</dt>
-                            <dd>RM 0.00</dd>
-                        </div>
-                        <div className="order-summary__row">
-                            <dt>Commission (10% from Gross Premium/Contribution) *</dt>
-                            <dd>RM71.49</dd>
-                        </div>
+                </dl>
+                <dl className="addon-summary__excess">
+                    <div className="addon-summary__row">
+                        <dt>Excess Amount</dt>
+                        <dd>RM 0.00</dd>
+                    </div>
+                    <div className="addon-summary__row">
+                        <dt>Commission (10% from Gross Premium/Contribution) *</dt>
+                        <dd>RM71.49</dd>
                     </div>
                 </dl>
-
             </div>
 
-
-            <div className="order-summary__payments">
-                <h3 className="order-summary__payments-title">Flexible Payments</h3>
+            <div className="addon-summary__payments">
+                <h3 className="addon-summary__payments-title">Flexible Payments</h3>
                 <div className="payment-options" role="radiogroup" aria-label="Payment plan">
                     {PAYMENT_PLANS.map((plan) => (
                         <button
@@ -432,16 +431,16 @@ function OrderSummary({ selectedPlan, onSelectPlan, onContinue }: any) {
                 </div>
             </div>
 
-            <div className="order-summary__total">
-                <span className="order-summary__total-label">Total Amount</span>
-                <span className="order-summary__total-value">
-                    <span className="order-summary__total-currency">RM</span>
-                    <span className="order-summary__total-amount">1,369</span>
-                    <span className="order-summary__total-monthly">or RM 107/mo</span>
+            <div className="addon-summary__total">
+                <span className="addon-summary__total-label">Total Amount</span>
+                <span className="addon-summary__total-value">
+                    <span className="addon-summary__total-currency">RM</span>
+                    <span className="addon-summary__total-amount">1,369</span>
+                    <span className="addon-summary__total-monthly">or RM 107/mo</span>
                 </span>
             </div>
 
-            <button type="button" className="order-summary__cta" onClick={onContinue}>
+            <button type="button" className="addon-summary__cta" onClick={onContinue}>
                 Next <FiArrowRight />
             </button>
         </aside>
