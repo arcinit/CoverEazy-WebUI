@@ -1,0 +1,464 @@
+$primary: #062155;
+$text: #586474;
+$text-highlight: #313131;
+$muted: #667085;
+$stroke: #e3e8ee;
+$field-bg: #f8fafc;
+$field-border: #e9eef5;
+$secondary: #01b637;
+$link-blue: #0f5bff;
+
+.acard {
+    width: 503px;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid $stroke;
+    border-radius: 24px;
+    filter: drop-shadow(0 12px 9px rgba(124, 173, 255, 0.35));
+    font-family: "Inter", sans-serif;
+    color: $text-highlight;
+
+    // src/styles/style.scss sets a global `* { font-family }`, so Inter must be forced on descendants
+    & * { font-family: "Inter", sans-serif; }
+
+    @media (max-width: 480px) { padding: 20px 16px; border-radius: 20px; }
+
+    &__section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        text-align: center;
+        color: $text-highlight;
+
+        &--left { text-align: left; }
+        &--ready { margin-top: 26px; }
+    }
+
+    &__shield {
+        align-self: center;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: $primary;
+        color: #fff;
+    }
+
+    // ---------- OTP ----------
+    &__otp {
+        .acard__shield { margin-top: 40px; }
+    }
+
+    &__sent {
+        margin: 16px 0 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 14px;
+        color: $text;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        b { color: $text-highlight; font-weight: 700; }
+    }
+
+    &__boxes {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    &__box {
+        width: 48px;
+        height: 56px;
+        box-sizing: border-box;
+        padding: 0;
+        border: 1.333px solid $field-border;
+        border-radius: 16px;
+        background: $field-bg;
+        outline: 0;
+        text-align: center;
+        color: $secondary;
+        font: 700 20px/24px "Inter", sans-serif;
+        caret-color: $secondary;
+        transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+        &.is-filled,
+        &:focus {
+            background: #e6faf5;
+            border-color: $secondary;
+            box-shadow: 0 0 0 3px rgba(1, 182, 55, 0.12);
+        }
+
+        @media (max-width: 400px) { width: 40px; height: 48px; border-radius: 12px; }
+    }
+
+    &__resend {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 14px;
+        color: $muted;
+
+        em { font-style: normal; color: $link-blue; }
+
+        i {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #cbd2dc;
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #1f6dd8;
+            font: 700 12px/14px "Inter", sans-serif;
+            cursor: pointer;
+        }
+    }
+
+    &__primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        border: 0;
+        border-radius: 36px;
+        background: $secondary;
+        color: #fff;
+        cursor: pointer;
+        font-family: "Inter", sans-serif;
+        transition: opacity 0.15s, background 0.15s;
+
+        &--verify {
+            height: 51px;
+            margin-top: 26px;
+            font-size: 16px;
+            font-weight: 700;
+
+            &.is-empty { opacity: 0.5; }
+        }
+
+        &--ready {
+            height: 52px;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        &--register {
+            height: 56px;
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 700;
+
+            &.is-disabled { background: #9ba6bb; }
+        }
+    }
+
+    // ---------- shared footer ----------
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    &__badges {
+        display: flex;
+        gap: 12px;
+
+        @media (max-width: 480px) {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    &__badge {
+        flex: 1;
+        min-width: 0;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border: 0.667px solid $field-border;
+        border-radius: 12px;
+
+        img { width: 20px; height: 20px; flex: none; }
+    }
+
+    &__badge-text {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        line-height: 14px;
+        color: $text;
+
+        b, span { display: block; overflow-wrap: anywhere; }
+        b { font-weight: 700; }
+        span { font-weight: 400; }
+    }
+
+    &__signup {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 12px;
+        line-height: 14px;
+
+        span { color: $primary; }
+        b { color: $secondary; cursor: pointer; }
+    }
+
+    // ---------- Account ready ----------
+    &--ready {
+        align-items: stretch;
+    }
+
+    &__ready-label {
+        align-self: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 36px;
+        color: #ff6b00;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+
+    &__ready-sub {
+        margin: 12px auto 0;
+        max-width: 370px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.14px;
+        color: $text;
+    }
+
+    &__features {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px 12px;
+        margin-top: 38px;
+
+        @media (max-width: 400px) { grid-template-columns: 1fr; }
+    }
+
+    &__feature {
+        height: 70px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        border: 1px solid $field-border;
+        border-radius: 16px;
+        background: #fff;
+    }
+
+    &__feature-icon {
+        flex: none;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    &__feature-text {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 17px;
+        color: $text-highlight;
+    }
+
+    &__terms {
+        margin: 34px 0 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 14px;
+        color: $muted;
+
+        b { font-weight: 600; color: $link-blue; }
+    }
+
+    // ---------- Register ----------
+    &__reg-sub {
+        margin: 8px 0 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text;
+    }
+
+    &__fields {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 14px;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        > .acard__input { flex: none; }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 14px;
+            color: $text-highlight;
+        }
+    }
+
+    &__input {
+        flex: 1;
+        min-width: 0;
+        height: 47px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px;
+        border: 1.333px solid $field-border;
+        border-radius: 16px;
+        background: $field-bg;
+        color: $muted;
+
+        > svg { flex: none; }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: $text-highlight;
+            font: 400 12px/18px "Inter", sans-serif;
+
+            &::placeholder { color: $text; }
+        }
+
+        button {
+            display: flex;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: $muted;
+            cursor: pointer;
+        }
+
+        &:focus-within { border-color: $primary; }
+    }
+
+    &__phone {
+        display: flex;
+        gap: 8px;
+
+        .acard__input,
+        .acard__country { height: 51px; }
+    }
+
+    &__country {
+        flex: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        box-sizing: border-box;
+        border: 1.333px solid $field-border;
+        border-radius: 16px;
+        background: $field-bg;
+        color: $text-highlight;
+        font: 600 14px/17px "Inter", sans-serif;
+        cursor: pointer;
+
+        svg:last-child { color: $muted; }
+    }
+
+    &__agree {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 18px;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 18px;
+        color: $text-highlight;
+
+        input {
+            appearance: none;
+            -webkit-appearance: none;
+            flex: none;
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            box-sizing: border-box;
+            border: 1.6px solid $field-border;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+
+            &:checked {
+                border-color: $secondary;
+                background: $secondary;
+                box-shadow: inset 0 0 0 4px #fff;
+            }
+        }
+
+        span { max-width: 372px; }
+        b { font-weight: 500; color: #2563eb; }
+    }
+
+    &__error {
+        margin: 10px 0 0;
+        font-size: 12px;
+        line-height: 14px;
+        color: #e5484d;
+    }
+
+    &__signin {
+        margin: 20px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 17px;
+        color: $text;
+
+        b { color: $secondary; cursor: pointer; }
+    }
+}

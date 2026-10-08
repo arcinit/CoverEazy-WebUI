@@ -1,22 +1,6 @@
 .why-choose {
-  padding: 50px 100px 0;
+  padding: 25px 100px 0;
   background: #fff;
-
-  @media (max-width: 1400px) {
-    padding: 50px 60px 0;
-  }
-
-  @media (max-width: 1200px) {
-    padding: 40px 40px 0;
-  }
-
-  @media (max-width: 768px) {
-    padding: 30px 24px 0;
-  }
-
-  @media (max-width: 480px) {
-    padding: 24px 16px 0;
-  }
 
   &__container {
     max-width: 1240px;
@@ -33,19 +17,10 @@
   &__heading {
     margin: 0;
     text-align: center;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.5;
     color: #062155;
-
-    @media (max-width: 768px) {
-      font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-      font-size: 18px;
-      line-height: 1.4;
-    }
 
     .why-choose__highlight {
       color: #148534;

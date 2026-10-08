@@ -1,18 +1,10 @@
 .payment-features {
   width: 100%;
   // max-width: 1440px;
-  padding: 50px clamp(16px, 6.94vw, 100px);
+  padding: 25px clamp(16px, 6.94vw, 100px);
   margin: 0 auto;
   color: #313131;
   font-family: Inter, sans-serif;
-
-  @media (max-width: 768px) {
-    padding: 40px clamp(16px, 5vw, 40px);
-  }
-
-  @media (max-width: 480px) {
-    padding: 30px 16px;
-  }
 
   img {
     display: block;

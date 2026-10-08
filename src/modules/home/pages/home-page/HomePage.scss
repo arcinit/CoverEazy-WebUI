@@ -2,6 +2,11 @@
 .hp{
     width: 100%;
 
+    // src/styles/style.scss sets a global `* { font-family: Plus Jakarta Sans }`, which overrides the Inter
+    // set on each landing section root. The Figma landing page is Inter, so restore it for descendants.
+    // Components that set their own font-family (loaded after this file) still win.
+    & * { font-family: "Inter", sans-serif; }
+
     &__container{
         width: 100%;
         margin: 0 auto;

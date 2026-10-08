@@ -18,6 +18,7 @@ import RatingSection from '../../components/rating-section/RatingSection'
 import FaqSection from '../../components/faq-section/FaqSection'
 import Footer from '../../../../shared/layouts/footer/Footer'
 import AuthHero from '../../../auth/components/auth-hero/AuthHero'
+import AuthStats from '../../../auth/components/auth-hero/AuthStats'
 
 const HomePage = () => {
   const location = useLocation()
@@ -33,6 +34,7 @@ const HomePage = () => {
     <main className="hp__container">
         {showLogin ? <AuthHero /> : <HomeHero />}
         <TrustedInsurers/>
+        {showLogin && <AuthStats />}
         <ProtectionServices/>
         <ProductsPlans/>
         <PaymentFeatures/>
