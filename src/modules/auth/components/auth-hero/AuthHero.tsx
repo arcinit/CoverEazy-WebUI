@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import './AuthHero.scss'
-import '../auth-flow/AuthFlow.scss'
 import LoginCard from '../login-card/LoginCard'
-import RegisterForm from '../registration-form/RegistrationForm'
-import VerifyOtp from '../verify-otp/VerifyOtp'
-import AccountReady from '../account-ready/AccountReady'
+import RegisterCard from '../auth-cards/RegisterCard'
+import OtpCard from '../auth-cards/OtpCard'
+import AccountReadyCard from '../auth-cards/AccountReadyCard'
 import { tokenService } from '../../../../shared/services/token.service'
 import heroBg from './images/hero-bg.png'
 import shieldTick1 from './images/shield-tick-1.svg'
@@ -51,8 +50,8 @@ const AuthHero = () => {
     }
 
     return (
-        <>
-            <section className="auth-hero" style={{ backgroundImage: `url(${heroBg})` }}>
+        <div className="auth-hero-wrap" style={{ backgroundImage: `url(${heroBg})` }}>
+            <section className="auth-hero">
                 <div className="auth-hero__container">
                     <div className="auth-hero__content">
                         <div className="auth-hero__intro">
@@ -83,28 +82,26 @@ const AuthHero = () => {
                     </div>
                     <div className="auth-hero__card">
                         {step === 'login' && (
-                            <LoginCard onSendOtp={sendOtp} onCreateAccount={() => setStep('register')} />
+                            <LoginCard
+                                onSendOtp={sendOtp}
+                                onEmailLogin={verifyOtp}
+                                onCreateAccount={() => setStep('register')}
+                            />
                         )}
-                        {step !== 'login' && (
-                            <div className="auth-flow">
-                                {step === 'register' && (
-                                    <RegisterForm
-                                        onRegister={(p) => sendOtp(`${p.countryCode} ${p.mobile}`)}
-                                        onSignIn={() => setStep('login')}
-                                    />
-                                )}
-                                {step === 'otp' && (
-                                    <VerifyOtp
-                                        phoneNumber={otpTarget}
-                                        onVerify={verifyOtp}
-                                        onChangeNumber={() => setStep('login')}
-                                        onResend={() => undefined}
-                                    />
-                                )}
-                                {step === 'account-ready' && (
-                                    <AccountReady brandName="CoverEazy" onGetStarted={() => { window.location.href = '/' }} />
-                                )}
-                            </div>
+                        {step === 'register' && (
+                            <RegisterCard onRegister={sendOtp} onSignIn={() => setStep('login')} />
+                        )}
+                        {step === 'otp' && (
+                            <OtpCard
+                                target={otpTarget}
+                                onVerify={verifyOtp}
+                                onChangeNumber={() => setStep('login')}
+                                onResend={() => undefined}
+                                onCreateAccount={() => setStep('register')}
+                            />
+                        )}
+                        {step === 'account-ready' && (
+                            <AccountReadyCard onGetStarted={() => { window.location.href = '/' }} />
                         )}
                     </div>
                 </div>
@@ -122,7 +119,7 @@ const AuthHero = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 

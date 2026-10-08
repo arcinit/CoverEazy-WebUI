@@ -1,15 +1,7 @@
 .trusted-insu {
     width: 100%;
-    padding: 40px 0;
+    padding: 25px 0;
     background: #fff;
-
-    @media (max-width: 768px) {
-        padding: 30px 0;
-    }
-
-    @media (max-width: 480px) {
-        padding: 24px 0;
-    }
 
     &__container {
         // max-width: 1440px;

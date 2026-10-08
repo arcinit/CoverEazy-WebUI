@@ -4,20 +4,29 @@ $text-highlight: #313131;
 $stroke: #e3e8ee;
 $secondary: #01b637;
 
+// Figma keeps the artwork at 1440x720 starting at the very top of the page (under the 65px header) and it
+// runs behind the services strip, which always sits ~10px below the card. When a taller card makes the
+// hero grow, the area below the artwork stays white.
+.auth-hero-wrap {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 1440px auto;
+    background-position: left -65px;
+    background-color: #fff;
+}
+
 .auth-hero {
     width: 100%;
-    min-height: 655px;
     box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: left bottom;
-    background-color: #fff;
     font-family: "Inter", sans-serif;
+
+    // src/styles/style.scss sets a global `* { font-family }`, so Inter must be forced on descendants
+    & * { font-family: "Inter", sans-serif; }
 
     &__container {
         width: 100%;
         box-sizing: border-box;
-        padding: 45px 100px 34px;
+        padding: 43px 100px 10px;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
@@ -28,10 +37,11 @@ $secondary: #01b637;
         @media (max-width: 992px) {
             flex-direction: column;
             align-items: center;
-            padding: 32px 24px 56px;
+            padding: 40px 24px 24px;
             gap: 32px;
         }
-        @media (max-width: 480px) { padding: 24px 16px 48px; }
+        @media (max-width: 768px) { padding: 30px 20px 24px; }
+        @media (max-width: 480px) { padding: 24px 16px 24px; }
     }
 
     &__content {
@@ -51,12 +61,16 @@ $secondary: #01b637;
         gap: 16px;
     }
 
+    &__title,
+    &__title * {
+        font-family: "Lato", "Inter", sans-serif;
+    }
+
     &__title {
         margin: 0;
         display: flex;
         flex-direction: column;
         gap: 5px;
-        font-family: "Lato", "Inter", sans-serif;
         font-size: 32px;
         font-weight: 700;
         line-height: 1.2;
@@ -145,7 +159,8 @@ $secondary: #01b637;
     box-sizing: border-box;
     width: calc(100% - 200px);
     max-width: 1240px;
-    margin: -24px auto 0;
+    // Figma leaves 24-34px between the strip and the "Trusted by" frame (which has its own 25px padding)
+    margin: 0 auto 30px;
     padding: 16px;
     display: flex;
     background: #fff;
@@ -153,11 +168,12 @@ $secondary: #01b637;
     box-shadow: 0 1px 1px rgba(14, 34, 83, 0.04), 0 8px 12px rgba(14, 34, 83, 0.06);
     font-family: "Inter", sans-serif;
 
+    & * { font-family: "Inter", sans-serif; }
+
     @media (max-width: 1400px) { width: calc(100% - 120px); }
     @media (max-width: 1200px) { width: calc(100% - 80px); }
     @media (max-width: 992px) {
         width: calc(100% - 48px);
-        margin-top: -32px;
         flex-wrap: wrap;
         gap: 16px;
     }

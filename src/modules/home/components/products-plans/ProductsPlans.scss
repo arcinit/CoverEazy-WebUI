@@ -8,17 +8,9 @@ $green-dark: #148534;
 
 .products-plans {
   width: 100%;
-  padding: 50px 0;
+  padding: 25px 0;
   background: #ffffff;
   font-family: 'Inter', sans-serif;
-
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
-
-  @media (max-width: 480px) {
-    padding: 30px 0;
-  }
 
   &__container {
     // max-width: 1440px;
@@ -167,11 +159,11 @@ $green-dark: #148534;
   }
 
   &__card {
-    min-height: 144px;
+    height: 144px;
     background: #ffffff;
     border: 0.667px solid $stroke;
     border-radius: 16px;
-    padding: 24px 12px;
+    padding: 8px 12px;
     text-align: center;
     box-sizing: border-box;
     transition: transform 0.3s ease;
