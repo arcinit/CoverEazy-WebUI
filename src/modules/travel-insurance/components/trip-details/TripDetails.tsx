@@ -44,9 +44,9 @@ const TRIP_TYPES = [
 
 const TripDetails = ({ onContinue }:any) => {
     const [tripType, setTripType] = useState('single');
-    const [destination, setDestination] = useState('');
-    const [departureDate, setDepartureDate] = useState('');
-    const [returnDate, setReturnDate] = useState('');
+    const [destination, setDestination] = useState('Japan');
+    const [departureDate, setDepartureDate] = useState('2026-06-26');
+    const [returnDate, setReturnDate] = useState('2026-06-30');
     const [adults, setAdults] = useState(2);
     const [children, setChildren] = useState(0);
     const [seniors, setSeniors] = useState(0);

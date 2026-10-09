@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import "./HomePage.scss"
 import Header from '../../../../shared/layouts/header/Header'
-import HomeHero, { HomeQuoteCard } from '../../components/home-hero/HomeHero'
+import HomeHero from '../../components/home-hero/HomeHero'
 import TrustedInsurers from '../../components/trusted-insurers/TrustedInsurers'
 import ProtectionServices from '../../components/protection-services/ProtectionServices'
 import ProductsPlans from '../../components/products-plans/ProductsPlans'
@@ -17,7 +17,7 @@ import MobileApp from '../../components/mobile-app/MobileApp'
 import RatingSection from '../../components/rating-section/RatingSection'
 import FaqSection from '../../components/faq-section/FaqSection'
 import Footer from '../../../../shared/layouts/footer/Footer'
-import AuthHero, { AuthHeroLayout } from '../../../auth/components/auth-hero/AuthHero'
+import AuthHero from '../../../auth/components/auth-hero/AuthHero'
 import { tokenService } from '../../../../shared/services/token.service'
 import AuthStats from '../../../auth/components/auth-hero/AuthStats'
 
@@ -30,13 +30,14 @@ const HomePage = () => {
   }, [location.key])
 
   const loggedIn = tokenService.isAuthenticated()
-  const showAuthLayout = showLogin || loggedIn
+  // Figma: the signed-in landing page is the same "Malaysia's Smarter Way" page, only the header changes
+  const showAuthLayout = showLogin && !loggedIn
 
   return <>
   <Header onLoginClick={() => setShowLogin(true)} />
   <section className="hp">
     <main className="hp__container">
-        {loggedIn ? <AuthHeroLayout card={<HomeQuoteCard />} centerCard /> : showLogin ? <AuthHero /> : <HomeHero />}
+        {showAuthLayout ? <AuthHero /> : <HomeHero />}
         <TrustedInsurers/>
         {showAuthLayout && <AuthStats />}
         <ProtectionServices/>

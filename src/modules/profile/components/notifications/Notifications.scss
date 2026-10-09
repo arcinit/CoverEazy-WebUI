@@ -1,191 +1,86 @@
-// ---------------------------------------------------------------------
-// Tokens
-// ---------------------------------------------------------------------
-$navy: #062155;
-$text-dark: #313131;
-$green: #16C47F;
-$green-bg: #e9faed;
-$blue: #2563eb;
-$blue-bg: #eaf1ff;
-$pink: #ec4899;
-$pink-bg: #fdeef5;
-$orange: #f97316;
-$orange-bg: #fff1e6;
-$red: #ef4444;
-$red-bg: #fdecec;
-$border: #e3e8ee;
-$muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
-$card-bg: #ffffff;
+.nt-root {
+    width: 100%;
+    max-width: 924px;
+    font-family: "Inter", sans-serif;
 
-// unread row tint
-$unread-bg: #fff8ef;
-
-.notifications {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    // -------------------------------------------------------------
-    // Header
-    // -------------------------------------------------------------
     &__header {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 36px;
     }
-
     &__heading {
         margin: 0;
-        font-size: 22px;
-        font-weight: 700;
-        color: $text-dark;
-    }
-
-    &__mark-read {
-        border: none;
-        background: transparent;
-        color: $blue;
-        font-size: 13.5px;
+        font-size: 24px;
+        line-height: 30px;
         font-weight: 600;
-        cursor: pointer;
-        padding: 0;
-
-        &:hover {
-            text-decoration: underline;
-        }
+        color: #313131;
     }
-
-    // -------------------------------------------------------------
-    // List
-    // -------------------------------------------------------------
+    &__mark-read {
+        border: 0;
+        background: none;
+        padding: 0;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: #1a62dc;
+        cursor: pointer;
+    }
     &__list {
         list-style: none;
         margin: 0;
         padding: 0;
-        background: $card-bg;
-        border: 1px solid $border;
+        background: #fff;
+        border: 1px solid #eef0f4;
         border-radius: 16px;
         overflow: hidden;
     }
+}
 
-    &__row {
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 16px 20px;
-        border-top: 1px solid $border;
-        transition: background 0.15s ease;
+.nt-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 72px;
+    padding: 0 20px 0 43px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eef0f4;
 
-        &:first-child {
-            border-top: none;
-        }
-
-        &--unread {
-            background: $unread-bg;
-        }
-
-        &:hover {
-            background: $bg;
-        }
-    }
-
-    // -------------------------------------------------------------
-    // Icon
-    // -------------------------------------------------------------
-    &__icon {
-        flex: 0 0 36px;
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-
-        &--road-tax {
-            background: $orange-bg;
-            color: $orange;
-        }
-
-        &--claim {
-            background: $red-bg;
-            color: $red;
-        }
-
-        &--travel {
-            background: $blue-bg;
-            color: $blue;
-        }
-
-        &--payment {
-            background: $green-bg;
-            color: $green;
-        }
-
-        &--security {
-            background: #eef1f5;
-            color: $muted;
-        }
-    }
-
-    // -------------------------------------------------------------
-    // Body
-    // -------------------------------------------------------------
-    &__body {
-        flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-
-    &__title {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        font-size: 14px;
-        font-weight: 700;
-        color: $text-dark;
-    }
+    &:last-child { border-bottom: 0; }
+    &--unread { background: #fffcf8; }
 
     &__dot {
-        width: 7px;
-        height: 7px;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        margin-top: -1px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        background: $orange;
+        background: #f97316;
+    }
+    &__icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         flex-shrink: 0;
-    }
+        svg { width: 16px; height: 16px; }
 
-    &__message {
-        font-size: 13px;
-        color: $muted;
-        line-height: 1.4;
+        &--road-tax, &--claim { background: #fff0e4; color: #f97316; }
+        &--travel, &--payment { background: #e6f8f0; color: #10b981; }
+        &--security { background: #e8f0ff; color: #2563eb; }
     }
+    &__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+    &__title { font-size: 14px; line-height: 20px; font-weight: 500; color: #313131; }
+    &__message { font-size: 12px; line-height: 16px; color: #6b7280; }
+    &__time { font-size: 12px; color: #6b7280; flex-shrink: 0; }
+}
 
-    // -------------------------------------------------------------
-    // Time
-    // -------------------------------------------------------------
-    &__time {
-        flex: 0 0 auto;
-        font-size: 12px;
-        color: $muted-light;
-        white-space: nowrap;
-        margin-top: 2px;
-    }
-
-    // -------------------------------------------------------------
-    // Responsive
-    // -------------------------------------------------------------
-    @media (max-width: 560px) {
-        &__row {
-            flex-wrap: wrap;
-        }
-
-        &__time {
-            margin-left: 50px;
-        }
-    }
+@media (max-width: 768px) {
+    .nt-row { height: auto; padding: 12px 16px 12px 32px; }
+    .nt-row__dot { left: 12px; }
 }

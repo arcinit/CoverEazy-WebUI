@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     FiShield, FiRefreshCw, FiFileText, FiDownload, FiBarChart2,
-    FiSend, FiInfo, FiChevronRight,
+    FiSend, FiInfo, FiAlertTriangle, FiChevronRight,
 } from 'react-icons/fi';
 import './Overview.scss';
 
@@ -9,13 +9,14 @@ interface CoverageItem {
     id: string;
     label: string;
     value: number;
+    width: number;
     color: 'blue' | 'green' | 'orange';
 }
 
 const COVERAGE: CoverageItem[] = [
-    { id: 'motor', label: 'Motor Insurance', value: 92, color: 'blue' },
-    { id: 'travel', label: 'Travel Coverage', value: 78, color: 'green' },
-    { id: 'roadtax', label: 'Road Tax', value: 65, color: 'orange' },
+    { id: 'motor', label: 'Motor Insurance', value: 92, width: 61.1, color: 'blue' },
+    { id: 'travel', label: 'Travel Coverage', value: 78, width: 51.8, color: 'green' },
+    { id: 'roadtax', label: 'Road Tax', value: 65, width: 43.2, color: 'orange' },
 ];
 
 interface RenewalItem {
@@ -100,18 +101,18 @@ const Overview: React.FC = () => {
             {/* Coverage Distribution */}
             <section className="overview__card">
                 <h3 className="overview__card-title">Coverage Distribution</h3>
-                <div className="coverage">
-                    {COVERAGE.map(({ id, label, value, color }) => (
-                        <div className="coverage__row" key={id}>
-                            <span className="coverage__label">{label}</span>
-                            <div className="coverage__bar-wrap">
-                                <div className="coverage__bar-track">
-                                    <div
-                                        className={`coverage__bar-fill coverage__bar-fill--${color}`}
-                                        style={{ width: `${value}%` }}
-                                    />
-                                </div>
-                                <span className="coverage__value">{value}%</span>
+                <div className="ov-coverage">
+                    {COVERAGE.map(({ id, label, value, width, color }) => (
+                        <div className="ov-coverage__row" key={id}>
+                            <div className="ov-coverage__head">
+                                <span className="ov-coverage__label">{label}</span>
+                                <span className="ov-coverage__value">{value}%</span>
+                            </div>
+                            <div className="ov-coverage__bar-track">
+                                <div
+                                    className={`ov-coverage__bar-fill ov-coverage__bar-fill--${color}`}
+                                    style={{ width: `${width}%` }}
+                                />
                             </div>
                         </div>
                     ))}
@@ -122,7 +123,7 @@ const Overview: React.FC = () => {
             <section className="overview__card">
                 <div className="overview__card-header">
                     <h3 className="overview__card-title">Upcoming Renewals</h3>
-                    <span className="overview__card-tag">Action Required</span>
+                    <span className="overview__card-tag"><FiAlertTriangle /> Action Required</span>
                 </div>
                 <div className="renewals">
                     {RENEWALS.map(({ id, icon: Icon, tone, title, subtitle, days, urgent }) => (
@@ -202,7 +203,7 @@ const Overview: React.FC = () => {
                     <span className="ai-insight__confidence">94% confidence</span>
                 </div>
                 <p className="ai-insight__text">
-                    Your insurance score is 82/100 — excellent! Adding a policy would
+                    Your insurance score is 82/100 — excellent! Adding a  policy would
                     increase it to 96/100 and fill your biggest coverage gap. We found 3
                     suitable plans starting from RM 88/month.
                 </p>

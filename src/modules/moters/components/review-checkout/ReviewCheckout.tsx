@@ -44,7 +44,7 @@ const addOnLines = [
 ]
 
 const secondaryLines = [
-    { label: 'Gross Premium/Contribution', value: 'RM 1180' },
+    { label: 'Gross Premium/Contribution', value: 'RM 1180.00' },
     { label: 'SST (8%)', value: 'RM 0.00' },
     { label: 'Stamp Duty', value: 'RM 714.88' },
 ]
@@ -189,6 +189,7 @@ const ReviewCheckout = ({ onContinue }:any) => {
                                     <input
                                         type="text"
                                         className="form-field__input"
+                                        defaultValue="4111 1111 1111 1111"
                                         placeholder="1234 5678 9012 3456"
                                     />
                                 </div>
@@ -201,6 +202,7 @@ const ReviewCheckout = ({ onContinue }:any) => {
                                         <input
                                             type="text"
                                             className="form-field__input"
+                                            defaultValue="12/28"
                                             placeholder="MM/YY"
                                         />
                                     </div>
@@ -211,6 +213,7 @@ const ReviewCheckout = ({ onContinue }:any) => {
                                         <input
                                             type="text"
                                             className="form-field__input"
+                                            defaultValue="123"
                                             placeholder="123"
                                         />
                                     </div>

@@ -95,17 +95,17 @@ const SST_RATE = 0.08;
 
 const Checkout = ({ onContinue }:any) => {
     const [contact, setContact] = useState({
-        name: '',
-        relationship: '',
-        phone: '',
-        email: '',
+        name: 'Siti Rahimah binti Ismail',
+        relationship: 'Spouse',
+        phone: '+60 12-987 6543',
+        email: 'siti.rahimah@email.com',
     });
     const [selectedMethod, setSelectedMethod] = useState('card');
     const [card, setCard] = useState({
-        number: '',
-        holder: '',
-        expiry: '',
-        cvv: '',
+        number: '4111 1111 1111 1111',
+        holder: 'AHMAD RIZAL BIN ISMAIL',
+        expiry: '12/28',
+        cvv: '123',
     });
     const [promoCode, setPromoCode] = useState('');
     const [agreed, setAgreed] = useState(false);

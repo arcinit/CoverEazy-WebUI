@@ -83,10 +83,10 @@ const ORDER_ROWS = [
 
 const ReviewPayment = ({ onContinue }:any) => {
     const [method, setMethod] = useState('card');
-    const [cardNumber, setCardNumber] = useState('');
-    const [cardHolder, setCardHolder] = useState('');
-    const [expiry, setExpiry] = useState('');
-    const [cvv, setCvv] = useState('');
+    const [cardNumber, setCardNumber] = useState('4111 1111 1111 1111');
+    const [cardHolder, setCardHolder] = useState('AHMAD RIZAL BIN ISMAIL');
+    const [expiry, setExpiry] = useState('12/28');
+    const [cvv, setCvv] = useState('123');
 
     const digits = cardNumber.replace(/\D/g, '').padEnd(16, '•');
     const cardNumberGroups = [

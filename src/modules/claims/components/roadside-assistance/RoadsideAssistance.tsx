@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import {
-    FiArrowLeft,
-    FiArrowRight,
-    FiCheckCircle,
-} from "react-icons/fi";
-import {
-    FaTruckPickup,
-    FaCarSide,
-    FaShieldAlt,
-    FaWrench,
-    FaBriefcase,
-} from "react-icons/fa";
+import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
+import { PiSteeringWheelFill, PiShieldCheckeredFill } from "react-icons/pi";
+import { FaTools } from "react-icons/fa";
+import { MdGarage } from "react-icons/md";
 import type { IconType } from "react-icons";
+import ClaimsFooter from "../claims-footer/ClaimsFooter";
 import "./RoadsideAssistance.scss";
 
 // ---------------------------------------------------------
 // Types
 // ---------------------------------------------------------
 
-export type RoadsideOptionId = "tow" | "drive";
+export type RoadsideOptionId = "drive";
 export type WorkshopOptionId = "panel" | "nonPanel" | "both";
 
 export type BadgeTone = "emergency" | "info" | "success" | "orange";
@@ -59,24 +52,10 @@ export interface RoadsideAssistanceProps {
 
 const ROADSIDE_OPTIONS: RoadsideOptionConfig[] = [
     {
-        id: "tow",
-        title: "Tow My Vehicle",
-        subtitle: "Avg. ETA 18- 25 min. Selangor area",
-        icon: FaTruckPickup,
-        iconTone: "danger",
-        badge: { label: "Emergency", tone: "emergency" },
-        features: [
-            "Emergency tow truck dispatch",
-            "Live tracking & driver details",
-            "Direct delivery to chosen workshop",
-        ],
-        ctaLabel: "Select",
-    },
-    {
         id: "drive",
         title: "I Can Drive",
         subtitle: "Recommended for minor incidents",
-        icon: FaCarSide,
+        icon: PiSteeringWheelFill,
         iconTone: "primary",
         badge: { label: "Driveable", tone: "info" },
         features: [
@@ -93,9 +72,9 @@ const WORKSHOP_OPTIONS: WorkshopOptionConfig[] = [
         id: "panel",
         title: "Panel Workshop",
         subtitle: "Insurer approved workshops",
-        icon: FaShieldAlt,
+        icon: PiShieldCheckeredFill,
         iconTone: "success",
-        badge: { label: "Recommended", tone: "success" },
+        badge: { label: "Recommended", tone: "info" },
         features: [
             "Cashless repairs",
             "Direct insurer billing",
@@ -108,7 +87,7 @@ const WORKSHOP_OPTIONS: WorkshopOptionConfig[] = [
         id: "nonPanel",
         title: "Non-Panel Workshop",
         subtitle: "Workshops outside the panel",
-        icon: FaWrench,
+        icon: FaTools,
         iconTone: "orange",
         features: [
             "Choose any independent workshop",
@@ -122,7 +101,7 @@ const WORKSHOP_OPTIONS: WorkshopOptionConfig[] = [
         id: "both",
         title: "View Both",
         subtitle: "Compare panel & non-panel",
-        icon: FaBriefcase,
+        icon: MdGarage,
         iconTone: "warning",
         features: [
             "See every option side by side",
@@ -142,10 +121,7 @@ export default function RoadsideAssistance({ onBack, onContinue }: RoadsideAssis
     const [roadsideOption, setRoadsideOption] = useState<RoadsideOptionId | null>(null);
     const [workshopOption, setWorkshopOption] = useState<WorkshopOptionId | null>(null);
 
-    const canContinue = roadsideOption !== null && workshopOption !== null;
-
     const handleContinueClick = (): void => {
-        if (!canContinue) return;
         onContinue?.({ roadsideOption, workshopOption });
     };
 
@@ -158,7 +134,7 @@ export default function RoadsideAssistance({ onBack, onContinue }: RoadsideAssis
                 </p>
             </header>
 
-            <div className="roadside-assistance__grid roadside-assistance__grid--two">
+            <div className="roadside-assistance__grid roadside-assistance__grid--one">
                 {ROADSIDE_OPTIONS.map((option) => (
                     <OptionCard
                         key={option.id}
@@ -169,43 +145,32 @@ export default function RoadsideAssistance({ onBack, onContinue }: RoadsideAssis
                 ))}
             </div>
 
-            <header className="roadside-assistance__header roadside-assistance__header--section">
-                <h2 className="roadside-assistance__title roadside-assistance__title--section">
-                    Workshop Type
-                </h2>
-                <p className="roadside-assistance__subtitle">
-                    Choose between CoverEazy workshop or independent non-panel workshops
-                </p>
-            </header>
+            {roadsideOption !== null && (
+                <>
+                    <header className="roadside-assistance__header roadside-assistance__header--section">
+                        <h2 className="roadside-assistance__title roadside-assistance__title--section">
+                            Workshop Type
+                        </h2>
+                        <p className="roadside-assistance__subtitle">
+                            Choose between CoverEazy workshop or independent non-panel workshops
+                        </p>
+                    </header>
 
-            <div className="roadside-assistance__grid roadside-assistance__grid--three">
-                {WORKSHOP_OPTIONS.map((option) => (
-                    <OptionCard
-                        key={option.id}
-                        config={option}
-                        selected={workshopOption === option.id}
-                        onSelect={() => setWorkshopOption(option.id)}
-                    />
-                ))}
-            </div>
+                    <div className="roadside-assistance__grid roadside-assistance__grid--three">
+                        {WORKSHOP_OPTIONS.map((option) => (
+                            <OptionCard
+                                key={option.id}
+                                config={option}
+                                selected={workshopOption === option.id}
+                                compact
+                                onSelect={() => setWorkshopOption(option.id)}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
 
-            <footer className="roadside-assistance__footer">
-                <button
-                    type="button"
-                    className="roadside-assistance__btn roadside-assistance__btn--ghost"
-                    onClick={onBack}
-                >
-                    <FiArrowLeft /> Back
-                </button>
-                <button
-                    type="button"
-                    className="roadside-assistance__btn roadside-assistance__btn--primary"
-                    disabled={!canContinue}
-                    onClick={handleContinueClick}
-                >
-                    Continue <FiArrowRight />
-                </button>
-            </footer>
+            <ClaimsFooter onBack={onBack} onContinue={handleContinueClick} />
         </div>
     );
 }
@@ -217,17 +182,19 @@ export default function RoadsideAssistance({ onBack, onContinue }: RoadsideAssis
 interface OptionCardProps<Id extends string> {
     config: BaseCardConfig<Id>;
     selected: boolean;
+    compact?: boolean;
     onSelect: () => void;
 }
 
-function OptionCard<Id extends string>({ config, selected, onSelect }: OptionCardProps<Id>) {
+function OptionCard<Id extends string>({ config, selected, compact, onSelect }: OptionCardProps<Id>) {
     const Icon = config.icon;
 
     return (
         <article
             className={
                 "roadside-assistance__card" +
-                (selected ? " roadside-assistance__card--selected" : "")
+                (selected ? " roadside-assistance__card--selected" : "") +
+                (compact ? " roadside-assistance__card--compact" : "")
             }
         >
             <div className="roadside-assistance__card-head">
@@ -266,7 +233,7 @@ function OptionCard<Id extends string>({ config, selected, onSelect }: OptionCar
                 className="roadside-assistance__select-btn"
                 onClick={onSelect}
             >
-                {config.ctaLabel} <FiArrowRight />
+                {selected ? "Selected" : config.ctaLabel} {selected ? <FiCheckCircle /> : <FiArrowRight />}
             </button>
         </article>
     );

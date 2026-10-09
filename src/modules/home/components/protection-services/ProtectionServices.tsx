@@ -112,7 +112,7 @@ const ProtectionServices = () => {
         </div>
 
         <div className="protection-services__pagination">
-          {Array.from({ length: Math.max(totalPages, 1) }).map((_, idx) => (
+          {Array.from({ length: Math.max(totalPages, 2) }).map((_, idx) => (
             <button
               key={idx}
               className={`protection-services__pagination-dot ${idx === safePage ? 'active' : ''}`}

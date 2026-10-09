@@ -1,20 +1,12 @@
 import React, { useMemo, useState } from "react";
-import {
-    FiSearch,
-    FiHeart,
-    FiPhoneCall,
-    FiNavigation,
-    FiArrowRight,
-    FiArrowLeft,
-    FiClock,
-    FiMapPin,
-    FiTool,
-} from "react-icons/fi";
+import { FiSearch, FiHeart, FiPhone, FiNavigation, FiArrowRight, FiClock } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
-import "./WorkshopList.scss";
-import workshowImage from "./images/workshop1.png";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import "./WorkshopList.scss";
+import garageLift from "./images/garage-lift.jpg";
+import garageTools from "./images/garage-tools.jpg";
+import garageCabinet from "./images/garage-cabinet.jpg";
+
 // ---------------------------------------------------------
 // Types
 // ---------------------------------------------------------
@@ -38,7 +30,7 @@ export interface Workshop {
     rating: number;
     reviewCount: number;
     phone: string;
-    img:string;
+    img: string;
     imageLabel: string;
 }
 
@@ -63,144 +55,40 @@ const FILTERS: FilterConfig[] = [
     { id: "openNow", label: "Open Now" },
 ];
 
-const WORKSHOPS: Workshop[] = [
-    {
-        id: "auto-bavaria-glenmarie",
-        name: "Auto Bavaria Glenmarie",
-        panelType: "panel",
-        address: "Lot 1, Jalan Lapangan Terbang Subang, Shah Alam, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345678",
-        imageLabel: "Auto Bavaria",
-        img: workshowImage
-    },
-    {
-        id: "perodua-service-pj",
-        name: "Perodua Service Centre PJ",
-        panelType: "panel",
-        address: "Jalan 51A/225, Section 51A, Petaling Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345679",
-        imageLabel: "Perodua Service",
-        img: workshowImage
-    },
-    {
-        id: "proton-edar-subang",
-        name: "Proton Edar Subang",
-        panelType: "panel",
-        address: "Persiaran Kewajipan, USJ 1, Subang Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345680",
-        imageLabel: "Proton Edar",
-        img: workshowImage
-    },
-    {
-        id: "proton-edar-subang-2",
-        name: "Proton Edar Subang",
-        panelType: "panel",
-        address: "Persiaran Kewajipan, USJ 1, Subang Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345680",
-        imageLabel: "Proton Edar",
-        img: workshowImage
-    },
-
-    {
-        id: "auto-bavaria-glenmarie-2",
-        name: "Auto Bavaria Glenmarie",
-        panelType: "panel",
-        address: "Lot 1, Jalan Lapangan Terbang Subang, Shah Alam, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345678",
-        imageLabel: "Auto Bavaria",
-        img: workshowImage
-    },
-    {
-        id: "perodua-service-pj-2",
-        name: "Perodua Service Centre PJ",
-        panelType: "panel",
-        address: "Jalan 51A/225, Section 51A, Petaling Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345679",
-        imageLabel: "Perodua Service",
-        img: workshowImage
-    },
-    {
-        id: "perodua-service-pj-3",
-        name: "Perodua Service Centre PJ",
-        panelType: "panel",
-        address: "Jalan 51A/225, Section 51A, Petaling Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345679",
-        imageLabel: "Perodua Service",
-        img: workshowImage
-    },
-    {
-        id: "proton-edar-subang-3",
-        name: "Proton Edar Subang",
-        panelType: "panel",
-        address: "Persiaran Kewajipan, USJ 1, Subang Jaya, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345680",
-        imageLabel: "Proton Edar",
-        img: workshowImage
-    },
-    {
-        id: "auto-bavaria-glenmarie-3",
-        name: "Auto Bavaria Glenmarie",
-        panelType: "panel",
-        address: "Lot 1, Jalan Lapangan Terbang Subang, Shah Alam, Selangor",
-        distanceKm: 2.4,
-        openNow: true,
-        rating: 4.8,
-        reviewCount: 1284,
-        phone: "+60312345678",
-        imageLabel: "Auto Bavaria",
-        img: workshowImage
-    },
+const BASE = [
+    { key: "auto-bavaria-glenmarie", name: "Auto Bavaria Glenmarie", address: "Lot 1, Jalan Lapangan Terbang Subang, Shah Alam, Selangor", phone: "+60312345678", img: garageLift },
+    { key: "perodua-service-pj", name: "Perodua Service Centre PJ", address: "Jalan 51A/225, Section 51A, Petaling Jaya, Selangor", phone: "+60312345679", img: garageTools },
+    { key: "proton-edar-subang", name: "Proton Edar Subang", address: "Persiaran Kewajipan, USJ 1, Subang Jaya, Selangor", phone: "+60312345680", img: garageCabinet },
 ];
+
+// Same display order as the design: A P R / R A P / P R A
+const ORDER = [0, 1, 2, 2, 0, 1, 1, 2, 0];
+
+const WORKSHOPS: Workshop[] = ORDER.map((i, n) => {
+    const w = BASE[i];
+    return {
+        id: n < 3 ? w.key : `${w.key}-${n}`,
+        name: w.name,
+        panelType: "panel",
+        address: w.address,
+        distanceKm: 2.4,
+        openNow: true,
+        rating: 4.8,
+        reviewCount: 1284,
+        phone: w.phone,
+        imageLabel: w.name,
+        img: w.img,
+    };
+});
 
 // ---------------------------------------------------------
 // Component
 // ---------------------------------------------------------
 
-export default function WorkshopList({
-    onBack,
-    onContinue,
-    onCall,
-    onDirection,
-    onViewDetails,
-}: WorkshopListProps) {
+export default function WorkshopList({ onContinue, onCall, onDirection, onViewDetails }: WorkshopListProps) {
     const [query, setQuery] = useState<string>("");
     const [activeFilter, setActiveFilter] = useState<FilterId>("all");
     const [favorites, setFavorites] = useState<Set<string>>(new Set());
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-    const navigate = useNavigate();
-
 
     const toggleFavorite = (id: string): void => {
         setFavorites((prev) => {
@@ -216,11 +104,7 @@ export default function WorkshopList({
 
         const q = query.trim().toLowerCase();
         if (q) {
-            list = list.filter(
-                (w) =>
-                    w.name.toLowerCase().includes(q) ||
-                    w.address.toLowerCase().includes(q)
-            );
+            list = list.filter((w) => w.name.toLowerCase().includes(q) || w.address.toLowerCase().includes(q));
         }
 
         switch (activeFilter) {
@@ -239,7 +123,6 @@ export default function WorkshopList({
             case "highestRated":
                 list = list.slice().sort((a, b) => b.rating - a.rating);
                 break;
-            case "all":
             default:
                 break;
         }
@@ -248,21 +131,13 @@ export default function WorkshopList({
     }, [query, activeFilter]);
 
     const handleViewDetails = (workshop: Workshop): void => {
-        setSelectedId(workshop.id);
-        // navigate("/claims/workshop/details")
+        onViewDetails?.(workshop);
+        onContinue?.(workshop.id);
     };
 
     const handleCall = (workshop: Workshop): void => {
         onCall?.(workshop);
         window.location.href = `tel:${workshop.phone}`;
-    };
-
-    const handleDirection = (workshop: Workshop): void => {
-        onDirection?.(workshop);
-    };
-
-    const handleContinueClick = (): void => {
-        onContinue?.(selectedId);
     };
 
     return (
@@ -271,9 +146,7 @@ export default function WorkshopList({
                 <h1 className="workshop-list__title">
                     Choose a <span className="workshop-list__title--accent">Workshop</span>
                 </h1>
-                <p className="workshop-list__subtitle">
-                    Search, filter and select the workshop that works best for you.
-                </p>
+                <p className="workshop-list__subtitle">Search, filter and select the workshop that works best for you.</p>
             </header>
 
             <div className="workshop-list__toolbar">
@@ -308,19 +181,10 @@ export default function WorkshopList({
             <div className="workshop-list__grid">
                 {filteredWorkshops.map((workshop) => {
                     const isFavorite = favorites.has(workshop.id);
-                    const isSelected = selectedId === workshop.id;
 
                     return (
-                        <article
-                            key={workshop.id}
-                            className={
-                                "workshop-list__card" +
-                                (isSelected ? " workshop-list__card--selected" : "")
-                            }
-                        >
+                        <article key={workshop.id} className="workshop-list__card">
                             <div className="workshop-list__thumb" style={{ backgroundImage: `url("${workshop.img}")` }}>
-                                
-
                                 {workshop.panelType === "panel" && (
                                     <span className="workshop-list__panel-badge">
                                         <IoShieldCheckmarkOutline /> Panel
@@ -330,12 +194,13 @@ export default function WorkshopList({
                                 <button
                                     type="button"
                                     className={
-                                        "workshop-list__fav-btn" +
-                                        (isFavorite ? " workshop-list__fav-btn--active" : "")
+                                        "workshop-list__fav-btn" + (isFavorite ? " workshop-list__fav-btn--active" : "")
                                     }
                                     onClick={() => toggleFavorite(workshop.id)}
                                     aria-label={
-                                        isFavorite ? `Remove ${workshop.name} from favorites` : `Save ${workshop.name} to favorites`
+                                        isFavorite
+                                            ? `Remove ${workshop.name} from favorites`
+                                            : `Save ${workshop.name} to favorites`
                                     }
                                 >
                                     <FiHeart />
@@ -355,9 +220,8 @@ export default function WorkshopList({
 
                                 <div className="workshop-list__meta">
                                     <span className="workshop-list__meta-item">
-                                        <FiMapPin /> {workshop.distanceKm.toFixed(1)} km
+                                        <FiNavigation /> {workshop.distanceKm.toFixed(1)} km
                                     </span>
-                                    <span className="workshop-list__meta-dot">&middot;</span>
                                     <span
                                         className={
                                             "workshop-list__meta-item" +
@@ -367,23 +231,17 @@ export default function WorkshopList({
                                         <FiClock /> {workshop.openNow ? "Open now" : "Closed"}
                                     </span>
                                     <span className="workshop-list__meta-dot">&middot;</span>
-                                    <span className="workshop-list__meta-item">
-                                        {workshop.reviewCount.toLocaleString()} reviews
-                                    </span>
+                                    <span className="workshop-list__meta-item">{workshop.reviewCount} reviews</span>
                                 </div>
 
                                 <div className="workshop-list__actions">
-                                    <button
-                                        type="button"
-                                        className="workshop-list__action-btn"
-                                        onClick={() => handleCall(workshop)}
-                                    >
-                                        <FiPhoneCall /> Call
+                                    <button type="button" className="workshop-list__action-btn" onClick={() => handleCall(workshop)}>
+                                        <FiPhone /> Call
                                     </button>
                                     <button
                                         type="button"
                                         className="workshop-list__action-btn"
-                                        onClick={() => handleDirection(workshop)}
+                                        onClick={() => onDirection?.(workshop)}
                                     >
                                         <FiNavigation /> Direction
                                     </button>
@@ -406,24 +264,6 @@ export default function WorkshopList({
                     </p>
                 )}
             </div>
-
-            <footer className="workshop-list__footer">
-                <button
-                    type="button"
-                    className="workshop-list__btn workshop-list__btn--ghost"
-                    onClick={onBack}
-                >
-                    <FiArrowLeft /> Back
-                </button>
-                <button
-                    type="button"
-                    className="workshop-list__btn workshop-list__btn--primary"
-                  
-                    onClick={handleContinueClick}
-                >
-                    Continue <FiArrowRight />
-                </button>
-            </footer>
         </div>
     );
 }

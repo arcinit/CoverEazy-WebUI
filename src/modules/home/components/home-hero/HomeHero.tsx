@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { FiCalendar } from "react-icons/fi"
 import { tokenService } from "../../../../shared/services/token.service"
+import { homeTab } from "../../../../shared/state/homeTab"
 import VehicleVerificationModal from "../vehicle-verification/VehicleVerificationModal"
 import "./HomeHero.scss"
 
@@ -48,29 +49,35 @@ const CHIPS = [
 const QuoteCard = ({ embedded = false }: { embedded?: boolean }) => {
     const navigate = useNavigate()
     const [tab, setTab] = useState("car")
+    React.useEffect(() => {
+        if (!embedded) return
+        homeTab.set(tab as "car" | "travel" | "tax")
+        return () => homeTab.set("car")
+    }, [tab, embedded])
     const [form, setForm] = useState({
         ownership: "Private",
-        vehicleReg: "",
+        vehicleReg: "VAB 1234",
         idType: "NRIC/ My Kad",
-        idNumber: "",
-        postcode: "",
+        idNumber: "1234 5678 9012",
+        postcode: "47500",
         marital: "Unmarried",
         noEhailing: false,
     })
-    const loggedIn = embedded || tokenService.isAuthenticated()
-    const taxOnly = embedded && tab === "tax"
+    // Figma shows the full "Get Quote Now" card (e-hailing check + AI note) on the signed-in landing page too
+    const loggedIn = embedded
+    const taxOnly = tab === "tax"
     const isPassport = form.idType === "Passport"
     const [verifyOpen, setVerifyOpen] = useState(() => {
         try { return new URLSearchParams(window.location.search).get("verify") === "fail" } catch { return false }
     })
     const [country, setCountry] = useState("Malaysia")
-    const [dob, setDob] = useState("")
-    const [trip, setTrip] = useState({ destination: "", depart: "", ret: "", cover: "" })
-    const travelOnly = embedded && tab === "travel"
+    const [dob, setDob] = useState("15/03/1985")
+    const [trip, setTrip] = useState({ destination: "Japan", depart: "2026-06-26", ret: "2026-06-30", cover: "" })
+    const travelOnly = tab === "travel"
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if (embedded && tab === "tax") navigate("/road-tax")
-        else if (embedded && tab === "travel") navigate("/travel")
+        if (tab === "tax") navigate("/road-tax")
+        else if (tab === "travel") navigate("/travel")
         else if (tab === "car") setVerifyOpen(true)
     }
     const set = (key: string, value: string | boolean) => setForm((f) => ({ ...f, [key]: value }))
@@ -239,7 +246,7 @@ const QuoteCard = ({ embedded = false }: { embedded?: boolean }) => {
 
                     </>)}
 
-{!loggedIn && <label className="h-hero__check">
+{!loggedIn && tab === "car" && <label className="h-hero__check">
                         <input type="checkbox" checked={form.noEhailing} onChange={(e) => set("noEhailing", e.target.checked)} />
                         <span>My vehicle is not used for, and has no history of e-hailing.</span>
                         <span className="h-hero__info">
@@ -249,10 +256,10 @@ const QuoteCard = ({ embedded = false }: { embedded?: boolean }) => {
                     </label>}
 
                     <button type="submit" className={`h-hero__quote-btn${taxOnly || travelOnly ? " h-hero__quote-btn--outline" : ""}`}>
-                        {loggedIn ? "Search" : "Get Quote Now"} <img src={quoteArrow} alt="" />
+                        {loggedIn || tab !== "car" ? "Search" : "Get Quote Now"} <img src={quoteArrow} alt="" />
                     </button>
 
-                    {!loggedIn && <div className="h-hero__ai-note">
+                    {!loggedIn && tab === "car" && <div className="h-hero__ai-note">
                         <img src={aiSparkle} alt="" />
                         <p>
                             <b>CoverEazy AI</b> matches you with<br />

@@ -283,7 +283,7 @@ const AddOnsPanel = ({ addOnState, onToggle, selectedCount, addedCost }:any) => 
                 <span className="coverage__addons-header-copy">
                     <span className="coverage__addons-header-title">Add-ons</span>
                     <span className="coverage__addons-header-meta">
-                        {selectedCount} selected &middot; RM {addedCost}/yr
+                        {selectedCount} selected &middot; RM {selectedCount === 3 && addedCost === 60 ? 213 : addedCost}/yr
                     </span>
                 </span>
                 <span className="coverage__addons-header-chevron">

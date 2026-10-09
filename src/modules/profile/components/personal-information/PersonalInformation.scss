@@ -1,256 +1,179 @@
-// ---------------------------------------------------------------------
-// Design tokens
-// ---------------------------------------------------------------------
-$navy: #062155;
-$text-dark: #313131;
-$green: #16C47F; // accent green (requested)
-$green-bg: #e9faed;
-$blue: #2563eb;
-$blue-bg: #eaf1ff;
-$pink: #ec4899;
-$pink-bg: #fdeef5;
-$orange: #f97316;
-$orange-bg: #fff1e6;
-$border: #e3e8ee;
-$muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
-$card-bg: #ffffff;
+$pi-dark: #1f2937;
+$pi-mid: #64748b;
 
-$radius-sm: 8px;
-$radius-md: 10px;
-$radius-lg: 18px;
-$radius-pill: 999px;
-$shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
-
-// -------------------- Page shell --------------------
 .personal-info {
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
 
     &__heading {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
+        margin-bottom: 17px;
     }
 
     &__title {
-        font-size: 26px;
-        font-weight: 700;
-        color: $navy;
         margin: 0;
+        font-size: 26px;
+        line-height: 30px;
+        font-weight: 600;
+        color: $pi-dark;
     }
 
     &__subtitle {
+        margin: 11px 0 0;
         font-size: 14px;
-        color: $muted;
-        margin: 4px 0 0;
+        line-height: 20px;
+        color: $pi-mid;
     }
 
     &__edit-all {
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         flex-shrink: 0;
-        background: $blue;
+        width: 102px;
+        height: 36px;
+        background: #0f5bff;
         border: none;
-        color: $card-bg;
-        font-size: 13px;
+        color: #fff;
+        font-size: 14px;
         font-weight: 600;
-        padding: 10px 20px;
-        border-radius: $radius-pill;
+        border-radius: 999px;
         cursor: pointer;
-        transition: opacity 0.15s ease;
-
-        &:hover {
-            opacity: 0.9;
-        }
+        svg { font-size: 14px; }
     }
 
-    // -------------------- Profile Completion --------------------
+    // -------------------- Completion --------------------
     &__completion {
-        background: $card-bg;
-        border: 1px solid $border;
-        border-radius: $radius-lg;
-        box-shadow: $shadow-card;
-        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 62px;
+        padding: 0 16px;
+        background: #fff;
+        border: 1px solid #eaeef5;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px -8px rgba(15, 23, 42, 0.08);
     }
+
+    &__completion-main { width: 650px; flex-shrink: 0; }
 
     &__completion-row {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
+        align-items: center;
+        height: 18px;
     }
 
-    &__completion-label {
-        font-size: 13px;
-        font-weight: 500;
-        color: $muted;
-    }
-
-    &__completion-value {
-        font-size: 13px;
-        font-weight: 700;
-        color: $green;
-    }
+    &__completion-label { font-size: 12px; color: $pi-mid; }
+    &__completion-value { font-size: 12px; font-weight: 600; color: $pi-dark; }
 
     &__completion-track {
-        width: 100%;
         height: 8px;
-        border-radius: $radius-pill;
-        background: $bg;
+        margin-top: 4px;
+        border-radius: 999px;
+        background: #f1f5f9;
         overflow: hidden;
     }
 
     &__completion-fill {
         height: 100%;
-        background: $green;
-        border-radius: $radius-pill;
+        border-radius: 999px;
+        background: #00c37a;
     }
 
-    &__completion-hint {
-        display: block;
-        margin-top: 10px;
-        font-size: 12px;
-        color: $muted-light;
-    }
+    &__completion-hint { font-size: 12px; color: $pi-mid; white-space: nowrap; margin-top: -3px; }
 
-    // -------------------- Info Card --------------------
+    // -------------------- Cards --------------------
     &__card {
-        background: $card-bg;
-        border: 1px solid $border;
-        border-radius: $radius-lg;
-        box-shadow: $shadow-card;
-        padding: 20px 24px;
+        padding: 20px 20px 18px;
+        background: #fff;
+        border: 1px solid #eaeef5;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px -8px rgba(15, 23, 42, 0.08);
     }
 
     &__card-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 14px;
     }
 
-    &__card-heading {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+    &__card-heading { display: flex; align-items: center; gap: 12px; }
 
     &__card-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 34px;
-        height: 34px;
-        border-radius: $radius-sm;
-        font-size: 15px;
-        flex-shrink: 0;
-
-        &--blue {
-            background: $blue-bg;
-            color: $blue;
-        }
-
-        &--green {
-            background: $green-bg;
-            color: $green;
-        }
-
-        &--orange {
-            background: $orange-bg;
-            color: $orange;
-        }
-
-        &--red {
-            background: $pink-bg;
-            color: $pink;
-        }
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 16px;
+        &--blue { background: #eaf1ff; color: #0f5bff; }
+        &--green { background: #e6faf5; color: #00b894; }
+        &--orange { background: #fff1e6; color: #ff6b00; }
+        &--red { background: #fdeaea; color: #ef4444; }
     }
 
     &__card-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: $navy;
         margin: 0;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+        color: $pi-dark;
     }
 
     &__card-edit {
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 6px;
-        background: $bg;
+        width: 67px;
+        height: 24px;
         border: none;
-        color: $muted;
+        border-radius: 999px;
+        background: #f1f5f9;
+        color: $pi-mid;
         font-size: 12px;
-        font-weight: 600;
-        padding: 7px 14px;
-        border-radius: $radius-pill;
         cursor: pointer;
-        transition: background 0.15s ease, color 0.15s ease;
-
-        &:hover {
-            background: $blue-bg;
-            color: $blue;
-        }
+        svg { font-size: 12px; }
     }
 
-    // -------------------- Fields grid --------------------
     &__fields {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px 24px;
+        row-gap: 15px;
+        &--3 { grid-template-columns: 298px 298px 1fr; }
+        &--2 { grid-template-columns: 447px 1fr; }
+        &--tight { row-gap: 11px; }
     }
 
-    &__field {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        min-width: 0;
-    }
+    &__field { display: flex; flex-direction: column; gap: 9px; height: 43px; }
 
-    &__field-label {
-        font-size: 12px;
-        color: $muted;
-        font-weight: 400;
-    }
+    &__field-label { font-size: 12px; line-height: 16px; color: $pi-mid; }
 
     &__field-value {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         font-size: 14px;
+        line-height: 18px;
         font-weight: 600;
-        color: $text-dark;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        color: $pi-dark;
     }
 
-    &__field-verified {
-        flex-shrink: 0;
-        font-size: 13px;
-        color: $green;
-    }
+    &__field-verified { font-size: 14px; color: #00b894; }
 
-    @media (max-width: 960px) {
-        &__fields {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 640px) {
-        &__heading {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        &__fields {
-            grid-template-columns: 1fr;
-        }
+    @media (max-width: 760px) {
+        &__completion { height: auto; flex-wrap: wrap; padding: 16px; }
+        &__completion-main { width: 100%; }
+        &__completion-hint { white-space: normal; margin: 0; }
+        &__fields--3, &__fields--2 { grid-template-columns: 1fr 1fr; }
+        &__field { height: auto; }
+        &__heading { flex-wrap: wrap; }
     }
 }

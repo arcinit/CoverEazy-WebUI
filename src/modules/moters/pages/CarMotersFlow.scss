@@ -181,7 +181,13 @@ $stepper-navy: $navy;
     &__content {
         width: min(1240px, calc(100% - 48px));
         margin: 0 auto;
-        padding: 42px 0 80px;
+        padding: 42px 0 0;
+        // Figma leaves a different amount of space under each screen
+        &--step-1 { padding-bottom: 80px; }
+        &--step-2 { padding-bottom: 78px; }
+        &--step-3 { padding-bottom: 43px; }
+        &--step-4 { padding-bottom: 1px; }
+        &--step-5 { padding-bottom: 67px; }
 
         @media (max-width: 600px) { width: calc(100% - 24px); }
     }

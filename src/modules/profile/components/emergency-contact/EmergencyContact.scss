@@ -1,189 +1,120 @@
-// ---------------------------------------------------------------------
-// Tokens
-// ---------------------------------------------------------------------
-$navy: #062155;
-$text-dark: #313131;
-$green: #16C47F;
-$green-bg: #e9faed;
-$blue: #2563eb;
-$blue-bg: #eaf1ff;
-$pink: #ec4899;
-$pink-bg: #fdeef5;
-$orange: #f97316;
-$orange-bg: #fff1e6;
-$red: #ef4444;
-$red-bg: #fdecec;
-$border: #e3e8ee;
-$muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
-$card-bg: #ffffff;
-
-// avatar accents
-$teal: #14b8a6;
+$text-dark: #2b2f36;
+$muted: #5f6b7c;
+$border: #e8edf4;
 
 .emergency-contact {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    width: 100%;
 
-    // -------------------------------------------------------------
-    // Header
-    // -------------------------------------------------------------
     &__header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
         flex-wrap: wrap;
+        margin-bottom: 29px;
     }
 
     &__heading {
         margin: 0;
-        font-size: 22px;
-        font-weight: 700;
+        font-size: 26px;
+        line-height: 32px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__lead {
-        margin: 4px 0 0;
-        font-size: 14px;
+        margin: 12px 0 0;
+        font-size: 15px;
+        line-height: 20px;
         color: $muted;
     }
 
     &__add-btn {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 10px;
+        height: 40px;
+        padding: 0 20px;
         border: none;
-        background: $blue;
+        border-radius: 999px;
+        background: #0b5cff;
         color: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        padding: 10px 16px;
-        border-radius: 20px;
+        font-size: 15px;
+        font-weight: 500;
         cursor: pointer;
         white-space: nowrap;
-        transition: filter 0.15s ease, transform 0.05s ease;
 
-        svg {
-            font-size: 15px;
-        }
-
-        &:hover {
-            filter: brightness(0.95);
-        }
-
-        &:active {
-            transform: translateY(1px);
-        }
+        &:hover { filter: brightness(0.95); }
+        svg { font-size: 16px; }
     }
 
-    // -------------------------------------------------------------
-    // Grid + card
-    // -------------------------------------------------------------
     &__grid {
         display: grid;
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 18px;
     }
 
     &__card {
-        background: $card-bg;
+        background: #fff;
         border: 1px solid $border;
-        border-radius: 16px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        gap: 18px;
+        border-radius: 24px;
+        padding: 19px 20px 19px;
+        box-shadow: 0 1px 4px rgba(15, 30, 60, 0.03);
     }
 
     &__card-top {
         display: flex;
-        align-items: start;
-        gap: 14px;
+        align-items: center;
+        gap: 16px;
     }
 
     &__avatar {
-        flex: 0 0 44px;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
-        font-weight: 700;
         color: #fff;
-
-        &--teal {
-            background: $teal;
-        }
-
-        &--blue {
-            background: $blue;
-        }
-
-        &--pink {
-            background: $pink;
-        }
-
-        &--orange {
-            background: $orange;
-        }
-    }
-
-    &__info {
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-    }
-
-    &__name {
         font-size: 15px;
-        font-weight: 700;
-        color: $text-dark;
+        font-weight: 600;
+
+        &--teal { background: linear-gradient(135deg, #20c4a2, #12a98a); }
+        &--blue { background: linear-gradient(135deg, #1a56f0, #4a7df5); }
+        &--pink { background: linear-gradient(135deg, #ec4899, #f472b6); }
+        &--orange { background: linear-gradient(135deg, #f97316, #fb923c); }
     }
 
-    &__meta {
-        font-size: 13px;
-        color: $muted;
-        margin-top: 2px;
-    }
+    &__info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
-    // -------------------------------------------------------------
-    // Actions
-    // -------------------------------------------------------------
+    &__name { font-size: 16px; line-height: 22px; font-weight: 600; color: $text-dark; }
+
+    &__meta { font-size: 12.5px; line-height: 18px; color: $muted; }
+
     &__actions {
-        width: 100%;
-        display: flex;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 17px;
     }
 
     &__btn {
-        flex: 1;
+        height: 31px;
         border: none;
-        background: #eef1f5;
-        color: $text-dark;
-        font-size: 13.5px;
-        font-weight: 600;
-        padding: 10px 0;
-        border-radius: 20px;
+        border-radius: 999px;
+        background: #eef2f9;
+        color: #6b7585;
+        font-size: 13px;
+        font-weight: 500;
         cursor: pointer;
-        transition: background 0.15s ease;
 
-        &:hover {
-            background: #e2e6ec;
-        }
+        &:hover { background: #e3e9f4; }
     }
 
-    // -------------------------------------------------------------
-    // Responsive
-    // -------------------------------------------------------------
-    @media (max-width: 720px) {
-        &__grid {
-            grid-template-columns: 1fr;
-        }
+    @media (max-width: 700px) {
+        &__grid { grid-template-columns: 1fr; }
     }
 }

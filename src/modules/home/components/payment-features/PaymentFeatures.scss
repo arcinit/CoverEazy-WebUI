@@ -228,6 +228,8 @@
     }
 
     h2 {
+      position: relative;
+      top: -4px;
       font-size: 20px;
       line-height: 1.2;
       font-weight: 700;
@@ -241,6 +243,7 @@
       margin-top: 8px;
       font-size: 12px;
       line-height: 1.2;
+      white-space: nowrap; // Figma keeps this sentence on one line
     }
   }
 
@@ -305,6 +308,7 @@
 
   &__support {
     position: relative;
+    top: 10px;
 
     h2 {
       margin: 0;
@@ -323,8 +327,8 @@
 
   &__support-agent {
     position: absolute;
-    top: -134px;
-    left: 180px;
+    top: -139px;
+    left: 187px;
     width: 166.25px;
     height: 190px;
     object-fit: cover;

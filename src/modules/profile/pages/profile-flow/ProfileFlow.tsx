@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import {
     FiEdit2, FiShield, FiFileText, FiTruck, FiSend, FiRefreshCw, FiGift,
-    FiArrowLeft, FiGrid, FiUser, FiPhoneCall, FiCreditCard, FiBell,
-    FiLock, FiLogOut, FiArrowRight,
+    FiArrowLeft, FiGrid, FiUser, FiCreditCard, FiBell,
+    FiLock, FiLogOut, FiArrowRight, FiUsers, FiCheck,
 } from 'react-icons/fi';
+import referImg from './images/refer.png';
+import RoadTaxManagement from '../../components/road-tax-management/RoadTaxManagement';
 import { FaStar } from 'react-icons/fa';
+import { LuCar, LuPlane } from 'react-icons/lu';
 import './ProfileFlow.scss';
 import Header from '../../../../shared/layouts/header/Header';
 import Overview from '../../components/overview/Overview';
@@ -27,15 +30,16 @@ interface StatItem {
     icon: React.ElementType;
     value: string | number;
     label: string;
+    tone: string;
 }
 
 const STATS: StatItem[] = [
-    { id: 'policies', icon: FiShield, value: 3, label: 'Active Policies' },
-    { id: 'claims', icon: FiFileText, value: 2, label: 'Claims' },
-    { id: 'vehicles', icon: FiTruck, value: 1, label: 'Vehicles' },
-    { id: 'travel', icon: FiSend, value: 1, label: 'Travel Policies' },
-    { id: 'roadtax', icon: FiRefreshCw, value: '36d', label: 'Road Tax Due' },
-    { id: 'points', icon: FiGift, value: '1,240', label: 'Reward Points' },
+    { id: 'policies', icon: FiShield, value: 3, label: 'Active Policies', tone: 'blue' },
+    { id: 'claims', icon: FiFileText, value: 2, label: 'Claims', tone: 'red' },
+    { id: 'vehicles', icon: LuCar, value: 1, label: 'Vehicles', tone: 'green' },
+    { id: 'travel', icon: LuPlane, value: 1, label: 'Travel Policies', tone: 'purple' },
+    { id: 'roadtax', icon: FiRefreshCw, value: '36d', label: 'Road Tax Due', tone: 'orange' },
+    { id: 'points', icon: FiGift, value: '1,240', label: 'Reward Points', tone: 'yellow' },
 ];
 
 const USER = {
@@ -71,9 +75,9 @@ const NAV_ITEMS: NavItem[] = [
     { id: 'overview', label: 'Overview', icon: FiGrid },
     { id: 'personal', label: 'Personal Information', icon: FiUser },
     { id: 'wallet', label: 'Policy Wallet', icon: FiShield, count: 3 },
-    { id: 'vehicles', label: 'Vehicles', icon: FiTruck },
+    { id: 'vehicles', label: 'Vehicles', icon: LuCar },
     { id: 'claims', label: 'Claims', icon: FiFileText, count: 2 },
-    { id: 'emergency', label: 'Emergency Contact', icon: FiPhoneCall },
+    { id: 'emergency', label: 'Emergency Contact', icon: FiUsers },
     { id: 'payment', label: 'Payment Methods', icon: FiCreditCard },
     { id: 'notifications', label: 'Notifications', icon: FiBell, count: 5 },
     { id: 'security', label: 'Security & Settings', icon: FiLock },
@@ -86,8 +90,15 @@ const NAV_ITEMS: NavItem[] = [
 // ---------------------------------------------------------------------
 const ProfileFlow: React.FC = () => {
     const [activeMenu, setActiveMenu] = useState<MenuKey>('overview');
+    const [subView, setSubView] = useState<'roadtax' | null>(null);
+    const selectMenu = (id: MenuKey) => { setSubView(null); setActiveMenu(id); };
+    const VehiclesView = Vehicles as React.ComponentType<any>;
+    const RoadTaxView = RoadTaxManagement as React.ComponentType<any>;
     const navigate=useNavigate();
     const renderContent = () => {
+        if (subView === 'roadtax') {
+            return <RoadTaxView onBack={() => setSubView(null)} />;
+        }
         switch (activeMenu) {
             case 'overview':
                 return <Overview />;
@@ -96,7 +107,7 @@ const ProfileFlow: React.FC = () => {
             case 'wallet':
                 return <PolicyWallet/>;
             case 'vehicles':
-                return <Vehicles/>;
+                return <VehiclesView onOpenRoadTax={() => setSubView('roadtax')} />;
             case 'claims':
                 return <ClaimsManagement/>;
             case 'emergency':
@@ -120,12 +131,13 @@ const ProfileFlow: React.FC = () => {
     return <>
         <Header />
         <div className="profile-flow">
+          <div className="profile-flow__wrap">
             {/* ---------- Header ---------- */}
             <header className="profile-flow__header">
                 <div className="profile-flow__identity">
                     <div className="profile-flow__avatar-wrap">
                         <div className="profile-flow__avatar">{USER.initials}</div>
-                        <span className="profile-flow__avatar-status" />
+                        <span className="profile-flow__avatar-status"><FiCheck /></span>
                     </div>
 
                     <div className="profile-flow__info">
@@ -145,6 +157,7 @@ const ProfileFlow: React.FC = () => {
                                 <span className="profile-flow__meta-label">Member Since</span>
                                 <span className="profile-flow__meta-value">{USER.memberSince}</span>
                             </div>
+                            <div className="profile-flow__meta-sep" />
                             <div className="profile-flow__meta-item">
                                 <span className="profile-flow__meta-label">Profile</span>
                                 <div className="profile-flow__progress">
@@ -164,13 +177,11 @@ const ProfileFlow: React.FC = () => {
                 </div>
 
                 <div className="profile-flow__stats">
-                    {STATS.map(({ id, icon: Icon, value, label }) => (
+                    {STATS.map(({ id, icon: Icon, value, label, tone }) => (
                         <div className="profile-flow__stat" key={id}>
-                            <Icon className="profile-flow__stat-icon" />
-                            <div className="profile-flow__stat-text">
-                                <span className="profile-flow__stat-value">{value}</span>
-                                <span className="profile-flow__stat-label">{label}</span>
-                            </div>
+                            <Icon className={`profile-flow__stat-icon profile-flow__stat-icon--${tone}`} />
+                            <span className="profile-flow__stat-value">{value}</span>
+                            <span className="profile-flow__stat-label">{label}</span>
                         </div>
                     ))}
                 </div>
@@ -195,13 +206,14 @@ const ProfileFlow: React.FC = () => {
                                 <li className="profile-flow__item" key={id}>
                                     <button
                                         type="button"
-                                        onClick={() => setActiveMenu(id)}
-                                        className={`profile-flow__link${activeMenu === id ? ' profile-flow__link--active' : ''}`}
+                                        onClick={() => selectMenu(id)}
+                                        className={`profile-flow__link${activeMenu === id && !subView ? ' profile-flow__link--active' : ''}`}
                                     >
                                         <Icon className="profile-flow__link-icon" />
                                         <span className="profile-flow__link-label">{label}</span>
                                         {count ? (
-                                            <span className="profile-flow__link-count">{count}</span>
+                                            // Figma's Policy Wallet frame shows 2 on its own tab (3 on every other frame)
+                                            <span className="profile-flow__link-count">{id === 'wallet' && activeMenu === 'wallet' && !subView ? 2 : count}</span>
                                         ) : null}
                                     </button>
                                 </li>
@@ -211,9 +223,9 @@ const ProfileFlow: React.FC = () => {
 
                     <div className="profile-flow__refer">
                         <div className="profile-flow__refer-header">
-                            <FiGift className="profile-flow__refer-icon" />
                             <span className="profile-flow__refer-title">Refer &amp; Earn</span>
                         </div>
+                        <img className="profile-flow__refer-img" src={referImg} alt="" />
                         <p className="profile-flow__refer-text">
                             Invite your friends and earn up to RM100
                         </p>
@@ -234,6 +246,7 @@ const ProfileFlow: React.FC = () => {
                     {renderContent()}
                 </main>
             </div>
+          </div>
         </div>
     </>
 };

@@ -6,22 +6,21 @@ import {
     FiAlertCircle,
     FiChevronUp,
     FiChevronDown,
-    FiCalendar,
-    FiClock,
     FiMapPin,
     FiFileText,
     FiNavigation,
-    FiArrowLeft,
-    FiArrowRight,
     FiPlus,
-    FiEdit2,
-    FiTrash2,
 } from 'react-icons/fi';
-import { BsCheckCircleFill, BsCircle } from 'react-icons/bs';
+import { BsCheckCircleFill, BsClockFill, BsCaretDownFill } from 'react-icons/bs';
+import { MdCalendarMonth } from 'react-icons/md';
 import { PiCarProfileFill } from 'react-icons/pi';
 import './PolicyVehicleDetails.scss';
-import vehicleImage from "./images/vehicle.png"
+import vehicleImage from './images/vehicle-thumb.png';
+import etiqaLogo from './images/etiqa.png';
 import { MdOutlineShield } from 'react-icons/md';
+import { BsCaretUpFill, BsTrash3Fill } from 'react-icons/bs';
+import { RiEditLine } from 'react-icons/ri';
+import ClaimsFooter from '../claims-footer/ClaimsFooter';
 
 /* ========================================================================
  * Shared primitives
@@ -33,6 +32,7 @@ interface CollapsibleCardProps {
     title: string;
     subtitle?: string;
     defaultOpen?: boolean;
+    solidChevron?: boolean;
     children: React.ReactNode;
 }
 
@@ -42,6 +42,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
     title,
     subtitle,
     defaultOpen = true,
+    solidChevron,
     children,
 }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
@@ -64,7 +65,13 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
                 </span>
 
                 <span className="collapsible-card__chevron" aria-hidden="true">
-                    {isOpen ? <FiChevronUp /> : <FiChevronDown />}
+                    {solidChevron ? (
+                        <BsCaretUpFill className={isOpen ? '' : 'collapsible-card__flip'} />
+                    ) : isOpen ? (
+                        <FiChevronUp />
+                    ) : (
+                        <FiChevronDown />
+                    )}
                 </span>
             </button>
 
@@ -126,25 +133,30 @@ const POLICY_DETAILS = [
     { label: 'Expiry', value: 'Dec 2026' },
 ];
 
-const SearchPolicyCard: React.FC = () => {
-    const [query, setQuery] = useState('WXD 1234');
+interface SearchPolicyCardProps {
+    query: string;
+    onQueryChange: (value: string) => void;
+    onSearch: () => void;
+    found: boolean;
+}
 
-    return (
-        <CollapsibleCard
-            icon={<FiSearch />}
-            iconVariant="amber"
-            title="Search Policy"
-            subtitle="Locate your policy by vehicle plate or policy number."
-        >
+const SearchPolicyCard: React.FC<SearchPolicyCardProps> = ({ query, onQueryChange, onSearch, found }) => {
+    const content = (
             <div className="search-policy">
-                <form className="search-policy__bar" onSubmit={(e) => e.preventDefault()}>
+                <form
+                    className="search-policy__bar"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        onSearch();
+                    }}
+                >
                     <div className="search-policy__input-shell">
                         <FiSearch className="search-policy__input-icon" aria-hidden="true" />
                         <input
                             type="text"
                             className="search-policy__input"
                             value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={(e) => onQueryChange(e.target.value)}
                             placeholder="Enter vehicle plate or policy number"
                         />
                     </div>
@@ -155,11 +167,29 @@ const SearchPolicyCard: React.FC = () => {
                     </button>
                 </form>
 
+                {!found && (
+                    <div className="search-policy__error" role="alert">
+                        <span className="search-policy__error-icon">
+                            <span>!</span>
+                        </span>
+                        <div className="search-policy__error-copy">
+                            <p className="search-policy__error-title">
+                                We couldn&apos;t find an active insurance policy for this vehicle. Please verify and try again.
+                            </p>
+                            <ul className="search-policy__error-list">
+                                <li>Check registration number for typos</li>
+                                <li>Try another vehicle</li>
+                            </ul>
+                        </div>
+                    </div>
+                )}
+
+                {found && (
                 <div className="search-policy__results">
                     <article className="search-policy__result-card">
                         <div className="search-policy__result-header">
                             <div className="search-policy__vehicle-thumb">
-                                <img src={vehicleImage} alt="vehicle" />
+                                <img src={vehicleImage} alt="" />
                             </div>
 
                             <div className="search-policy__result-heading">
@@ -190,16 +220,17 @@ const SearchPolicyCard: React.FC = () => {
                         <div className="search-policy__result-header">
                             <div className="search-policy__result-heading search-policy__result-heading--grow">
                                 <span className="search-policy__eyebrow">Insurance Provider</span>
-                                <h3 className="search-policy__result-title">Etiqa Takaful Berhad</h3>
+                                <div className="search-policy__title-row">
+                                    <h3 className="search-policy__result-title">Etiqa Takaful Berhad</h3>
+                                    <span className="search-policy__badge search-policy__badge--active">
+                                        <BsCheckCircleFill aria-hidden="true" />
+                                        Active
+                                    </span>
+                                </div>
                                 <p className="search-policy__result-caption">MOTO-88721</p>
                             </div>
 
-                            <span className="search-policy__badge search-policy__badge--active">
-                                <BsCheckCircleFill aria-hidden="true" />
-                                Active
-                            </span>
-
-                            <span className="search-policy__logo">etiqa</span>
+                            <img className="search-policy__logo" src={etiqaLogo} alt="Etiqa Takaful" />
                         </div>
 
                         <dl className="search-policy__detail-grid">
@@ -212,7 +243,23 @@ const SearchPolicyCard: React.FC = () => {
                         </dl>
                     </article>
                 </div>
+                )}
             </div>
+    );
+
+    if (!found) {
+        return <section className="collapsible-card collapsible-card--plain">{content}</section>;
+    }
+
+    return (
+        <CollapsibleCard
+            icon={<FiSearch />}
+            iconVariant="amber"
+            title="Search Policy"
+            subtitle="Locate your policy by vehicle plate or policy number."
+            solidChevron
+        >
+            {content}
         </CollapsibleCard>
     );
 };
@@ -294,7 +341,7 @@ const OtherDriverFields: React.FC<{
                     <span className="driver-form__select-value">
                         {form.identificationType || 'Select Identification Type'}
                     </span>
-                    <FiChevronDown aria-hidden="true" />
+                    <BsCaretDownFill aria-hidden="true" />
                 </div>
             </FormField>
 
@@ -349,7 +396,7 @@ const OtherDriverFields: React.FC<{
             <FormField label="State" required>
                 <div className="driver-form__select">
                     <span className="driver-form__select-value">{form.state || 'Select State'}</span>
-                    <FiChevronDown aria-hidden="true" />
+                    <BsCaretDownFill aria-hidden="true" />
                 </div>
             </FormField>
 
@@ -374,7 +421,7 @@ const OtherDriverFields: React.FC<{
                         />
                         <span className="driver-form__select-value">{form.country}</span>
                     </span>
-                    <FiChevronDown aria-hidden="true" />
+                    <BsCaretDownFill aria-hidden="true" />
                 </div>
             </FormField>
         </div>
@@ -390,27 +437,27 @@ const EmergencyContactSection: React.FC<{
     onEdit: (id: string) => void;
     onDelete: (id: string) => void;
 }> = ({ contacts, selectedId, onSelect, onAdd, onEdit, onDelete }) => (
-    <div className="emergency-contact">
-        <div className="emergency-contact__header">
-            <div className="emergency-contact__heading">
-                <span className="emergency-contact__icon">
+    <div className="pvd-emergency">
+        <div className="pvd-emergency__header">
+            <div className="pvd-emergency__heading">
+                <span className="pvd-emergency__icon">
                     <FiUser aria-hidden="true" />
                 </span>
-                <span className="emergency-contact__heading-text">
-                    <span className="emergency-contact__title">Emergency Contact</span>
-                    <span className="emergency-contact__subtitle">
+                <span className="pvd-emergency__heading-text">
+                    <span className="pvd-emergency__title">Emergency Contact</span>
+                    <span className="pvd-emergency__subtitle">
                         Select an existing contact or add a new one.
                     </span>
                 </span>
             </div>
 
-            <button type="button" className="emergency-contact__add-btn" onClick={onAdd}>
+            <button type="button" className="pvd-emergency__add-btn" onClick={onAdd}>
                 <FiPlus aria-hidden="true" />
                 <span>Add Contact</span>
             </button>
         </div>
 
-        <div className="emergency-contact__list">
+        <div className="pvd-emergency__list">
             {contacts.map((contact) => {
                 const isSelected = contact.id === selectedId;
                 return (
@@ -418,42 +465,42 @@ const EmergencyContactSection: React.FC<{
                         key={contact.id}
                         role="button"
                         tabIndex={0}
-                        className={`emergency-contact__card ${isSelected ? 'emergency-contact__card--selected' : ''
+                        className={`pvd-emergency__card ${isSelected ? 'pvd-emergency__card--selected' : ''
                             }`}
                         onClick={() => onSelect(contact.id)}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') onSelect(contact.id);
                         }}
                     >
-                        <div className="emergency-contact__card-info">
-                            <span className="emergency-contact__card-name">{contact.name}</span>
-                            <span className="emergency-contact__card-meta">
+                        <div className="pvd-emergency__card-info">
+                            <span className="pvd-emergency__card-name">{contact.name}</span>
+                            <span className="pvd-emergency__card-meta">
                                 {contact.relation} &middot; {contact.phone}
                             </span>
                         </div>
 
-                        <div className="emergency-contact__card-actions">
+                        <div className="pvd-emergency__card-actions">
                             <button
                                 type="button"
-                                className="emergency-contact__card-action"
+                                className="pvd-emergency__card-action"
                                 aria-label={`Edit ${contact.name}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     onEdit(contact.id);
                                 }}
                             >
-                                <FiEdit2 aria-hidden="true" />
+                                <RiEditLine aria-hidden="true" />
                             </button>
                             <button
                                 type="button"
-                                className="emergency-contact__card-action emergency-contact__card-action--danger"
+                                className="pvd-emergency__card-action pvd-emergency__card-action--danger"
                                 aria-label={`Delete ${contact.name}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     onDelete(contact.id);
                                 }}
                             >
-                                <FiTrash2 aria-hidden="true" />
+                                <BsTrash3Fill aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -468,13 +515,13 @@ const DriverDetailsCard: React.FC = () => {
 
     const [otherDriverForm, setOtherDriverForm] = useState<OtherDriverFormState>({
         name: 'Ahmad Rizal bin Ismail',
-        identificationType: '',
+        identificationType: 'NRIC / MyKad',
         identificationNumber: '850315-10-XXXX',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zipcode: '',
+        address1: 'No. 12, Jalan Kenanga 5/2',
+        address2: 'Taman Kenanga',
+        city: 'Subang Jaya',
+        state: 'Selangor',
+        zipcode: '47500',
         country: 'Malaysia',
     });
 
@@ -538,11 +585,7 @@ const DriverDetailsCard: React.FC = () => {
                                     }`}
                                 onClick={() => setSelectedDriver(option.id)}
                             >
-                                {isSelected ? (
-                                    <BsCheckCircleFill className="driver-details__toggle-icon" />
-                                ) : (
-                                    <BsCircle className="driver-details__toggle-icon driver-details__toggle-icon--muted" />
-                                )}
+                                <span className="driver-details__radio" aria-hidden="true" />
                                 <span>{option.label}</span>
                             </button>
                         );
@@ -584,7 +627,7 @@ const DriverDetailsCard: React.FC = () => {
 const MAX_DESCRIPTION_LENGTH = 500;
 
 const IncidentDetailsCard: React.FC = () => {
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState('Rear-ended by another vehicle while stopped at a traffic light on Jalan SS 15/4, Subang Jaya. No injuries. Police report lodged at the nearest station.');
     const [address, setAddress] = useState('Abc Street, Road No 1, Kuala Lumpur, Malaysia');
 
     return (
@@ -599,13 +642,13 @@ const IncidentDetailsCard: React.FC = () => {
                     <FormField label="Claim Type" required>
                         <div className="incident-details__select-shell">
                             <span className="incident-details__placeholder">Select Claim Type</span>
-                            <FiChevronDown aria-hidden="true" />
+                            <BsCaretDownFill aria-hidden="true" />
                         </div>
                     </FormField>
 
                     <FormField label="Date of Incident" required>
                         <div className="incident-details__input-shell">
-                            <FiCalendar className="incident-details__icon" aria-hidden="true" />
+                            <MdCalendarMonth className="incident-details__icon" aria-hidden="true" />
                             <span>24/06/2026</span>
                             <BsCheckCircleFill className="incident-details__check" aria-hidden="true" />
                         </div>
@@ -613,17 +656,17 @@ const IncidentDetailsCard: React.FC = () => {
 
                     <FormField label="Time of Incident" required>
                         <div className="incident-details__input-shell">
-                            <FiClock className="incident-details__icon" aria-hidden="true" />
+                            <BsClockFill className="incident-details__icon" aria-hidden="true" />
                             <span>08:24 PM</span>
                             <BsCheckCircleFill className="incident-details__check" aria-hidden="true" />
                         </div>
                     </FormField>
                 </div>
 
-                <div className="incident-details__grid incident-details__grid--two">
+                <div className="incident-details__grid incident-details__grid--three">
                     <FormField label="Notice Date &amp; Time">
                         <div className="incident-details__input-shell">
-                            <FiCalendar className="incident-details__icon" aria-hidden="true" />
+                            <MdCalendarMonth className="incident-details__icon" aria-hidden="true" />
                             <span>24/06/2026&nbsp;&nbsp;08:24 PM</span>
                             <BsCheckCircleFill className="incident-details__check" aria-hidden="true" />
                         </div>
@@ -631,7 +674,7 @@ const IncidentDetailsCard: React.FC = () => {
 
                     <FormField label="Loss Date &amp; Time">
                         <div className="incident-details__input-shell">
-                            <FiClock className="incident-details__icon" aria-hidden="true" />
+                            <BsClockFill className="incident-details__icon" aria-hidden="true" />
                             <span>24/06/2026&nbsp;&nbsp;08:24 PM</span>
                             <BsCheckCircleFill className="incident-details__check" aria-hidden="true" />
                         </div>
@@ -666,7 +709,7 @@ const IncidentDetailsCard: React.FC = () => {
                         <FormField label="Loss Type">
                             <div className="incident-details__select-shell">
                                 <span className="incident-details__placeholder">Loss type</span>
-                                <FiChevronDown aria-hidden="true" />
+                                <BsCaretDownFill aria-hidden="true" />
                             </div>
                         </FormField>
 
@@ -675,6 +718,7 @@ const IncidentDetailsCard: React.FC = () => {
                                 <FiFileText className="incident-details__icon" aria-hidden="true" />
                                 <input
                                     type="text"
+                                    defaultValue="KL/001234/2026"
                                     placeholder="e.g. KL/001234/2025"
                                     className="incident-details__address-input"
                                 />
@@ -712,7 +756,17 @@ interface PolicyVehicleDetailsProps {
     onContinue?: () => void;
 }
 
+const DEMO_PLATE = 'WXD 1234';
+const normalizePlate = (value: string) => value.replace(/s+/g, '').toUpperCase();
+
 const PolicyVehicleDetails: React.FC<PolicyVehicleDetailsProps> = ({ onBack, onContinue }) => {
+    const [query, setQuery] = useState(DEMO_PLATE);
+    const [found, setFound] = useState(true);
+
+    const handleSearch = () => {
+        setFound(normalizePlate(query) === normalizePlate(DEMO_PLATE));
+    };
+
     return (
         <div className="policy-vehicle-details">
             <header className="policy-vehicle-details__header">
@@ -726,30 +780,21 @@ const PolicyVehicleDetails: React.FC<PolicyVehicleDetailsProps> = ({ onBack, onC
             </header>
 
             <main className="policy-vehicle-details__body">
-                <SearchPolicyCard />
-                <DriverDetailsCard />
-                <IncidentDetailsCard />
+                <SearchPolicyCard
+                    query={query}
+                    onQueryChange={setQuery}
+                    onSearch={handleSearch}
+                    found={found}
+                />
+                {found && (
+                    <>
+                        <DriverDetailsCard />
+                        <IncidentDetailsCard />
+                    </>
+                )}
             </main>
 
-            <footer className="policy-vehicle-details__footer">
-                <button
-                    type="button"
-                    className="policy-vehicle-details__btn policy-vehicle-details__btn--ghost"
-                    onClick={onBack}
-                >
-                    <FiArrowLeft aria-hidden="true" />
-                    <span>Back</span>
-                </button>
-
-                <button
-                    type="button"
-                    className="policy-vehicle-details__btn policy-vehicle-details__btn--primary"
-                    onClick={onContinue}
-                >
-                    <span>Continue</span>
-                    <FiArrowRight aria-hidden="true" />
-                </button>
-            </footer>
+            <ClaimsFooter onBack={onBack} onContinue={onContinue} continueDisabled={!found} />
         </div>
     );
 };

@@ -60,15 +60,10 @@
         flex: 1;
         min-width: 0;
         height: 63px;
-        overflow: hidden;
+        overflow-x: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar { display: none; }
         @media (max-width: 768px) { width: 100%; flex: none; }
-    }
-
-    &__logos-track {
-        display: flex;
-        width: max-content;
-        animation: trusted-scroll 40s linear infinite;
-        &:hover { animation-play-state: paused; }
     }
 
     &__logos-set {
@@ -86,6 +81,3 @@
     }
 }
 
-@keyframes trusted-scroll {
-    to { transform: translateX(-50%); }
-}

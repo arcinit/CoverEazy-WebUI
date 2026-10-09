@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { LuCar, LuPlane } from 'react-icons/lu';
 import {
     FiTruck, FiSend, FiDownload, FiRefreshCw, FiFileText,
-    FiFolder, FiAlertCircle, FiGrid, FiList, FiX, FiChevronDown,
-    FiPrinter, FiMail, FiAlignLeft,
+    FiGrid, FiList, FiX,
+    FiPrinter, FiAlignLeft,
 } from 'react-icons/fi';
+import { SiGmail } from 'react-icons/si';
+import { FaPrint, FaPaperPlane } from 'react-icons/fa';
+import { MdInsertDriveFile, MdArrowDropDown } from 'react-icons/md';
 import './PolicyWallet.scss';
 import { MdFlight } from 'react-icons/md';
 
@@ -49,7 +53,7 @@ const POLICIES: Policy[] = [
         id: 'motor-88721',
         policyNumber: 'POL-2026-2001',
         type: 'Motor',
-        icon: FiTruck,
+        icon: LuCar,
         tone: 'blue',
         title: 'Motor Insurance',
         subtitle: 'Etiqa Takaful · MOTO-88721',
@@ -177,7 +181,7 @@ const DocumentsModal: React.FC<DocumentsModalProps> = ({ policy, onClose }) => {
                                 onClick={() => toggleGroup(group.title)}
                             >
                                 <span className="doc-group__title">{group.title}</span>
-                                <FiChevronDown
+                                <MdArrowDropDown
                                     className={`doc-group__chevron${openGroups[group.title] ? ' doc-group__chevron--open' : ''
                                         }`}
                                 />
@@ -188,7 +192,7 @@ const DocumentsModal: React.FC<DocumentsModalProps> = ({ policy, onClose }) => {
                                     {group.files.map((file) => (
                                         <div className="doc-file" key={file.name}>
                                             <span className="doc-file__icon">
-                                                <FiFileText />
+                                                <MdInsertDriveFile />
                                             </span>
 
                                             <div className="doc-file__text">
@@ -204,7 +208,7 @@ const DocumentsModal: React.FC<DocumentsModalProps> = ({ policy, onClose }) => {
                                                     className="doc-file__action doc-file__action--print"
                                                     aria-label="Print"
                                                 >
-                                                    <FiPrinter />
+                                                    <FaPrint />
                                                 </button>
                                                 <button
                                                     type="button"
@@ -218,14 +222,14 @@ const DocumentsModal: React.FC<DocumentsModalProps> = ({ policy, onClose }) => {
                                                     className="doc-file__action doc-file__action--mail"
                                                     aria-label="Email"
                                                 >
-                                                    <FiMail />
+                                                    <SiGmail />
                                                 </button>
                                                 <button
                                                     type="button"
                                                     className="doc-file__action doc-file__action--send"
                                                     aria-label="Send"
                                                 >
-                                                    <FiSend />
+                                                    <FaPaperPlane />
                                                 </button>
                                             </div>
                                         </div>
@@ -341,7 +345,6 @@ const PolicyWallet: React.FC = () => {
                             <div className="policy-card__warnings">
                                 {policy.warnings.map((warning) => (
                                     <span className="policy-card__warning" key={warning}>
-                                        <FiAlertCircle className="policy-card__warning-icon" />
                                         {warning}
                                     </span>
                                 ))}
@@ -366,7 +369,7 @@ const PolicyWallet: React.FC = () => {
                                 className="policy-card__action policy-card__action--green"
                                 onClick={() => setActiveDocPolicyId(policy.id)}
                             >
-                                <FiFolder />
+                                <FiFileText />
                                 View Documents
                             </button>
                         </div>

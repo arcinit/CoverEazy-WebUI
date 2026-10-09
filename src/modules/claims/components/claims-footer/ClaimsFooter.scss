@@ -1,0 +1,80 @@
+// Figma: 83px white bar with a 1px #eff3f8 top border; Back (116x48 outline) at the left edge of the 1240px column,
+// Continue (276x48 navy) at the right edge.
+.claims-footer {
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #eff3f8;
+    font-family: "Inter", sans-serif;
+
+    & * { font-family: "Inter", sans-serif; }
+
+    &__inner {
+        width: min(1240px, calc(100% - 48px));
+        height: 82px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+
+        @media (max-width: 600px) { width: calc(100% - 24px); }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__back,
+    &__secondary,
+    &__continue {
+        height: 48px;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+    }
+
+    &__back {
+        width: 116px;
+        border: 1px solid #e9eef5;
+        background: #fff;
+        color: #586474;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__secondary {
+        padding: 0 24px;
+        border: 1px solid #e9eef5;
+        background: #fff;
+        color: #586474;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__continue {
+        font-size: 16px;
+        font-weight: 500;
+        width: 276px;
+        border: 0;
+        background: #062155;
+        color: #fff;
+        box-shadow: 0 2px 8px -2px rgba(4, 25, 58, 0.06), 0 1px 3px -1px rgba(4, 25, 58, 0.04);
+
+        &:disabled {
+            background: #9ba6bb;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) { width: 180px; }
+    }
+}

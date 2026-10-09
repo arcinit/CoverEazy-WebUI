@@ -75,6 +75,12 @@ interface StepperProps {
 
 const Stepper: React.FC<StepperProps> = ({ currentStep }) => (
     <div className="claims__stepper">
+        <span className="claims__stepper-track">
+            <span
+                className="claims__stepper-fill"
+                style={{ width: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%` }}
+            />
+        </span>
         {STEPS.map((step, idx) => {
             const stepNo = idx + 1;
             const state =
@@ -82,12 +88,6 @@ const Stepper: React.FC<StepperProps> = ({ currentStep }) => (
 
             return (
                 <React.Fragment key={step.id}>
-                    {idx > 0 && (
-                        <span
-                            className={`claims__stepper-line ${stepNo <= currentStep ? 'claims__stepper-line--filled' : ''
-                                }`}
-                        />
-                    )}
                     <div className="claims__stepper-item">
                         <span className={`claims__stepper-dot claims__stepper-dot--${state}`}>
                             {state === 'done' ? <FiCheck /> : stepNo}

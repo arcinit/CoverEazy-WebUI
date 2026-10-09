@@ -98,7 +98,7 @@ const CarMotersFlow = () => {
             )}
 
             {/* Active step content */}
-            <main className="car-moters-flow__content">
+            <main className={`car-moters-flow__content car-moters-flow__content--step-${activeStep}`}>
                 {activeStep === 1 && (
                     // "Vehicle Details" step renders Moters
                     <Moters onContinue={() => setActiveStep(2)} />

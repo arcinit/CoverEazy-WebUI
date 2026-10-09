@@ -20,7 +20,7 @@ $muted: #667085;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 40px 0 60px;
+        padding: 38px 0 60px;
     }
 
     &__hero-icon {
@@ -329,7 +329,7 @@ $muted: #667085;
     }
 
     // Sections
-    &__section { margin-bottom: 28px; }
+    &__section { margin-bottom: 24px; }
 
     &__section-title {
         font-size: 16px;
@@ -344,7 +344,7 @@ $muted: #667085;
         line-height: 20px;
         font-weight: 300;
         color: $muted;
-        margin: -8px 0 16px;
+        margin: -8px 0 19px;
     }
 
     &__actions-grid {
@@ -454,7 +454,7 @@ $muted: #667085;
     &__footer {
         display: flex;
         justify-content: center;
-        padding: 5px 0 48px;
+        padding: 5px 0 25px;
     }
 
     &__restart-btn {

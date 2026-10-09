@@ -38,9 +38,11 @@ type AuthHeroLayoutProps = {
     card: ReactNode
     // Vertically centre the card against the artwork (used by the quote card)
     centerCard?: boolean
+    // The signed-in home hero has no benefits strip under the intro copy
+    hideFeatures?: boolean
 }
 
-export const AuthHeroLayout = ({ card, centerCard }: AuthHeroLayoutProps) => {
+export const AuthHeroLayout = ({ card, centerCard, hideFeatures }: AuthHeroLayoutProps) => {
     return (
         <div className="auth-hero-wrap" style={{ backgroundImage: `url(${heroBg})` }}>
             <section className="auth-hero">
@@ -57,7 +59,7 @@ export const AuthHeroLayout = ({ card, centerCard }: AuthHeroLayoutProps) => {
                                 Compare, purchase, renew, manage policies, submit claims, renew road tax, and track everything in one secure ecosystem.
                             </p>
                         </div>
-                        <div className="auth-hero__features">
+                        {!hideFeatures && <div className="auth-hero__features">
                             {FEATURES.map((f, i) => (
                                 <div className="auth-hero__feature" key={f.title}>
                                     {i > 0 && <span className="auth-hero__feature-divider" />}
@@ -70,7 +72,7 @@ export const AuthHeroLayout = ({ card, centerCard }: AuthHeroLayoutProps) => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                        </div>}
                     </div>
                     <div className="auth-hero__card">{card}</div>
                 </div>

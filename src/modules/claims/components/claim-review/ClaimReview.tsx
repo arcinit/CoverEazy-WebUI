@@ -1,37 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-    FiArrowLeft,
-    FiArrowRight,
-    FiEdit2,
     FiCalendar,
     FiMapPin,
     FiFileText,
     FiPhone,
-    FiUsers,
+    FiUser,
     FiClock,
     FiNavigation,
     FiAlertTriangle,
     FiCheck,
-    FiPlus,
-    FiMinus,
+    FiHome,
 } from "react-icons/fi";
-import { FaCar, FaCheckCircle, FaStar, FaRegHeart } from "react-icons/fa";
-import { MdVerified } from "react-icons/md";
+import { FaCheckCircle, FaStar } from "react-icons/fa";
+import { IoCarSportOutline } from "react-icons/io5";
 import "./ClaimReview.scss";
-import vehicleImage from "./images/vehicle.png"
+import ClaimsFooter from "../claims-footer/ClaimsFooter";
+import vehicleImage from "./images/car-thumb.png";
+import etiqaLogo from "./images/etiqa-logo.png";
+import mapImage from "./images/map.png";
 
 /* ------------------------------------------------------------------ */
 /* Static data — swap for real claim data as needed                    */
 /* ------------------------------------------------------------------ */
 
 const SUMMARY_ITEMS = [
-    { icon: <FaCar />, label: "Claim Type", value: "Own Vehicle Damage" },
+    { icon: <IoCarSportOutline />, label: "Claim Type", value: "Own Vehicle Damage" },
     { icon: <FiFileText />, label: "Policy Number", value: "MOTO-88721" },
-    {
-        icon: <FaCar />,
-        label: "Vehicle",
-        value: "WXD 1234 · Toyota Camry 2.5V",
-    },
+    { icon: <IoCarSportOutline />, label: "Vehicle", value: "WXD 1234 · Toyota Camry 2.5V" },
     { icon: <FiCalendar />, label: "Incident Date", value: "2026-06-24" },
     { icon: <FiMapPin />, label: "Incident Location", value: "Jalan Dutta" },
     { icon: <FiFileText />, label: "Police Report", value: "KL1234567890" },
@@ -66,13 +61,8 @@ const VEHICLE_IMAGES = [
 
 const WORKSHOP_STATS = [
     { icon: <FiNavigation />, label: "Distance", value: "2.4 km" },
-    {
-        icon: <FiCheck />,
-        label: "Status",
-        value: "Open Now",
-        modifier: "positive",
-    },
-    { icon: <FiClock />, label: "Hours", value: "Mon–Sat 8:30am – 6:00pm" },
+    { icon: <FiClock />, label: "Status", value: "Open Now", positive: true },
+    { icon: <FiHome />, label: "Hours", value: "Mon–Sat 8:30am – 6:00pm" },
     { icon: <FiPhone />, label: "Phone", value: "+603 7845 8888" },
 ];
 
@@ -80,7 +70,7 @@ const WORKSHOP_STATS = [
 /* Small presentational sub-components                                 */
 /* ------------------------------------------------------------------ */
 
-const InfoField = ({ icon, label, value }:any) => (
+const InfoField = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) => (
     <div className="claim-review__field">
         <span className="claim-review__field-icon">{icon}</span>
         <div className="claim-review__field-text">
@@ -90,106 +80,95 @@ const InfoField = ({ icon, label, value }:any) => (
     </div>
 );
 
-const SpecItem = ({ label, value }:any) => (
+const SpecItem = ({ label, value }: { label: string; value: string }) => (
     <div className="claim-review__spec">
         <span className="claim-review__spec-label">{label}</span>
         <span className="claim-review__spec-value">{value}</span>
     </div>
 );
 
-const Badge = ({ children, modifier }:any) => (
-    <span className={`claim-review__badge claim-review__badge--${modifier}`}>
-        {children}
-    </span>
+const Badge = ({ children, modifier }: { children: React.ReactNode; modifier: string }) => (
+    <span className={`claim-review__badge claim-review__badge--${modifier}`}>{children}</span>
 );
 
 /* ------------------------------------------------------------------ */
 /* Main component                                                      */
 /* ------------------------------------------------------------------ */
 
-const ClaimReview = ({onContinue}:any) => {
+interface ClaimReviewProps {
+    onBack?: () => void;
+    onEdit?: () => void;
+    onContinue?: () => void;
+}
+
+const ClaimReview = ({ onBack, onEdit, onContinue }: ClaimReviewProps) => {
+    const [agreed, setAgreed] = useState(false);
+
     return (
         <div className="claim-review">
-            {/* Header ---------------------------------------------------- */}
             <header className="claim-review__header">
                 <h1 className="claim-review__title">
                     Review Your <span className="claim-review__title-accent">Claim</span>
                 </h1>
                 <p className="claim-review__subtitle">
-                    Verify all details before submission. Submitted claims cannot be
-                    edited.
+                    Verify all details before submission. Submitted claims cannot be edited.
                 </p>
             </header>
 
             <div className="claim-review__body">
-                {/* Claim summary -------------------------------------------- */}
-                <section className="claim-review__card">
+                {/* Claim summary */}
+                <section className="claim-review__card claim-review__card--plain">
                     <div className="claim-review__card-header">
                         <h2 className="claim-review__card-title">Claim Summary</h2>
                         <Badge modifier="pending">Pending</Badge>
                     </div>
-
-                    <div className="claim-review__grid claim-review__grid--2col">
+                    <div className="claim-review__summary-grid">
                         {SUMMARY_ITEMS.map((item) => (
                             <InfoField key={item.label} {...item} />
                         ))}
                     </div>
                 </section>
 
-                {/* Vehicle + Insurance ---------------------------------------- */}
-                <section className="claim-review__grid claim-review__grid--split">
-                    <div className="claim-review__card-vehicle ">
+                {/* Vehicle + Insurance */}
+                <section className="claim-review__split">
+                    <div className="claim-review__card claim-review__card--tint claim-review__entity-card">
                         <div className="claim-review__entity">
-                            <div className="claim-review__entity-media">
-                                <img src={vehicleImage} alt="vehicle" />
-                            </div>
+                            <img className="claim-review__entity-media" src={vehicleImage} alt="Vehicle" />
                             <div className="claim-review__entity-info">
                                 <div className="claim-review__entity-top">
-                                    <span className="claim-review__entity-label">
-                                        Insured Vehicle
-                                    </span>
+                                    <span className="claim-review__entity-label">Insured Vehicle</span>
                                     <Badge modifier="verified">
-                                        <MdVerified /> Verified
+                                        Verified <FaCheckCircle />
                                     </Badge>
                                 </div>
                                 <h3 className="claim-review__entity-name">WXD 1234</h3>
-                                <p className="claim-review__entity-meta">
-                                    Toyota Camry 2.5V · 2022 · Pearl White
-                                </p>
+                                <p className="claim-review__entity-meta">Toyota Camry 2.5V · 2022 · Pearl White</p>
                             </div>
                         </div>
-
                         <div className="claim-review__divider" />
-
-                        <div className="claim-review__grid claim-review__grid--3col">
+                        <div className="claim-review__specs">
                             {VEHICLE_SPECS.map((spec) => (
                                 <SpecItem key={spec.label} {...spec} />
                             ))}
                         </div>
                     </div>
 
-                    <div className="claim-review__card-insurance ">
+                    <div className="claim-review__card claim-review__card--tint claim-review__entity-card">
                         <div className="claim-review__entity">
                             <div className="claim-review__entity-info">
-                                <div className="claim-review__entity-top">
-                                    <span className="claim-review__entity-label">
-                                        Insurance Provider
-                                    </span>
+                                <span className="claim-review__entity-label">Insurance Provider</span>
+                                <div className="claim-review__entity-namerow">
+                                    <h3 className="claim-review__entity-name">Etiqa Takaful Berhad</h3>
                                     <Badge modifier="active">
-                                        <span className="claim-review__dot" /> Active
+                                        <FaCheckCircle /> Active
                                     </Badge>
                                 </div>
-                                <h3 className="claim-review__entity-name">
-                                    Etiqa Takaful Berhad
-                                </h3>
                                 <p className="claim-review__entity-meta">MOTO-88721</p>
                             </div>
-                            <div className="claim-review__entity-logo">eTiQa</div>
+                            <img className="claim-review__entity-logo" src={etiqaLogo} alt="Etiqa Takaful" />
                         </div>
-
                         <div className="claim-review__divider" />
-
-                        <div className="claim-review__grid claim-review__grid--3col">
+                        <div className="claim-review__specs">
                             {INSURANCE_SPECS.map((spec) => (
                                 <SpecItem key={spec.label} {...spec} />
                             ))}
@@ -197,167 +176,123 @@ const ClaimReview = ({onContinue}:any) => {
                     </div>
                 </section>
 
-                {/* Driver & emergency contact ----------------------------------- */}
-                <section className="claim-review__card">
-                    <div className="claim-review__card-header claim-review__card-header--icon">
+                {/* Driver & emergency contact */}
+                <section className="claim-review__card claim-review__card--plain">
+                    <div className="claim-review__driver-head">
                         <span className="claim-review__card-icon">
-                            <FiUsers />
+                            <FiUser />
                         </span>
-                        <h2 className="claim-review__card-title">
-                            Driver &amp; Emergency Contact
-                        </h2>
+                        <h2 className="claim-review__card-title">Driver &amp; Emergency Contact</h2>
                     </div>
-
-                    <div className="claim-review__grid claim-review__grid--4col">
+                    <div className="claim-review__driver-grid">
                         {DRIVER_INFO.map((item) => (
-                            <SpecItem key={item.label} {...item} />
+                            <div className="claim-review__spec" key={item.label}>
+                                <span className="claim-review__spec-label claim-review__spec-label--caps">
+                                    {item.label}
+                                </span>
+                                <span className="claim-review__spec-value">{item.value}</span>
+                            </div>
                         ))}
                     </div>
                 </section>
 
-                {/* Vehicle images ------------------------------------------------ */}
-                <section className="claim-review__card">
+                {/* Vehicle images */}
+                <section className="claim-review__card claim-review__card--plain">
                     <h2 className="claim-review__card-title">Vehicle Images</h2>
-
                     <div className="claim-review__images">
                         {VEHICLE_IMAGES.map((image) => (
                             <div className="claim-review__image-slot" key={image.label}>
                                 <span className="claim-review__image-check">
                                     <FaCheckCircle />
                                 </span>
-                                <span className="claim-review__image-label">
-                                    {image.label}
-                                </span>
-                                <span className="claim-review__image-caption">
-                                    {image.caption}
-                                </span>
+                                <span className="claim-review__image-label">{image.label}</span>
+                                <span className="claim-review__image-caption">{image.caption}</span>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* Workshop -------------------------------------------------------- */}
-                <section className="claim-review__card">
-                    <div className="claim-review__workshop-header">
+                {/* Workshop */}
+                <section className="claim-review__card claim-review__card--tint claim-review__workshop">
+                    <div className="claim-review__workshop-head">
                         <div>
-                            <div className="claim-review__workshop-title-row">
-                                <h2 className="claim-review__card-title">
-                                    Auto Bavaria Glenmarie
-                                </h2>
-                                <span className="claim-review__rating">
-                                    <Badge modifier="panel">Panel</Badge>
-                                    <FaStar /> 4.8 · 1284 reviews
-                                </span>
-                            </div>
+                            <h2 className="claim-review__workshop-name">Auto Bavaria Glenmarie</h2>
                             <p className="claim-review__workshop-address">
                                 Lot 1, Jalan Lapangan Terbang Subang, Shah Alam, Selangor
                             </p>
                         </div>
+                        <span className="claim-review__rating">
+                            <Badge modifier="panel">Panel</Badge>
+                            <FaStar /> 4.8 · 1284 reviews
+                        </span>
                     </div>
-
-                    <div className="claim-review__grid claim-review__grid--4col">
+                    <div className="claim-review__divider" />
+                    <div className="claim-review__workshop-stats">
                         {WORKSHOP_STATS.map((stat) => (
-                            <div className="claim-review__field" key={stat.label}>
-                                <span className="claim-review__field-icon">{stat.icon}</span>
-                                <div className="claim-review__field-text">
-                                    <span className="claim-review__field-label">
-                                        {stat.label}
-                                    </span>
-                                    <span
-                                        className={`claim-review__field-value${stat.modifier
-                                                ? ` claim-review__field-value--${stat.modifier}`
-                                                : ""
-                                            }`}
-                                    >
-                                        {stat.value}
-                                    </span>
-                                </div>
+                            <div className="claim-review__stat" key={stat.label}>
+                                <span className="claim-review__stat-label">
+                                    {stat.icon} {stat.label}
+                                </span>
+                                <span
+                                    className={`claim-review__stat-value${
+                                        stat.positive ? " claim-review__stat-value--positive" : ""
+                                    }`}
+                                >
+                                    {stat.value}
+                                </span>
                             </div>
                         ))}
                     </div>
-
-                    <div className="claim-review__map">
-                        <div className="claim-review__map-canvas">
-                            <FiMapPin className="claim-review__map-pin" />
-                        </div>
-                        <div className="claim-review__map-controls">
-                            <button type="button" aria-label="Zoom in">
-                                <FiPlus />
-                            </button>
-                            <button type="button" aria-label="Zoom out">
-                                <FiMinus />
-                            </button>
-                        </div>
-                        <div className="claim-review__map-attribution">
-                            Report a problem &middot; © OpenStreetMap contributors &middot;
-                            Make a Donation &middot; Website and API terms
-                        </div>
-                    </div>
+                    <img className="claim-review__map" src={mapImage} alt="Workshop location map" />
                 </section>
 
-                {/* Warning ----------------------------------------------------------- */}
-                <div className="claim-review__warning">
+                {/* Warning */}
+                <div className="claim-review__warning" role="alert">
                     <FiAlertTriangle className="claim-review__warning-icon" />
                     <p>
-                        Submitting false or fraudulent information is a criminal offence
-                        under Malaysian law and may result in policy cancellation, claim
-                        rejection and prosecution.
+                        Submitting false or fraudulent information is a criminal offence under Malaysian law and
+                        may result in policy cancellation, claim rejection and prosecution.
                     </p>
                 </div>
 
-                {/* Declaration --------------------------------------------------------- */}
-                <section className="claim-review__card">
+                {/* Declaration */}
+                <section className="claim-review__card claim-review__card--plain">
                     <h2 className="claim-review__card-title">Declaration</h2>
-
                     <ul className="claim-review__declaration-list">
                         <li>
-                            I declare that the information provided in this claim form is
-                            true, accurate and complete to the best of my knowledge and
-                            belief.
+                            I declare that the information provided in this claim form is true, accurate and
+                            complete to the best of my knowledge and belief.
                         </li>
                         <li>
-                            I understand that any false or misleading statements may result
-                            in the rejection of this claim and may constitute an offence
-                            under applicable laws.
+                            I understand that any false or misleading statements may result in the rejection of
+                            this claim and may constitute an offence under applicable laws.
                         </li>
-                        <li>
-                            I authorise Insurtech One Berhad to access any information
-                            necessary for the assessment and processing of this claim.
+                        <li className="claim-review__declaration-narrow">
+                            I authorise Insurtech One Berhad to access any information necessary for the
+                            assessment and processing of this claim.
                         </li>
                     </ul>
-
                     <label className="claim-review__agree">
-                        <span className="claim-review__checkbox">
+                        <input
+                            type="checkbox"
+                            className="claim-review__agree-input"
+                            checked={agreed}
+                            onChange={(e) => setAgreed(e.target.checked)}
+                        />
+                        <span className="claim-review__checkbox" aria-hidden="true">
                             <FiCheck />
                         </span>
-                        I agree to the Declaration above and confirm that all details are
-                        accurate.
+                        I agree to the Declaration above and confirm that all details are accurate.
                     </label>
                 </section>
             </div>
 
-            {/* Footer -------------------------------------------------------------- */}
-            <footer className="claim-review__footer">
-                <button type="button" className="claim-review__btn claim-review__btn--ghost">
-                    <FiArrowLeft /> Back
-                </button>
-
-                <div className="claim-review__footer-actions">
-                    <button
-                        type="button"
-                        className="claim-review__btn claim-review__btn--outline"
-                    >
-                        <FiEdit2 /> Edit Details
-                    </button>
-                    <button
-                        type="button"
-                        className="claim-review__btn claim-review__btn--primary"
-                onClick={onContinue}
-                    >
-                        Continue <FiArrowRight />
-                    </button>
-                </div>
-            </footer>
+            <ClaimsFooter
+                onBack={onBack}
+                onContinue={onContinue}
+                continueDisabled={!agreed}
+                secondary={{ label: "Edit Details", onClick: () => onEdit?.() }}
+            />
         </div>
     );
 };

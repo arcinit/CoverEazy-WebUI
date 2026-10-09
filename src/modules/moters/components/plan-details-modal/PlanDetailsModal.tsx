@@ -260,7 +260,7 @@ const WhyChooseCard = ({ plan }: any) => (
 
         <div className="why-choose-card__score">
             <span className="why-choose-card__score-value">
-                {plan.score ? (plan.score / 10).toFixed(1) : plan.rating}
+                {plan.coverageScore ?? (plan.score ? (plan.score / 10).toFixed(1) : plan.rating)}
             </span>
             <span className="why-choose-card__score-meta">
                 <StarRating rating={plan.score ? plan.score / 20 : plan.rating || 4} />

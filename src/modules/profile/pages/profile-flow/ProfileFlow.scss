@@ -1,158 +1,148 @@
 // ==========================================================================
-// Tokens (inline, single-file setup)
+// Profile shell (hero card + sidebar + content column) — Figma 1440 laptop
 // ==========================================================================
-$color-bg-page: #eef1f6;
-$color-white: #ffffff;
-$color-text-primary: #1a1f2b;
-$color-text-secondary: #6b7280;
-$color-text-muted: #9aa2b1;
-$color-border: #e8eaf0;
-$color-border-light: #f0f1f5;
-$color-primary: #3b5bfd;
-$color-primary-light: #eef1ff;
-$color-success: #16a34a;
-$color-success-bg: #e7f7ec;
-$color-danger: #ef4444;
-$color-gold-bg: #fef3dd;
-$color-teal: #14b8a6;
-$color-teal-bg: #e4f9f6;
-
-$gradient-hero: linear-gradient(120deg, #ffffff 0%, #f3f6ff 55%, #eaf3fb 100%);
-$gradient-avatar: linear-gradient(135deg, #4f6bff 0%, #3b47d6 100%);
-
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 18px;
-$radius-xl: 22px;
-$radius-pill: 999px;
-
-$shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
-$shadow-hero: 0 4px 24px rgba(59, 91, 253, 0.06);
-
-$sidebar-width: 264px;
+$text-dark: #1f2937;
+$text-nav: #1e293b;
+$text-mid: #64748b;
+$border: #e6eaf2;
+$green: #00a86b;
+$blue: #0f5bff;
 
 .profile-flow {
-    max-width: 90%;
-    margin: auto;
-    padding: 20px 0px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    min-height: max(calc(100vh - 64px), 1083px);
+    background: #f8fafd;
+    padding: 41px 0 41px;
 
-    // -------------------- Header --------------------
+    &,
+    & * {
+        font-family: "Inter", sans-serif;
+        box-sizing: border-box;
+    }
+
+    &__wrap {
+        max-width: 1260px;
+        margin: 0 auto;
+    }
+
+    // -------------------- Hero --------------------
     &__header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        flex-wrap: wrap;
+        gap: 42px;
+        height: 183px;
+        padding: 0 23px 0 23px;
         background:
-            radial-gradient(100% 80% at 100% 100%,
-                rgba(43, 196, 196, 0.18) 0%,
-                rgba(43, 196, 196, 0) 55%),
-            radial-gradient(120% 80% at 0% 0%,
-                rgba(15, 91, 255, 0.10) 0%,
-                rgba(15, 91, 255, 0) 55%),
-            linear-gradient(180deg,
-                #FFFFFF 0%,
-                #F4F8FF 100%);
-        border: 1px solid #2662FE26;
-        box-shadow: 0px 12px 32px -12px #0F172A1F;
-
-        box-shadow: 0px 1px 2px 0px #0F172A0A;
+            radial-gradient(60% 70% at 100% 100%, rgba(43, 196, 196, 0.2) 0%, rgba(43, 196, 196, 0) 100%),
+            radial-gradient(50% 60% at 0% 0%, rgba(15, 91, 255, 0.05) 0%, rgba(15, 91, 255, 0) 100%),
+            linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
+        border: 1px solid rgba(38, 98, 254, 0.15);
         border-radius: 24px;
-        border: 1px solid $color-border;
-        border-radius: $radius-xl;
-        box-shadow: $shadow-hero;
-        padding: 24px 32px;
+        box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.14);
     }
 
     &__identity {
         display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        flex: 1 1 320px;
-        min-width: 280px;
+        align-items: center;
+        gap: 24px;
+        flex: 1;
+        min-width: 0;
+        margin-top: -9px; // Figma sits the avatar/name block ~4px above the card's vertical centre
     }
 
     &__avatar-wrap {
         position: relative;
         flex-shrink: 0;
+        width: 96px;
+        height: 96px;
     }
 
     &__avatar {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 68px;
-        height: 68px;
-        border-radius: $radius-md;
-        background: $gradient-avatar;
-        color: $color-white;
-        font-size: 18px;
+        width: 96px;
+        height: 96px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, #1f4fd8 0%, #2f78f4 100%);
+        box-shadow: 0 10px 20px -6px rgba(15, 23, 42, 0.3);
+        color: #fff;
+        font-size: 30px;
         font-weight: 700;
-        letter-spacing: 0.5px;
     }
 
     &__avatar-status {
         position: absolute;
-        right: -2px;
-        bottom: -2px;
-        width: 16px;
-        height: 16px;
+        right: -4px;
+        bottom: -4px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
-        background: $color-success;
-        border: 3px solid $color-white;
+        background: #14c27a;
+        border: 3px solid #a8e9cf;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        svg { stroke-width: 2.4; }
     }
 
     &__info {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding-top: 4px;
+        min-width: 0;
     }
 
     &__name-row {
         display: flex;
         align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
+        gap: 8px;
     }
 
     &__name {
-        font-size: 22px;
+        font-size: 24px;
+        line-height: 30px;
         font-weight: 700;
-        color: $color-text-primary;
+        color: $text-dark;
         margin: 0;
+        white-space: nowrap;
     }
 
     &__badge {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        padding: 3px 10px;
-        border-radius: $radius-pill;
-        font-size: 11px;
-        font-weight: 400;
-        background: #FFF6E8;
-        color: #FF5E00;
+        gap: 5px;
+        height: 22px;
+        padding: 0 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        background: #fff1e0;
+        color: #ff5e00;
+        white-space: nowrap;
     }
 
-    &__badge-icon {
-        font-size: 11px;
-    }
+    &__badge-icon { font-size: 11px; }
 
     &__contact {
-        font-size: 13px;
-        color: $color-text-secondary;
-        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: $text-mid;
+        margin: 6px 0 0;
     }
 
     &__meta {
         display: flex;
         align-items: center;
-        gap: 32px;
-        margin-top: 8px;
+        gap: 0;
+        margin-top: 12px;
+    }
+
+    &__meta-sep {
+        width: 1px;
+        height: 34px;
+        background: #dbe3f0;
+        margin: 0 16px 0 5px;
     }
 
     &__meta-item {
@@ -163,145 +153,159 @@ $sidebar-width: 264px;
 
     &__meta-label {
         font-size: 12px;
-        color: $color-text-muted;
+        line-height: 16px;
+        color: $text-mid;
     }
 
     &__meta-value {
-        font-size: 13px;
-        font-weight: 600;
-        color: $color-text-primary;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 700;
+        color: $text-dark;
     }
 
     &__progress {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 17px;
+        min-height: 18px;
     }
 
     &__progress-track {
-        width: 96px;
+        width: 71px;
         height: 6px;
-        border-radius: $radius-pill;
-        background: $color-border;
+        border-radius: 999px;
+        background: #e3f5ee;
         overflow: hidden;
     }
 
     &__progress-fill {
         height: 100%;
-        background: $color-success;
-        border-radius: $radius-pill;
+        background: #00b894;
+        border-radius: 999px;
     }
 
     &__stats {
         display: grid;
-        grid-template-columns: repeat(3, minmax(120px, 1fr));
-        gap: 12px;
-        flex: 1 1 420px;
-    }
-
-    &__stat {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: $color-white;
-        border: 1px solid $color-border-light;
-        border-radius: $radius-md;
-        padding: 12px 16px;
-        box-shadow: $shadow-card;
-    }
-
-    &__stat-icon {
-        font-size: 16px;
-        color: $color-primary;
+        grid-template-columns: repeat(3, 145px);
+        grid-auto-rows: 63px;
+        gap: 9px;
         flex-shrink: 0;
     }
 
-    &__stat-text {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
+    &__stat {
+        display: grid;
+        grid-template-columns: 16px auto;
+        grid-template-rows: 18px 14px;
+        column-gap: 2px;
+        align-content: center;
+        align-items: center;
+        background: #fff;
+        border: 1px solid #eef1f6;
+        border-radius: 12px;
+        padding: 0 17px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+    }
+
+    &__stat-icon {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        grid-row: 1;
+        grid-column: 1;
+        color: $blue;
+
+        &--blue { color: #7fb0ff; }
+        &--red { color: #f59ca0; }
+        &--green { color: #4fd6a8; }
+        &--purple { color: #a78bfa; }
+        &--orange { color: #f6b21a; }
+        &--yellow { color: #f6c744; }
     }
 
     &__stat-value {
-        font-size: 15px;
-        font-weight: 700;
-        color: $color-text-primary;
+        grid-row: 1;
+        grid-column: 2;
+        padding-left: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-dark;
     }
 
     &__stat-label {
+        grid-row: 2;
+        grid-column: 1 / 3;
+        padding-left: 21px;
         font-size: 12px;
-        color: $color-text-muted;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        color: $text-mid;
         white-space: nowrap;
     }
 
     &__edit-btn {
-        display: flex;
+        display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
-        border: 1px solid $color-success;
-        background: $color-white;
-        color: $color-success;
-        font-size: 13px;
+        flex-shrink: 0;
+        width: 134px;
+        height: 41px;
+        border: 1px solid $green;
+        background: #fafbff;
+        color: $green;
+        font-size: 14px;
         font-weight: 600;
-        padding: 8px 20px;
-        border-radius: $radius-pill;
+        border-radius: 999px;
         cursor: pointer;
         transition: background 0.15s ease;
 
-        &:hover {
-            background: $color-success-bg;
-        }
+        &:hover { background: #e7f7ee; }
+        svg { font-size: 14px; }
     }
 
     // -------------------- Body / Sidebar --------------------
     &__body {
         display: flex;
         align-items: flex-start;
-        gap: 20px;
+        gap: 25px;
+        padding: 0 11px 0 12px;
+        margin-top: 25px;
     }
 
     &__sidebar {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        width: $sidebar-width;
+        width: 288px;
         flex-shrink: 0;
-        background: $color-white;
-        border: 1px solid $color-border;
-        border-radius: $radius-xl;
-        padding: 20px;
-        height: fit-content;
+        background: #fff;
+        border: 1px solid #eef1f6;
+        border-radius: 20px;
+        box-shadow: 0 4px 16px -6px rgba(15, 23, 42, 0.1);
+        overflow: hidden;
     }
 
     &__back {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
+        height: 53px;
+        padding: 0 16px;
         background: none;
         border: none;
-        color: $color-text-secondary;
+        border-bottom: 1px solid #edf0f5;
+        color: $text-nav;
         font-size: 14px;
         font-weight: 500;
-        padding: 8px;
-        margin-bottom: 12px;
         cursor: pointer;
-
-        &:hover {
-            color: $color-text-primary;
-        }
+        width: 100%;
+        svg { font-size: 16px; color: $text-mid; }
     }
 
-    &__nav {
-        margin-bottom: 20px;
-    }
+    &__nav { padding: 12px 11px 0; }
 
     &__list {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 11.25px;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -311,50 +315,35 @@ $sidebar-width: 264px;
         border: none;
         background: none;
         width: 100%;
+        height: 37px;
         text-align: left;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px;
-        border-radius: $radius-sm;
-        color: $color-text-secondary;
+        gap: 11px;
+        padding: 0 12px;
+        border-radius: 12px;
+        color: $text-nav;
         font-size: 14px;
         font-weight: 500;
-        text-decoration: none;
-        transition: background 0.15s ease, color 0.15s ease;
+        transition: background 0.15s ease;
 
-        &:hover {
-            background: $color-border-light;
-            color: $color-text-primary;
-        }
+        &:hover { background: #f5f8fd; }
 
         &--active {
-            background: $color-primary-light;
-            color: $color-primary;
+            background: #f0f5ff;
             font-weight: 600;
-
-            .profile-flow__link-icon {
-                color: $color-primary;
-            }
-
-            .profile-flow__link-count {
-                background: $color-primary;
-                color: $color-white;
-            }
         }
     }
 
     &__link-icon {
-        font-size: 17px;
-        color: $color-text-muted;
+        font-size: 16px;
+        color: #475569;
         flex-shrink: 0;
     }
 
     &__link-label {
         flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
         white-space: nowrap;
     }
 
@@ -362,112 +351,114 @@ $sidebar-width: 264px;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 20px;
-        height: 20px;
-        padding: 0 6px;
-        border-radius: $radius-pill;
-        background: $color-border;
-        color: $color-text-secondary;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #64748b;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 500;
     }
 
     &__refer {
-        background: $color-teal-bg;
-        border-radius: $radius-md;
-        padding: 16px;
-        margin-bottom: 16px;
+        position: relative;
+        margin: 23px 12px 0;
+        height: 112px;
+        padding: 11px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 184, 148, 0.18);
+        background: linear-gradient(100deg, #e5f9f4 0%, #edf6fc 60%, #eff5fe 100%);
     }
 
-    &__refer-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 8px;
-    }
-
-    &__refer-icon {
-        color: $color-teal;
-        font-size: 15px;
-    }
+    &__refer-header { display: block; }
 
     &__refer-title {
-        font-size: 13px;
+        display: block;
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 600;
-        color: $color-text-primary;
+        color: $text-dark;
+    }
+
+    &__refer-img {
+        position: absolute;
+        right: 11px;
+        top: 17px;
+        width: 29px * 1.8;
+        height: 29px * 1.8;
+        object-fit: contain;
+        pointer-events: none;
     }
 
     &__refer-text {
+        width: 180px;
         font-size: 12px;
-        color: $color-text-secondary;
-        line-height: 1.5;
-        margin: 0 0 12px;
+        line-height: 14px;
+        color: $text-mid;
+        margin: 1px 0 0;
     }
 
     &__refer-btn {
-        display: flex;
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
         gap: 6px;
-        background: $color-white;
-        border: 1px solid $color-teal;
-        color: $color-teal;
+        height: 27px;
+        padding: 0 12px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid $green;
+        color: $green;
         font-size: 12px;
-        font-weight: 600;
-        padding: 6px 16px;
-        border-radius: $radius-pill;
+        font-weight: 500;
+        border-radius: 999px;
         cursor: pointer;
-
-        &:hover {
-            background: $color-teal;
-            color: $color-white;
-        }
+        svg { font-size: 12px; }
     }
 
     &__logout {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 10px;
+        height: 57px;
+        margin-top: 11px;
         background: none;
         border: none;
-        color: $color-danger;
+        border-top: 1px solid #edf0f5;
+        color: #e5383b;
         font-size: 14px;
         font-weight: 500;
-        padding: 12px;
         cursor: pointer;
+        width: 100%;
+        svg { font-size: 16px; }
     }
 
-    // -------------------- Content (Outlet target) --------------------
+    // -------------------- Content column --------------------
     &__content {
         flex: 1;
         min-width: 0;
+        width: 924px;
     }
 
     // -------------------- Responsive --------------------
+    @media (max-width: 1290px) {
+        &__wrap { padding: 0 16px; }
+        &__header { height: auto; padding: 20px; flex-wrap: wrap; gap: 20px; }
+        &__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+    }
+
     @media (max-width: 960px) {
-        &__stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        &__body {
-            flex-direction: column;
-        }
-
-        &__sidebar {
-            width: 100%;
-        }
+        &__body { flex-direction: column; padding: 0; }
+        &__sidebar { width: 100%; }
+        &__content { width: 100%; }
     }
 
     @media (max-width: 640px) {
-        padding: 16px;
-
-        &__header {
-            padding: 20px;
-        }
-
-        &__stats {
-            grid-template-columns: 1fr;
-        }
+        &__identity { flex-wrap: wrap; }
+        &__name-row { flex-wrap: wrap; }
+        &__name { white-space: normal; }
+        &__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 }

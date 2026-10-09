@@ -5,6 +5,8 @@ const modules = import.meta.glob("./images/strip-*.png", { eager: true, import: 
 const logos = Object.entries(modules)
     .sort(([a], [b]) => parseInt(a.replace(/\D/g, "")) - parseInt(b.replace(/\D/g, "")))
     .map(([, src]) => src)
+    // Figma shows a static row of the first six insurers
+    .slice(0, 6)
 
 const TrustedInsurers = () => {
     return (
@@ -15,13 +17,9 @@ const TrustedInsurers = () => {
                 </div>
                 <div className="trusted-insu__divider" />
                 <div className="trusted-insu__logos-wrapper">
-                    <div className="trusted-insu__logos-track">
-                        {[0, 1].map((set) => (
-                            <div className="trusted-insu__logos-set" key={set} aria-hidden={set === 1}>
-                                {logos.map((src, i) => (
-                                    <img className="trusted-insu__logo-img" src={src} alt={set === 0 ? `Insurer ${i + 1}` : ""} key={i} />
-                                ))}
-                            </div>
+                    <div className="trusted-insu__logos-set">
+                        {logos.map((src, i) => (
+                            <img className="trusted-insu__logo-img" src={src} alt={`Insurer ${i + 1}`} key={i} />
                         ))}
                     </div>
                 </div>
