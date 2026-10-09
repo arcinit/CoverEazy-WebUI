@@ -1,4 +1,5 @@
 import React from 'react';
+import { LuCar } from 'react-icons/lu';
 import {
     FiArrowLeft, FiPlus, FiTruck, FiClock, FiCheck, FiDownload,
 } from 'react-icons/fi';
@@ -73,12 +74,16 @@ const STATUS_LABEL: Record<RenewalStatus, string> = {
 // ---------------------------------------------------------------------
 // RoadTaxManagement — main export
 // ---------------------------------------------------------------------
-const RoadTaxManagement: React.FC = () => {
+interface RoadTaxManagementProps {
+    onBack?: () => void;
+}
+
+const RoadTaxManagement: React.FC<RoadTaxManagementProps> = ({ onBack }) => {
     return (
         <section className="road-tax">
             <div className="road-tax__header">
                 <div className="road-tax__title-group">
-                    <button type="button" className="road-tax__back" aria-label="Go back">
+                    <button type="button" className="road-tax__back" aria-label="Go back" onClick={onBack}>
                         <FiArrowLeft />
                     </button>
                     <div>
@@ -95,7 +100,7 @@ const RoadTaxManagement: React.FC = () => {
             <div className="road-tax__summary">
                 <div className="road-tax__summary-card">
                     <span className="road-tax__summary-icon road-tax__summary-icon--blue">
-                        <FiTruck />
+                        <LuCar />
                     </span>
                     <div className="road-tax__summary-body">
                         <span className="road-tax__summary-label">Current Vehicle</span>

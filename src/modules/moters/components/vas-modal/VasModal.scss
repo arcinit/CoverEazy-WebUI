@@ -10,7 +10,7 @@ $border: #e3e8ee;
 
 .vas-modal {
     position: fixed;
-    inset: 0;
+    inset: 64px 0 0; // keep the site header crisp, like Figma
     z-index: 1000;
     display: flex;
     align-items: center;

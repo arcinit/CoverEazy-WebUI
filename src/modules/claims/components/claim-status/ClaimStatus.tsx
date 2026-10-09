@@ -12,8 +12,9 @@ import {
     FiInfo,
     FiNavigation,
     FiFileText,
+    FiMail,
 } from "react-icons/fi";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaEye, FaHome } from "react-icons/fa";
 import "./ClaimStatus.scss";
 
 /* ------------------------------------------------------------------ */
@@ -157,7 +158,12 @@ const HelpLink = ({ icon, modifier, title, subtitle }:any) => (
 /* Main component                                                      */
 /* ------------------------------------------------------------------ */
 
-const ClaimStatus = ({onContinue}:any) => {
+interface ClaimStatusProps {
+    onViewDetails?: () => void;
+    onHome?: () => void;
+}
+
+const ClaimStatus = ({ onViewDetails, onHome }: ClaimStatusProps) => {
     return (
         <div className="claim-status">
             {/* Hero -------------------------------------------------------- */}
@@ -215,6 +221,12 @@ const ClaimStatus = ({onContinue}:any) => {
                                 <FiShare2 /> Share
                             </button>
                         </div>
+
+                        <div className="claim-status__email-bar">
+                            <FiMail className="claim-status__email-icon" />
+                            <span>Email sent to insurer &bull; Today, 10:42 AM</span>
+                            <span className="claim-status__sent">SENT</span>
+                        </div>
                     </div>
 
                     <div className="claim-status__card claim-status__card--adjuster">
@@ -252,7 +264,7 @@ const ClaimStatus = ({onContinue}:any) => {
                 <section className="claim-status__card">
                     <div className="claim-status__card-header">
                         <h2 className="claim-status__card-title">Claim Progress Timeline</h2>
-                        <button type="button" className="claim-status__btn claim-status__btn--primary">
+                        <button type="button" className="claim-status__btn claim-status__btn--primary" onClick={onViewDetails}>
                             Track Claim
                         </button>
                     </div>
@@ -287,11 +299,11 @@ const ClaimStatus = ({onContinue}:any) => {
 
                 {/* Footer actions -------------------------------------------------------- */}
                 <div className="claim-status__footer">
-                    <button type="button" className="claim-status__btn claim-status__btn--ghost">
-                        <FiNavigation /> View Details
+                    <button type="button" className="claim-status__btn claim-status__btn--ghost" onClick={onViewDetails}>
+                        <FaEye /> View Details
                     </button>
-                    <button type="button" className="claim-status__btn claim-status__btn--ghost">
-                        <FiNavigation /> Return to Homepage
+                    <button type="button" className="claim-status__btn claim-status__btn--ghost" onClick={onHome}>
+                        <FaHome /> Return to Homepage
                     </button>
                 </div>
             </div>

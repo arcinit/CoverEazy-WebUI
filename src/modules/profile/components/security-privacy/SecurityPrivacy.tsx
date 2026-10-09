@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import {
-    FiShield, FiSmartphone, FiEye, FiEyeOff, FiChevronRight,
-    FiHelpCircle, FiHeadphones, FiInfo, FiLogOut,
-} from 'react-icons/fi';
+import { FiShield, FiEye, FiEyeOff, FiChevronRight, FiLogOut } from 'react-icons/fi';
+import { LuFingerprint } from 'react-icons/lu';
 import './SecurityPrivacy.scss';
 
-// ---------------------------------------------------------------------
-// Static data
-// ---------------------------------------------------------------------
 interface ToggleItem {
     id: string;
     icon: React.ElementType;
@@ -17,225 +12,136 @@ interface ToggleItem {
 }
 
 const INITIAL_TOGGLES: ToggleItem[] = [
-    {
-        id: '2fa',
-        icon: FiShield,
-        title: 'Two-Factor Authentication',
-        subtitle: 'SMS OTP is active',
-        enabled: true,
-    },
-    {
-        id: 'biometric',
-        icon: FiSmartphone,
-        title: 'Biometric Login',
-        subtitle: 'Face ID enabled on iPhone 15 Pro',
-        enabled: true,
-    },
+    { id: '2fa', icon: FiShield, title: 'Two-Factor Authentication', subtitle: 'SMS OTP is active', enabled: true },
+    { id: 'biometric', icon: LuFingerprint, title: 'Biometric Login', subtitle: 'Face ID enabled on iPhone 15 Pro', enabled: true },
 ];
 
-interface PreferenceItem {
+interface SettingItem {
     label: string;
     subtitle: string;
     value?: string;
     badge?: string;
+    tall?: boolean;
 }
 
-const PREFERENCES: PreferenceItem[] = [
-    { label: 'Language', subtitle: 'English (Malaysia)' },
+const PREFERENCES: SettingItem[] = [
+    { label: 'Language', subtitle: 'English (Malaysia)', tall: true },
     { label: 'Currency', subtitle: 'Malaysian Ringgit (RM)', value: 'RM (MYR)' },
     { label: 'Notifications', subtitle: 'Push, SMS, Email', badge: 'All On' },
 ];
 
-interface SupportItem {
-    icon: React.ElementType;
-    label: string;
-    subtitle: string;
-}
-
-const SUPPORT_ITEMS: SupportItem[] = [
-    { icon: FiHelpCircle, label: 'Help Center', subtitle: 'FAQs, guides, and tutorials' },
-    { icon: FiHeadphones, label: 'Contact Support', subtitle: '1800-88-POLIS · support@CoverEazy.my' },
-    { icon: FiInfo, label: 'About CoverEazy', subtitle: 'Version 1.4.2 · Build 2026.06' },
+const SUPPORT_ITEMS: SettingItem[] = [
+    { label: 'Help Center', subtitle: 'FAQs, guides, and tutorials' },
+    { label: 'Contact Support', subtitle: '1800-88-POLIS · support@CoverEazy.my' },
+    { label: 'About CoverEazy', subtitle: 'Version 1.4.2 · Build 2026.06' },
 ];
 
-// ---------------------------------------------------------------------
-// SecuritySettings
-// ---------------------------------------------------------------------
+const PASSWORD_FIELDS = [
+    { id: 'current', label: 'Current Password' },
+    { id: 'new', label: 'New Password' },
+    { id: 'confirm', label: 'Confirm Password' },
+];
+
 const SecuritySettings: React.FC = () => {
     const [toggles, setToggles] = useState<ToggleItem[]>(INITIAL_TOGGLES);
+    const [values, setValues] = useState<Record<string, string>>({ current: '', new: '', confirm: '' });
+    const [shown, setShown] = useState<Record<string, boolean>>({});
 
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [showCurrent, setShowCurrent] = useState(false);
-    const [showNew, setShowNew] = useState(false);
-    const [showConfirm, setShowConfirm] = useState(false);
-
-    const handleToggle = (id: string) => {
-        setToggles((prev) =>
-            prev.map((item) => (item.id === id ? { ...item, enabled: !item.enabled } : item)),
-        );
-    };
-
-    const securityScore = 88;
+    const handleToggle = (id: string) =>
+        setToggles((prev) => prev.map((t) => (t.id === id ? { ...t, enabled: !t.enabled } : t)));
 
     return (
-        <div className="security-settings">
-            {/* ---------- Security & Privacy ---------- */}
-            <div className="security-settings__heading">
-                <h2 className="security-settings__title">Security &amp; Privacy</h2>
-                <p className="security-settings__subtitle">
-                    Protect your account with advanced privacy &amp; security features.
-                </p>
+        <div className="sp-root">
+            <div className="sp-root__heading">
+                <h2 className="sp-root__title">Security &amp; Privacy</h2>
+                <p className="sp-root__subtitle">Protect your account with advanced privacy &amp; security features.</p>
             </div>
 
-            <section className="security-settings__card">
-                <div className="security-score">
-                    <div className="security-score__ring">
-                        <span className="security-score__value">{securityScore}</span>
+            <section className="sp-card sp-card--toggles">
+                {toggles.map(({ id, icon: Icon, title, subtitle, enabled }) => (
+                    <div className="sp-toggle-row" key={id}>
+                        <span className="sp-toggle-row__icon"><Icon /></span>
+                        <div className="sp-toggle-row__text">
+                            <span className="sp-toggle-row__title">{title}</span>
+                            <span className="sp-toggle-row__subtitle">{subtitle}</span>
+                        </div>
+                        <button
+                            type="button"
+                            role="switch"
+                            aria-checked={enabled}
+                            aria-label={title}
+                            onClick={() => handleToggle(id)}
+                            className={`sp-switch${enabled ? ' sp-switch--on' : ''}`}
+                        >
+                            <span className="sp-switch__knob" />
+                        </button>
                     </div>
-                    <div className="security-score__text">
-                        <span className="security-score__title">Security Score: Strong</span>
-                        <span className="security-score__hint">Enable 2FA app to reach 100%</span>
-                    </div>
-                </div>
+                ))}
+            </section>
 
-                <div className="toggle-list">
-                    {toggles.map(({ id, icon: Icon, title, subtitle, enabled }) => (
-                        <div className="toggle-row" key={id}>
-                            <span className="toggle-row__icon">
-                                <Icon />
-                            </span>
-                            <div className="toggle-row__text">
-                                <span className="toggle-row__title">{title}</span>
-                                <span className="toggle-row__subtitle">{subtitle}</span>
+            <section className="sp-card sp-card--password">
+                <h3 className="sp-card__head">Change Password</h3>
+                <div className="sp-card__pw-body">
+                    {PASSWORD_FIELDS.map(({ id, label }) => (
+                        <div className="sp-pw" key={id}>
+                            <label className="sp-pw__label" htmlFor={`sp-pw-${id}`}>{label}</label>
+                            <div className="sp-pw__wrap">
+                                <input
+                                    id={`sp-pw-${id}`}
+                                    type={shown[id] ? 'text' : 'password'}
+                                    className="sp-pw__input"
+                                    value={values[id]}
+                                    onChange={(e) => setValues((p) => ({ ...p, [id]: e.target.value }))}
+                                    placeholder="••••••••••"
+                                />
+                                <button
+                                    type="button"
+                                    className="sp-pw__eye"
+                                    onClick={() => setShown((p) => ({ ...p, [id]: !p[id] }))}
+                                    aria-label={`Toggle ${label} visibility`}
+                                >
+                                    {shown[id] ? <FiEyeOff /> : <FiEye />}
+                                </button>
                             </div>
-                            <button
-                                type="button"
-                                role="switch"
-                                aria-checked={enabled}
-                                onClick={() => handleToggle(id)}
-                                className={`toggle-switch${enabled ? ' toggle-switch--on' : ''}`}
-                            >
-                                <span className="toggle-switch__knob" />
-                            </button>
                         </div>
                     ))}
+                    <button type="button" className="sp-card__update">Update Password</button>
                 </div>
             </section>
 
-            {/* ---------- Change Password ---------- */}
-            <section className="security-settings__card">
-                <h3 className="security-settings__card-title">Change Password</h3>
-
-                <div className="password-field">
-                    <label className="password-field__label">Current Password</label>
-                    <div className="password-field__input-wrap">
-                        <input
-                            type={showCurrent ? 'text' : 'password'}
-                            className="password-field__input"
-                            value={currentPassword}
-                            onChange={(event) => setCurrentPassword(event.target.value)}
-                            placeholder="••••••••••"
-                        />
-                        <button
-                            type="button"
-                            className="password-field__toggle"
-                            onClick={() => setShowCurrent((prev) => !prev)}
-                            aria-label="Toggle current password visibility"
-                        >
-                            {showCurrent ? <FiEyeOff /> : <FiEye />}
-                        </button>
-                    </div>
-                </div>
-
-                <div className="password-field">
-                    <label className="password-field__label">New Password</label>
-                    <div className="password-field__input-wrap">
-                        <input
-                            type={showNew ? 'text' : 'password'}
-                            className="password-field__input"
-                            value={newPassword}
-                            onChange={(event) => setNewPassword(event.target.value)}
-                            placeholder="••••••••••"
-                        />
-                        <button
-                            type="button"
-                            className="password-field__toggle"
-                            onClick={() => setShowNew((prev) => !prev)}
-                            aria-label="Toggle new password visibility"
-                        >
-                            {showNew ? <FiEyeOff /> : <FiEye />}
-                        </button>
-                    </div>
-                </div>
-
-                <div className="password-field">
-                    <label className="password-field__label">Confirm Password</label>
-                    <div className="password-field__input-wrap">
-                        <input
-                            type={showConfirm ? 'text' : 'password'}
-                            className="password-field__input"
-                            value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.target.value)}
-                            placeholder="••••••••••"
-                        />
-                        <button
-                            type="button"
-                            className="password-field__toggle"
-                            onClick={() => setShowConfirm((prev) => !prev)}
-                            aria-label="Toggle confirm password visibility"
-                        >
-                            {showConfirm ? <FiEyeOff /> : <FiEye />}
-                        </button>
-                    </div>
-                </div>
-
-                <button type="button" className="security-settings__update-btn">
-                    Update Password
-                </button>
-            </section>
-
-            {/* ---------- Settings ---------- */}
-            <div className="security-settings__heading">
-                <h2 className="security-settings__title security-settings__title--sm">Settings</h2>
-                <p className="security-settings__subtitle">
-                    Manage your app preferences and account settings.
-                </p>
+            <div className="sp-root__heading sp-root__heading--settings">
+                <h2 className="sp-root__title">Settings</h2>
+                <p className="sp-root__subtitle">Manage your app preferences and account settings.</p>
             </div>
 
-            <section className="settings-group">
-                <span className="settings-group__label">Preferences</span>
-                <div className="settings-group__rows">
-                    {PREFERENCES.map(({ label, subtitle, value, badge }) => (
-                        <div className="settings-row" key={label}>
-                            <div className="settings-row__text">
-                                <span className="settings-row__title">{label}</span>
-                                <span className="settings-row__subtitle">{subtitle}</span>
-                            </div>
-                            {value && <span className="settings-row__value">{value}</span>}
-                            {badge && <span className="settings-row__badge">{badge}</span>}
+            <section className="sp-card sp-card--group">
+                <h3 className="sp-card__head">Preferences</h3>
+                {PREFERENCES.map(({ label, subtitle, value, badge, tall }) => (
+                    <div className={`sp-row${tall ? ' sp-row--tall' : ''}`} key={label}>
+                        <div className="sp-row__text">
+                            <span className="sp-row__title">{label}</span>
+                            <span className="sp-row__subtitle">{subtitle}</span>
                         </div>
-                    ))}
-                </div>
+                        {value && <span className="sp-row__value">{value}</span>}
+                        {badge && <span className="sp-row__badge">{badge}</span>}
+                    </div>
+                ))}
             </section>
 
-            <section className="settings-group">
-                <span className="settings-group__label">Support</span>
-                <div className="settings-group__rows">
-                    {SUPPORT_ITEMS.map(({ label, subtitle }) => (
-                        <button type="button" className="settings-row settings-row--action" key={label}>
-                            <div className="settings-row__text">
-                                <span className="settings-row__title">{label}</span>
-                                <span className="settings-row__subtitle">{subtitle}</span>
-                            </div>
-                            <FiChevronRight className="settings-row__chevron" />
-                        </button>
-                    ))}
-                </div>
+            <section className="sp-card sp-card--group sp-card--support">
+                <h3 className="sp-card__head">Support</h3>
+                {SUPPORT_ITEMS.map(({ label, subtitle }) => (
+                    <button type="button" className="sp-row sp-row--action" key={label}>
+                        <div className="sp-row__text">
+                            <span className="sp-row__title">{label}</span>
+                            <span className="sp-row__subtitle">{subtitle}</span>
+                        </div>
+                        <FiChevronRight className="sp-row__chevron" />
+                    </button>
+                ))}
             </section>
 
-            <button type="button" className="security-settings__signout">
+            <button type="button" className="sp-signout">
                 <FiLogOut />
                 Sign Out of CoverEazy
             </button>

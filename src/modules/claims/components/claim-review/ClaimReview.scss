@@ -1,97 +1,69 @@
-// ============================================================
-// Design tokens
-// ============================================================
-$color-bg: #f5f7fb;
-$color-panel: #ffffff;
-$color-border: #e4e8f0;
-$color-navy: #062155;
-$color-blue: #2e65ee;
-$color-blue-bg: #eff6ff;
-$color-green: #1dc67f;
-$color-green-bg: #ecfdf5;
-$color-green-bg-light: #edfffa;
-$color-amber: #fe9e26;
-$color-amber-bg: #fff8ec;
-$color-text: #1f2937;
-$color-muted: #586474;
-$color-muted-light: #9aa4b8;
-$text-dark: #313131;
+$cr-navy: #062155;
+$cr-green: #01b637;
+$cr-mint: #edfffa;
+$cr-text: #313131;
+$cr-muted: #64748b;
+$cr-blue: #2e65ee;
+$cr-border: #e9eef5;
+$cr-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+$cr-tint: linear-gradient(180deg, #ffffff 0%, #f6faff 55%, #e6f6fb 100%);
 
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-$radius-pill: 999px;
-
-$card-border: 0.67px solid #E9EEF5;
-$card-bg: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%),
-    radial-gradient(100% 80% at 100% 100%,
-        rgba(43, 196, 196, 0.18) 0%,
-        rgba(43, 196, 196, 0) 55%),
-    radial-gradient(120% 80% at -4950% -4950%,
-        rgba(15, 91, 255, 0.18) 0%,
-        rgba(15, 91, 255, 0) 55%);
-$card-accent-border: 1px solid rgba(38, 98, 254, 0.15); // #2662FE26
-
-$space-1: 4px;
-$space-2: 8px;
-$space-3: 12px;
-$space-4: 16px;
-$space-5: 20px;
-$space-6: 24px;
-$space-8: 32px;
-
-
-
-// ============================================================
-// Block: claim-review
-// ============================================================
 .claim-review {
-    // ---------- Header -----------------------------------------
+    width: 100%;
+    color: $cr-text;
+
     &__header {
-        padding: $space-8 $space-6 $space-4;
+        margin-top: -8px;
+        padding: 0 0 20px;
     }
 
     &__title {
-        margin: 0 0 $space-2;
+        margin: 0;
         font-size: 44px;
-        font-weight: 400;
-        color: $color-navy;
+        line-height: 56px;
+        font-weight: 700;
+        color: $cr-navy;
         letter-spacing: -0.01em;
 
         &-accent {
-            color: $color-green;
-            font-style: italic;
-            font-weight: 400;
+            color: $cr-green;
         }
     }
 
     &__subtitle {
-        margin: 0;
+        margin: 2px 0 0;
         font-size: 14px;
-        color: $color-muted;
+        line-height: 20px;
+        color: #313131;
     }
 
-    // ---------- Body / layout -----------------------------------
     &__body {
         display: flex;
         flex-direction: column;
-        gap: $space-5;
-        padding: 0 $space-6 $space-6;
-        flex: 1;
+        gap: 16px;
+        padding-bottom: 0;
+
+        // Figma: the pinned footer bar overlaps the bottom of the Declaration card
+        @media (min-width: 801px) {
+            margin-bottom: -41px;
+        }
     }
 
-    // ---------- Generic card -------------------------------------
+    // ---------- Cards ----------
     &__card {
-        background: #fff;
-        border: $card-border;
+        border: 1px solid $cr-border;
         border-radius: 24px;
-        padding: $space-6;
+        box-shadow: $cr-shadow;
+        padding: 23px;
+        min-width: 0;
 
-        &--vehicle,
-        &--insurance {
-            display: flex;
-            flex-direction: column;
-            gap: $space-4;
+        &--plain {
+            background: #fff;
+        }
+
+        &--tint {
+            background: $cr-tint;
+            border-color: #dbe5ff;
         }
     }
 
@@ -99,568 +71,580 @@ $space-8: 32px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: $space-5;
-
-        &--icon {
-            justify-content: flex-start;
-            gap: $space-3;
-        }
-    }
-
-    &__card-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: $radius-pill;
-        background: $color-blue-bg;
-        color: $color-blue;
-        font-size: 16px;
+        margin-bottom: 20px;
     }
 
     &__card-title {
         margin: 0;
         font-size: 18px;
-        font-weight: 700;
-        color: $text-dark;
+        line-height: 28px;
+        font-weight: 600;
+        color: $cr-text;
     }
 
-    &__divider {
-        height: 1px;
-        background: $color-border;
+    // ---------- Badges ----------
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 22px;
+        padding: 0 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+
+        &--pending {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        &--verified,
+        &--active {
+            background: #e3fcf3;
+            color: #0aa86b;
+            padding: 0 10px;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        &--panel {
+            background: #f0f5ff;
+            color: #2563eb;
+        }
     }
 
-    // ---------- Grids ----------------------------------------------
-    &__grid {
+    // ---------- Summary ----------
+    &__summary-grid {
         display: grid;
-        gap: $space-4;
-
-        &--2col {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        &--3col {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        &--4col {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        &--split {
-            grid-template-columns: repeat(2, 1fr);
-            align-items: stretch;
-        }
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
     }
 
-    // ---------- Info field (icon + label + value) -------------------
     &__field {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: 12px;
-        background: #F8FAFD;
+        height: 62px;
+        padding: 0 13px;
         border-radius: 16px;
-        padding: 12px;
+        background: #f8fafd;
+        min-width: 0;
     }
 
     &__field-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        flex: 0 0 32px;
         width: 32px;
         height: 32px;
-        flex-shrink: 0;
-        border-radius: $radius-sm;
-        background: $color-green-bg-light;
-        color: $color-green;
-        font-size: 15px;
+        border-radius: 50%;
+        background: $cr-mint;
+        color: #0cc060;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
     }
 
     &__field-text {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 2px;
         min-width: 0;
     }
 
     &__field-label {
         font-size: 12px;
-        font-weight: 400;
-        color: $color-muted;
+        line-height: 16px;
+        color: $cr-muted;
     }
 
     &__field-value {
         font-size: 14px;
+        line-height: 20px;
         font-weight: 600;
-        color: $text-dark;
-
-        &--positive {
-            color: $color-green;
-        }
+        color: $cr-text;
+        overflow-wrap: anywhere;
     }
 
-    // ---------- Spec item (plain label/value pair) --------------------
-    &__spec {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+    // ---------- Vehicle / insurance ----------
+    &__split {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
     }
 
-    &__spec-label {
-        font-size: 12px;
-        color: $color-muted-light;
-        text-transform: capitalize;
-    }
-
-    &__spec-value {
-        font-size: 14px;
-        font-weight: 600;
-        color: $text-dark;
-    }
-
-    // ---------- Badge -----------------------------------------------
-    &__badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: $radius-pill;
-
-        &--pending {
-            color: $color-blue;
-            background: $color-blue-bg;
-        }
-
-        &--verified {
-            color: $color-green;
-            background: $color-green-bg;
-        }
-
-        &--active {
-            color: $color-green;
-            background: $color-green-bg;
-        }
-
-        &--panel {
-            color: $color-blue;
-            background: $color-blue-bg;
-        }
-    }
-
-    &__dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: $color-green;
-    }
-
-    // ---------- Entity (vehicle / insurer header row) --------------------
-    &__card-vehicle ,&__card-insurance{
-        background:
-            radial-gradient(100% 80% at 100% 100%,
-                rgba(43, 196, 196, 0.18) 0%,
-                rgba(43, 196, 196, 0) 55%),
-            radial-gradient(120% 80% at 0% 0%,
-                rgba(15, 91, 255, 0.10) 0%,
-                rgba(15, 91, 255, 0) 55%),
-            linear-gradient(180deg,
-                #FFFFFF 0%,
-                #F4F8FF 100%);
-        border: 1px solid #2662FE26;
-        box-shadow: 0px 12px 32px -12px #0F172A1F;
-        box-shadow: 0px 1px 2px 0px #0F172A0A;
-        border-radius: 24px;
+    &__entity-card {
         padding: 16px;
         display: flex;
         flex-direction: column;
-        gap: $space-4;
-
     }
 
     &__entity {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        gap: $space-4;
+        gap: 12px;
     }
 
     &__entity-media {
-       width: 125px;
-       height: 75px;
-       img{
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-       }
-    }
-
-    &__entity-icon {
-        font-size: 32px;
-        color: $color-muted-light;
+        flex: 0 0 auto;
+        width: 75px;
+        height: 71px;
+        border-radius: 10px;
+        margin-top: 0;
+        margin-right: 0;
     }
 
     &__entity-info {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
         flex: 1;
+        min-width: 0;
     }
 
     &__entity-top {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
-        gap: 4px;
+        gap: 8px;
     }
 
     &__entity-label {
-        font-size: 14px;
-        color: $color-muted;
-        font-weight: 400;
+        display: block;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+        color: $cr-muted;
+    }
+
+    &__entity-top {
+        height: 16px;
+    }
+
+    &__entity-top .claim-review__badge {
+        margin-top: -3px;
     }
 
     &__entity-name {
-        margin: 0;
+        margin: 2px 0 0;
         font-size: 24px;
-        font-weight: 700;
-        color: $color-navy;
+        line-height: 32px;
+        font-weight: 600;
+        color: $cr-text;
+    }
+
+    &__entity-namerow {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 2px;
+
+        .claim-review__entity-name {
+            margin: 0;
+        }
     }
 
     &__entity-meta {
-        margin: 0;
-        font-size: 13px;
-        color: $color-muted;
+        margin: 4px 0 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: $cr-muted;
     }
 
     &__entity-logo {
-        font-size: 20px;
-        font-weight: 800;
-        font-style: italic;
-        color: $color-amber;
+        flex: 0 0 auto;
+        width: 106px;
+        height: 60px;
+        object-fit: contain;
+        margin: 3px 5px 0 0;
     }
 
-    // ---------- Vehicle image slots -----------------------------------
+    &__divider {
+        height: 1px;
+        background: #e3eaf6;
+        margin: 13px 0 8px;
+    }
+
+    &__specs {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+
+        .claim-review__spec:last-child {
+            text-align: right;
+        }
+    }
+
+    &__spec {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    &__spec-label {
+        font-size: 12px;
+        line-height: 16px;
+        color: $cr-muted;
+
+        &--caps {
+            text-transform: uppercase;
+        }
+    }
+
+    &__spec-value {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: $cr-text;
+    }
+
+    // ---------- Driver ----------
+    &__driver-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #eaf0ff;
+        color: $cr-blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    &__driver-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    // ---------- Images ----------
     &__images {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: $space-3;
-        margin-top: 10px;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 11px;
     }
 
     &__image-slot {
         height: 174px;
+        border: 1px dashed $cr-green;
+        border-radius: 16px;
+        background: $cr-mint;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 4px;
         text-align: center;
-        gap: 6px;
-        padding: $space-4 $space-2;
-        border: 1.5px dashed rgba(29, 198, 127, 0.4);
-        border-radius: $radius-md;
-        background: $color-green-bg-light;
+        color: $cr-green;
+        padding: 0 8px;
     }
 
     &__image-check {
-        color: $color-green;
-        font-size: 20px;
+        font-size: 16px;
+        line-height: 0;
+        margin-bottom: 8px;
     }
 
     &__image-label {
-        font-size: 13px;
+        font-size: 12px;
+        line-height: 16px;
         font-weight: 700;
-        color: $color-green;
     }
 
     &__image-caption {
-        font-size: 11px;
-        color: $color-muted;
+        font-size: 12px;
+        line-height: 16px;
     }
 
-    // ---------- Workshop --------------------------------------------
-    &__workshop-header {
-        margin-bottom: $space-5;
-        padding-bottom: 10px;
-        border-bottom: 1px solid  #2662FE26;
+    // ---------- Workshop ----------
+    &__workshop {
+        padding: 17px;
     }
 
-    &__workshop-title-row {
+    &__workshop-head {
         display: flex;
-        align-items: center;
-        gap: $space-3;
-        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    &__workshop-name {
+        margin: 0;
+        font-size: 22px;
+        line-height: 32px;
+        font-weight: 600;
+        color: $cr-text;
     }
 
     &__workshop-address {
         margin: 4px 0 0;
-        font-size: 13px;
-        color: $color-muted;
+        max-width: 360px;
+        font-size: 14px;
+        line-height: 20px;
+        color: $cr-muted;
     }
 
     &__rating {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        margin-left: auto;
+        gap: 6px;
+        margin: 4px 6px 0 0;
         font-size: 12px;
-        font-weight: 400;
-        color: $text-dark;
+        font-weight: 600;
+        color: $cr-text;
+        white-space: nowrap;
 
         svg {
-            color: $color-amber;
+            color: #fe9e26;
+            width: 12px;
+            height: 12px;
+        }
+
+        .claim-review__badge {
+            margin-right: 10px;
         }
     }
 
-    // ---------- Map -----------------------------------------------
-    &__map {
-        position: relative;
-        margin-top: $space-5;
-        border-radius: $radius-md;
-        overflow: hidden;
-        border: 1px solid $color-border;
+    &__workshop &__divider {
+        margin: 12px 0 10px;
     }
 
-    &__map-canvas {
-        position: relative;
-        height: 160px;
+    &__workshop-stats {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        background:
-            linear-gradient(120deg, #eaf3e6 0%, #d9ecf7 45%, #eef2e2 100%);
-        background-size: cover;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px 16px;
+        margin-bottom: 13px;
     }
 
-    &__map-pin {
-        font-size: 28px;
-        color: $color-navy;
-        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
-    }
-
-    &__map-controls {
-        position: absolute;
-        top: $space-3;
-        right: $space-3;
+    &__stat {
         display: flex;
         flex-direction: column;
-        border-radius: $radius-sm;
-        overflow: hidden;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        gap: 4px;
 
-        button {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: $color-panel;
-            border: none;
-            border-bottom: 1px solid $color-border;
-            color: $color-text;
-            cursor: pointer;
+        &:last-child {
+            text-align: right;
 
-            &:last-child {
-                border-bottom: none;
-            }
-
-            &:hover {
-                background: $color-bg;
+            .claim-review__stat-label {
+                justify-content: flex-end;
             }
         }
     }
 
-    &__map-attribution {
-        padding: 6px $space-3;
-        font-size: 10px;
-        color: $color-muted-light;
-        background: $color-panel;
+    &__stat-label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        line-height: 16px;
+        text-transform: uppercase;
+        color: $cr-muted;
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
     }
 
-    // ---------- Warning banner -----------------------------------------
+    &__stat-value {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: $cr-text;
+
+        &--positive {
+            color: #1dc67f;
+        }
+    }
+
+    &__map {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1204 / 158;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    // ---------- Warning ----------
     &__warning {
         display: flex;
-        align-items: flex-start;
-        gap: $space-3;
-        padding: $space-4 $space-5;
-        border-radius: $radius-md;
-        background: $color-amber-bg;
-        border: 1px solid rgba(254, 158, 38, 0.3);
+        align-items: center;
+        gap: 12px;
+        min-height: 54px;
+        margin-bottom: 1px;
+        padding: 0 20px;
+        border: 1px solid #f7e3c9;
+        border-radius: 12px;
+        background: #fcf1e7;
 
         p {
             margin: 0;
-            font-size: 13px;
-            color: $text-dark;
-            line-height: 1.5;
+            font-size: 14px;
+            line-height: 20px;
+            color: #4b5563;
         }
     }
 
     &__warning-icon {
-        flex-shrink: 0;
-        margin-top: 2px;
-        font-size: 16px;
-        color: $color-amber;
+        flex: 0 0 auto;
+        width: 18px;
+        height: 18px;
+        color: #f08a24;
     }
 
-    // ---------- Declaration -----------------------------------------------
+    // ---------- Declaration ----------
     &__declaration-list {
-        margin: 0 0 $space-5;
-        padding-left: 18px;
+        list-style: none;
+        margin: 14px 0 0;
+        padding: 0;
         display: flex;
         flex-direction: column;
-        gap: $space-2;
-        margin-top: 10px;
+        gap: 12px;
 
         li {
-            font-size: 13px;
-            line-height: 1.5;
-            color: $color-muted;
+            font-size: 14px;
+            line-height: 20px;
+            color: $cr-muted;
         }
     }
 
+    &__declaration-narrow {
+        max-width: 770px;
+    }
+
     &__agree {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: $space-3;
-        font-size: 13px;
+        gap: 12px;
+        margin-top: 22px;
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 600;
-        color: $text-dark;
+        color: $cr-text;
+        cursor: pointer;
+    }
+
+    &__agree-input {
+        position: absolute;
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+        margin: 0;
         cursor: pointer;
     }
 
     &__checkbox {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        flex: 0 0 20px;
         width: 20px;
         height: 20px;
-        border-radius: 6px;
-        background: $color-green;
+        border-radius: 4px;
+        border: 1.5px solid #c6d0de;
+        background: #fff;
         color: #fff;
-        font-size: 12px;
-        flex-shrink: 0;
-    }
-
-    // ---------- Footer -----------------------------------------------
-    &__footer {
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        left: 0px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: $space-4 $space-6;
-        background: $color-panel;
-        border-top: 1px solid $color-border;
-    }
-
-    &__footer-actions {
-        display: flex;
-        gap: $space-3;
-    }
-
-    &__btn {
-        display: inline-flex;
-        align-items: center;
-        gap: $space-2;
+        justify-content: center;
         font-size: 14px;
-        font-weight: 600;
-        padding: $space-3 $space-5;
-        border-radius: $radius-md;
-        cursor: pointer;
-        border: 1px solid transparent;
-        transition: background 0.15s ease, border-color 0.15s ease;
 
-        &--ghost {
-            background: transparent;
-            color: $color-muted;
-
-            &:hover {
-                background: $color-bg;
-            }
-        }
-
-        &--outline {
-            background: $color-panel;
-            border-color: $color-border;
-            color: $text-dark;
-
-            &:hover {
-                background: $color-bg;
-            }
-        }
-
-        &--primary {
-            background: $color-navy;
-            color: #fff;
-
-            &:hover {
-                background: darken($color-navy, 5%);
-            }
+        svg {
+            opacity: 0;
         }
     }
-}
 
-// ============================================================
-// Responsive
-// ============================================================
-@media (max-width: 900px) {
-    .claim-review {
-        &__grid {
+    &__agree-input:checked + &__checkbox {
+        background: $cr-green;
+        border-color: $cr-green;
 
-            &--2col,
-            &--3col,
-            &--4col,
-            &--split {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        svg {
+            opacity: 1;
+        }
+    }
+
+    &__agree-input:focus-visible + &__checkbox {
+        outline: 2px solid $cr-blue;
+        outline-offset: 2px;
+    }
+
+    // ---------- Responsive ----------
+    @media (max-width: 1024px) {
+        &__driver-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         &__images {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
         }
     }
-}
 
-@media (max-width: 560px) {
-    .claim-review {
-        &__header {
-            padding: $space-6 $space-4 $space-3;
+    @media (max-width: 800px) {
+        &__split,
+        &__summary-grid {
+            grid-template-columns: minmax(0, 1fr);
         }
 
-        &__body {
-            padding: 0 $space-4 $space-4;
+        &__workshop-head {
+            flex-direction: column;
         }
 
-        &__grid {
+        &__workshop-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
 
-            &--2col,
-            &--3col,
-            &--4col,
-            &--split {
-                grid-template-columns: 1fr;
+        &__stat:last-child {
+            text-align: left;
+
+            .claim-review__stat-label {
+                justify-content: flex-start;
             }
         }
 
+        &__map {
+            aspect-ratio: auto;
+            height: 140px;
+        }
+    }
+
+    @media (max-width: 560px) {
+        &__title {
+            font-size: 30px;
+            line-height: 40px;
+        }
+
+        &__card {
+            padding: 16px;
+        }
+
+        &__entity-card,
+        &__workshop {
+            padding: 14px;
+        }
+
+        &__driver-grid,
         &__images {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        &__footer {
-            flex-direction: column-reverse;
-            gap: $space-3;
+        &__entity-name {
+            font-size: 22px;
+        }
 
-            &-actions {
-                width: 100%;
-
-                .claim-review__btn {
-                    flex: 1;
-                    justify-content: center;
-                }
-            }
+        &__specs {
+            flex-wrap: wrap;
         }
     }
 }

@@ -116,7 +116,7 @@ const RoadTaxFlow = () => {
             </section>
 
             {/* Active step content */}
-            <main className="road-tax-flow__content">
+            <main className={`road-tax-flow__content road-tax-flow__content--step-${activeStep}`}>
                 {activeStep === 1 && (
                     <VehicleDetails onContinue={() => setActiveStep(2)} />
                 )}

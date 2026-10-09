@@ -1,15 +1,50 @@
 import React, { useState } from 'react';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import { FaCheckCircle } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi2';
-import { PiUsersThreeFill } from 'react-icons/pi';
+import { LuUsers } from 'react-icons/lu';
 import './ClaimsTypes.scss';
 
-const ClaimsType = ({ onContinue }:any) => {
-    const [selected, setSelected] = useState('claims');
+type ClaimKind = 'claims' | 'third-party';
 
-    const handleSelect = (type:any) => {
+const CARDS: {
+    id: ClaimKind;
+    title: string;
+    desc: string;
+    pill?: string;
+    bullets: string[];
+}[] = [
+    {
+        id: 'claims',
+        title: 'Claims',
+        desc: 'Best for own-vehicle damage, glass, flood and theft.',
+        bullets: [
+            'AI damage assessment via photos',
+            'Live workshop allocation',
+            'Cashless settlement available',
+            'No physical forms required',
+        ],
+    },
+    {
+        id: 'third-party',
+        title: 'Third Party Claim',
+        desc: "Claim against another driver's insurer.",
+        pill: 'Third Party',
+        bullets: [
+            'We chase the other insurer',
+            'Police report assistance',
+            'Legal panel access',
+            'Recovery tracking dashboard',
+        ],
+    },
+];
+
+const ClaimsType = ({ onContinue }: any) => {
+    const [selected, setSelected] = useState<ClaimKind>('claims');
+
+    const handleSelect = (type: ClaimKind) => {
         setSelected(type);
+        onContinue(type);
     };
 
     return (
@@ -18,123 +53,56 @@ const ClaimsType = ({ onContinue }:any) => {
             <h1 className="claim-type__title">How would you like to claim?</h1>
 
             <div className="claim-type__grid">
-                {/* -------- CLAIMS CARD -------- */}
-                <div
-                    className={[
-                        'claim-type__card',
-                        selected === 'claims' ? 'claim-type__card--selected' : '',
-                    ].join(' ').trim()}
-                >
-                    <span className="claim-type__icon claim-type__icon--blue">
-                        <HiSparkles />
-                    </span>
-                    <h3 className="claim-type__card-title">Claims</h3>
-                    <p className="claim-type__card-desc">
-                        Best for own-vehicle damage, glass, flood and theft.
-                    </p>
-                    <ul className="claim-type__list">
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            AI damage assessment via photos
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            Live workshop allocation
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            Cashless settlement available
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            No physical forms required
-                        </li>
-                    </ul>
-                    <button
-                        type="button"
-                        className={[
-                            'claim-type__btn',
-                            selected === 'claims' ? 'claim-type__btn--selected' : '',
-                        ].join(' ').trim()}
-                        onClick={() => handleSelect('claims')}
-                    >
-                        {selected === 'claims' ? (
-                            <>
-                                Selected <FaCheckCircle />
-                            </>
-                        ) : (
-                            <>
-                                Select <FiArrowRight />
-                            </>
-                        )}
-                    </button>
-                </div>
-
-                {/* -------- THIRD PARTY CARD -------- */}
-                <div
-                    className={[
-                        'claim-type__card',
-                        selected === 'third-party' ? 'claim-type__card--selected' : '',
-                    ].join(' ').trim()}
-                >
-                    <span className="claim-type__icon claim-type__icon--gray">
-                        <PiUsersThreeFill />
-                    </span>
-                    <span className="claim-type__pill">Third Party</span>
-                    <h3 className="claim-type__card-title">Third Party Claim</h3>
-                    <p className="claim-type__card-desc">
-                        Claim against another driver&apos;s insurer.
-                    </p>
-                    <ul className="claim-type__list">
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            We chase the other insurer
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            Police report assistance
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            Legal panel access
-                        </li>
-                        <li>
-                            <FaCheckCircle className="claim-type__check" />
-                            Recovery tracking dashboard
-                        </li>
-                    </ul>
-                    <button
-                        type="button"
-                        className={[
-                            'claim-type__btn claim-type__btn--outline',
-                            selected === 'third-party' ? 'claim-type__btn--selected' : '',
-                        ].join(' ').trim()}
-                        onClick={() => handleSelect('third-party')}
-                    >
-                        {selected === 'third-party' ? (
-                            <>
-                                Selected <FaCheckCircle />
-                            </>
-                        ) : (
-                            <>
-                                Select <FiArrowRight />
-                            </>
-                        )}
-                    </button>
-                </div>
-            </div>
-
-            <div className="claim-type__footer-nav">
-                <button
-                    type="button"
-                    className="claim-type__continue-btn"
-                    onClick={() => onContinue(selected)}
-                >
-                    Continue <FiArrowRight />
-                </button>
+                {CARDS.map((card) => {
+                    const isSelected = selected === card.id;
+                    const isClaims = card.id === 'claims';
+                    return (
+                        <div
+                            key={card.id}
+                            className={`claim-type__card${isSelected ? ' claim-type__card--selected' : ''}`}
+                        >
+                            <div className={`claim-type__head${card.pill ? ' claim-type__head--pill' : ''}`}>
+                                <span className={`claim-type__icon claim-type__icon--${isClaims ? 'blue' : 'gray'}`}>
+                                    {isClaims ? <HiSparkles /> : <LuUsers />}
+                                </span>
+                                <div className="claim-type__head-text">
+                                    {card.pill && <span className="claim-type__pill">{card.pill}</span>}
+                                    <h3 className="claim-type__card-title">{card.title}</h3>
+                                    <p className="claim-type__card-desc">{card.desc}</p>
+                                </div>
+                            </div>
+                            <ul className="claim-type__list">
+                                {card.bullets.map((b) => (
+                                    <li key={b}>
+                                        <FiCheckCircle className="claim-type__check" />
+                                        {b}
+                                    </li>
+                                ))}
+                            </ul>
+                            <button
+                                type="button"
+                                className={`claim-type__btn${isClaims ? '' : ' claim-type__btn--outline'}${
+                                    isSelected ? ' claim-type__btn--selected' : ''
+                                }`}
+                                onClick={() => handleSelect(card.id)}
+                            >
+                                {isSelected ? (
+                                    <>
+                                        Selected <FaCheckCircle />
+                                    </>
+                                ) : (
+                                    <>
+                                        Select <FiArrowRight />
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
 };
 
 export default ClaimsType;
+

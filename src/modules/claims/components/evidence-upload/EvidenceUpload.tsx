@@ -2,12 +2,11 @@ import React, { useState, useRef, useCallback, type ChangeEvent, type DragEvent 
 import {
     FiCamera,
     FiCheck,
-    FiUploadCloud,
-    FiArrowLeft,
-    FiArrowRight,
+    FiUpload,
     FiFile,
     FiX,
 } from "react-icons/fi";
+import ClaimsFooter from "../claims-footer/ClaimsFooter";
 import "./EvidenceUpload.scss";
 
 // ---------------------------------------------------------
@@ -139,8 +138,9 @@ export default function EvidenceUpload({ onBack, onContinue }: EvidenceUploadPro
     const dragCounter = useRef<number>(0);
 
     const uploadedCount = Object.values(photos).filter(Boolean).length;
-    const totalSlots = 1;
-    const canContinue = uploadedCount === totalSlots;
+    const totalSlots = PHOTO_SLOTS.length;
+    // Every angle is required except the dashboard / odometer shot (Figma enables Continue with 5 of 6)
+    const canContinue = PHOTO_SLOTS.every((slot) => slot.id === "dashboard" || photos[slot.id]);
 
     const validateFile = (file: File): string | null => {
         if (!ACCEPTED_TYPES.includes(file.type)) {
@@ -326,7 +326,7 @@ export default function EvidenceUpload({ onBack, onContinue }: EvidenceUploadPro
                                     </span>
                                     <span className="evidence-upload__photo-label">{slot.label}</span>
                                     <span className="evidence-upload__photo-hint">
-                                        {uploaded ? uploaded.name : slot.hint}
+                                        {slot.hint}
                                     </span>
                                 </button>
                             );
@@ -388,7 +388,7 @@ export default function EvidenceUpload({ onBack, onContinue }: EvidenceUploadPro
                 onDrop={handleDrop}
             >
                 <span className="evidence-upload__dropzone-icon">
-                    <FiUploadCloud />
+                    <FiUpload />
                 </span>
                 <p className="evidence-upload__dropzone-title">Drag &amp; Drop Files Here</p>
                 <p className="evidence-upload__dropzone-hint">PNG, JPG, PDF up to {MAX_SIZE_MB}MB each</p>
@@ -420,23 +420,7 @@ export default function EvidenceUpload({ onBack, onContinue }: EvidenceUploadPro
                 )}
             </div>
 
-            <footer className="evidence-upload__footer">
-                <button
-                    type="button"
-                    className="evidence-upload__btn evidence-upload__btn--ghost"
-                    onClick={onBack}
-                >
-                    <FiArrowLeft /> Back
-                </button>
-                <button
-                    type="button"
-                    className="evidence-upload__btn evidence-upload__btn--primary"
-                    disabled={!canContinue}
-                    onClick={handleContinueClick}
-                >
-                    Continue <FiArrowRight />
-                </button>
-            </footer>
+            <ClaimsFooter onBack={onBack} onContinue={handleContinueClick} continueDisabled={!canContinue} />
 
             {/* Hidden inputs */}
             <input

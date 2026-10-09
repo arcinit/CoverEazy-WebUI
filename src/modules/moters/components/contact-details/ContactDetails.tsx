@@ -180,7 +180,7 @@ const UsFlag = () => (
     </svg>
 )
 
-const PhoneField = ({ label, required = true }: any) => (
+const PhoneField = ({ label, required = true, value }: any) => (
     <div className="cd-field">
         <label className="cd-field__label">
             {label}
@@ -191,7 +191,7 @@ const PhoneField = ({ label, required = true }: any) => (
                 +61
                 <UsFlag />
             </span>
-            <input className="cd-field__input" placeholder="X XX XX XX XX" />
+            <input className="cd-field__input" defaultValue={value} placeholder="X XX XX XX XX" />
         </div>
     </div>
 )
@@ -283,7 +283,7 @@ const OccupationDetails = () => (
     <div className="occupation-details">
         <h3 className="occupation-details__title">Occupation Details</h3>
         <div className="occupation-details__grid">
-            <TextField label="Occupation" placeholder="e.g., Software Engineer" />
+            <TextField label="Occupation" value="Software Engineer" placeholder="e.g., Software Engineer" />
             <TextField label="Industry" placeholder="" />
         </div>
     </div>
@@ -319,9 +319,9 @@ const ContactDetailsSection = () => (
         subtitle="Please review and complete the information below"
     >
         <div className="contact-details__grid">
-            <TextField label="Email Address" placeholder="ahmad@example.com" />
-            <PhoneField label="Mobile Number" />
-            <PhoneField label="Alternative Contact (Optional)" required={false} />
+            <TextField label="Email Address" value="ahmad.rizal@email.com" placeholder="ahmad@example.com" />
+            <PhoneField label="Mobile Number" value="12 345 6789" />
+            <PhoneField label="Alternative Contact (Optional)" required={false} value="3 8023 4567" />
             <SelectField label="Preferred Language" placeholder="Select Language" required={false} />
         </div>
         <div className="contact-details__notice">
@@ -342,12 +342,12 @@ const AddressInfoSection = () => (
         subtitle="Please review and complete the information below"
     >
         <div className="address-info__grid">
-            <TextField label="Address Line 1" placeholder="House/Unit number and street name" />
-            <TextField label="Address Line 2 (Optional)" placeholder="Apartment, suite, building" required={false} />
+            <TextField label="Address Line 1" value="No. 12, Jalan Kenanga 5/2" placeholder="House/Unit number and street name" />
+            <TextField label="Address Line 2 (Optional)" value="Taman Kenanga" placeholder="Apartment, suite, building" required={false} />
             <SelectField label="Residential Type" placeholder="Select Residential Type" required={false} />
-            <TextField label="City" placeholder="" />
-            <SelectField label="State" placeholder="Select State" />
-            <TextField label="Postcode" placeholder="" required={false} />
+            <TextField label="City" value="Subang Jaya" placeholder="" />
+            <SelectField label="State" value="Selangor" placeholder="Select State" />
+            <TextField label="Postcode" value="47500" placeholder="" required={false} />
         </div>
     </FormSection>
 )
@@ -459,7 +459,7 @@ const addOnLines: any = [
 ]
 
 const secondaryLines: any = [
-    { label: 'Gross Premium/Contribution', value: 'RM 1180' },
+    { label: 'Gross Premium/Contribution', value: 'RM 1180.00' },
     { label: 'SST (8%)', value: 'RM 0.00' },
     { label: 'Stamp Duty', value: 'RM 714.88' },
 ]

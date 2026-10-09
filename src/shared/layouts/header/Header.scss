@@ -159,6 +159,8 @@ $btn-shadow: 0 2px 8px -2px rgba(4, 25, 58, 0.06), 0 1px 3px -1px rgba(4, 25, 58
 
     &__submenu-row {
         cursor: pointer;
+        font-size: 12px;
+        line-height: 1.2;
 
         &:hover { color: $blue; }
     }

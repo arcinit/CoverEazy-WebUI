@@ -1,42 +1,27 @@
-// ---------------------------------------------------------------------
-// Tokens
-// ---------------------------------------------------------------------
-$navy: #062155;
-$text-dark: #313131;
-$green: #16C47F;
-$green-bg: #e9faed;
-$blue: #2563eb;
+$navy: #0b1f4f;
+$text-dark: #1f2937;
+$green: #10b981;
+$green-bg: #e8f9ee;
+$blue: #1d5bd8;
 $blue-bg: #eaf1ff;
-$pink: #ec4899;
-$pink-bg: #fdeef5;
 $orange: #f97316;
 $orange-bg: #fff1e6;
-$red: #ef4444;
-$red-bg: #fdecec;
-$border: #e3e8ee;
+$border: #e8eef5;
 $muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
+$bg: #f1f5fb;
 $card-bg: #ffffff;
-
-// brand accents
-$brand-green: #01B637;
-$brand-orange: #FF5E00;
 
 .road-tax {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0;
 
-    // -------------------------------------------------------------
-    // Header
-    // -------------------------------------------------------------
     &__header {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
-        flex-wrap: wrap;
+        margin-bottom: 29px;
     }
 
     &__title-group {
@@ -49,65 +34,60 @@ $brand-orange: #FF5E00;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
-        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        margin: 29px 0 0 0;
+        padding: 0;
         border: none;
         background: transparent;
         color: $text-dark;
-        border-radius: 8px;
         cursor: pointer;
         flex-shrink: 0;
 
         svg {
-            font-size: 18px;
-        }
-
-        &:hover {
-            background: $bg;
+            font-size: 16px;
         }
     }
 
     &__heading {
         margin: 0;
-        font-size: 22px;
-        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__lead {
-        margin: 4px 0 0;
+        margin: 11px 0 0;
         font-size: 14px;
+        line-height: 20px;
         color: $muted;
     }
 
-    // -------------------------------------------------------------
-    // Buttons
-    // -------------------------------------------------------------
     &__btn {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        gap: 10px;
         border: none;
-        border-radius: 10px;
-        padding: 10px 16px;
-        font-size: 13.5px;
-        font-weight: 600;
+        border-radius: 20px;
+        height: 40px;
+        padding: 0 20px;
+        font-size: 14px;
+        font-weight: 500;
         cursor: pointer;
         white-space: nowrap;
-        transition: filter 0.15s ease, transform 0.05s ease;
+        flex-shrink: 0;
 
         svg {
-            font-size: 15px;
-        }
-
-        &:active {
-            transform: translateY(1px);
+            font-size: 14px;
         }
 
         &:hover {
-            filter: brightness(0.96);
+            filter: brightness(1.1);
         }
+
+        margin-top: 10px;
 
         &--add {
             background: $navy;
@@ -115,34 +95,35 @@ $brand-orange: #FF5E00;
         }
     }
 
-    // -------------------------------------------------------------
-    // Summary cards
-    // -------------------------------------------------------------
     &__summary {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 17px;
+        margin-bottom: 12px;
     }
 
     &__summary-card {
         display: flex;
-        align-items: flex-start;
-        gap: 14px;
+        align-items: center;
+        gap: 8px;
+        height: 88px;
+        box-sizing: border-box;
         background: $card-bg;
         border: 1px solid $border;
-        border-radius: 14px;
-        padding: 18px;
+        border-radius: 20px;
+        box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+        padding: 0 16px;
     }
 
     &__summary-icon {
-        flex: 0 0 40px;
-        width: 40px;
-        height: 40px;
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 19px;
 
         &--blue {
             background: $blue-bg;
@@ -167,36 +148,37 @@ $brand-orange: #FF5E00;
     }
 
     &__summary-label {
-        font-size: 12.5px;
+        font-size: 12px;
+        line-height: 16px;
         color: $muted;
     }
 
     &__summary-value {
-        font-size: 17px;
-        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
         color: $text-dark;
-        margin: 2px 0 2px;
     }
 
     &__summary-sub {
-        font-size: 12.5px;
-        color: $muted-light;
+        font-size: 12px;
+        line-height: 16px;
+        color: $muted;
     }
 
-    // -------------------------------------------------------------
-    // Renewal history
-    // -------------------------------------------------------------
     &__history {
         background: $card-bg;
         border: 1px solid $border;
-        border-radius: 16px;
-        padding: 20px 22px;
+        border-radius: 20px;
+        box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+        padding: 20px 20px 18px;
     }
 
     &__history-title {
-        margin: 0 0 14px;
-        font-size: 16px;
-        font-weight: 700;
+        margin: 0 0 16px;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 600;
         color: $text-dark;
     }
 
@@ -209,24 +191,21 @@ $brand-orange: #FF5E00;
     &__row {
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 14px 0;
-        border-top: 1px solid $border;
-
-        &:first-child {
-            border-top: none;
-        }
+        gap: 16px;
+        height: 61px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #eef1f5;
     }
 
     &__row-icon {
-        flex: 0 0 32px;
-        width: 32px;
-        height: 32px;
-        border-radius: 9px;
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15px;
+        font-size: 16px;
 
         &--processing {
             background: $orange-bg;
@@ -244,32 +223,38 @@ $brand-orange: #FF5E00;
         min-width: 0;
         display: flex;
         flex-direction: column;
+        gap: 1px;
     }
 
     &__row-title {
-        font-size: 14.5px;
+        font-size: 14px;
+        line-height: 18px;
         font-weight: 600;
         color: $text-dark;
     }
 
     &__row-sub {
-        font-size: 12.5px;
+        font-size: 12px;
+        line-height: 16px;
         color: $muted;
-        margin-top: 2px;
     }
 
     &__row-amount {
         flex: 0 0 auto;
-        font-size: 14.5px;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__badge {
         flex: 0 0 auto;
+        min-width: 85px;
+        box-sizing: border-box;
+        text-align: center;
         font-size: 12px;
-        font-weight: 600;
-        padding: 4px 10px;
+        line-height: 16px;
+        font-weight: 500;
+        padding: 2px 10px;
         border-radius: 999px;
 
         &--processing {
@@ -288,27 +273,24 @@ $brand-orange: #FF5E00;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         border: none;
         background: transparent;
-        color: $muted;
-        border-radius: 8px;
+        color: #6b7280;
         cursor: pointer;
+        padding: 0;
+        margin: 0 4px 0 -4px;
 
         svg {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         &:hover {
-            background: $bg;
             color: $text-dark;
         }
     }
 
-    // -------------------------------------------------------------
-    // Responsive
-    // -------------------------------------------------------------
     @media (max-width: 900px) {
         &__summary {
             grid-template-columns: 1fr;
@@ -316,25 +298,22 @@ $brand-orange: #FF5E00;
     }
 
     @media (max-width: 560px) {
+        &__header {
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
         &__row {
             flex-wrap: wrap;
+            height: auto;
+            padding: 12px 0;
         }
 
         &__row-body {
-            flex: 1 0 100%;
-            order: 1;
-        }
-
-        &__row-amount {
-            order: 3;
-        }
-
-        &__badge {
-            order: 4;
+            flex: 1 0 calc(100% - 52px);
         }
 
         &__download {
-            order: 5;
             margin-left: auto;
         }
     }

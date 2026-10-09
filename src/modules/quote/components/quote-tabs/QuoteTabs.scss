@@ -10,7 +10,10 @@
     padding: 5px;
 
     &__tab {
-        width: 33.33%;
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 0 10px;
+        white-space: nowrap;
         height: 100%;
         border-radius: 36px;
         background: transparent;
@@ -23,12 +26,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         transition: background 0.2s ease, color 0.2s ease;
 
         .icon {
             font-size: 15px;
         }
+
+        .quote-tabs__icon { width: 16px; height: 16px; flex: none; object-fit: contain; }
 
         &.active {
             background: #062155;

@@ -59,6 +59,7 @@ const plans: any = [
         save: '196',
         monthly: '107',
         score: 98,
+        coverageScore: 9.4, // Figma shows 9.4 in the plan details modal
         rating: 4.8,
         reviews: '12.5k',
         digital: 'Yes Digital',

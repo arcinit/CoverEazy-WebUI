@@ -51,6 +51,13 @@ interface LoginCardProps {
     onCreateAccount: () => void
 }
 
+// Shown on the OTP card as 987-7654 321 (Figma)
+const formatMobile = (value: string) => {
+    const d = value.replace(/D/g, '')
+    if (d.length < 8) return value.trim()
+    return `${d.slice(0, 3)}-${d.slice(3, 7)} ${d.slice(7)}`.trim()
+}
+
 const LoginCard = ({ onSendOtp, onEmailLogin, onCreateAccount }: LoginCardProps) => {
     const [method, setMethod] = useState<'mobile' | 'email'>('mobile')
     const [mobile, setMobile] = useState('')
@@ -77,7 +84,7 @@ const LoginCard = ({ onSendOtp, onEmailLogin, onCreateAccount }: LoginCardProps)
                 return
             }
             setError('')
-            onSendOtp(`${COUNTRY_CODE} ${mobile.trim()}`)
+            onSendOtp(`${COUNTRY_CODE} ${formatMobile(mobile)}`)
             return
         }
         if (!EMAIL_RE.test(email.trim())) {

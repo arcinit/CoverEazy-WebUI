@@ -1,195 +1,146 @@
-// ---------------------------------------------------------------------
-// Tokens
-// ---------------------------------------------------------------------
-$navy: #062155;
-$text-dark: #313131;
-$green: #16C47F;
-$green-bg: #e9faed;
-$blue: #2563eb;
-$blue-bg: #eaf1ff;
-$pink: #ec4899;
-$pink-bg: #fdeef5;
-$orange: #f97316;
-$orange-bg: #fff1e6;
-$red: #ef4444;
-$red-bg: #fdecec;
-$border: #e3e8ee;
-$muted: #6b7280;
-$muted-light: #9aa2ae;
-$bg: #f5f7fb;
-$card-bg: #ffffff;
+$text-dark: #2b2f36;
+$muted: #5f6b7c;
+$muted-light: #7b8594;
+$border: #e8edf4;
+$green: #12b76a;
+$orange: #ff5e00;
+$pill: #eef1f7;
 
 .claims {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    width: 100%;
 
-    // -------------------------------------------------------------
-    // Header
-    // -------------------------------------------------------------
+    &__header { margin-bottom: 29px; }
+
     &__heading {
         margin: 0;
-        font-size: 22px;
-        font-weight: 700;
+        font-size: 26px;
+        line-height: 32px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__lead {
-        margin: 4px 0 0;
-        font-size: 14px;
+        margin: 12px 0 0;
+        font-size: 15px;
+        line-height: 20px;
         color: $muted;
     }
 
-    // -------------------------------------------------------------
-    // Tabs
-    // -------------------------------------------------------------
     &__tabs {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px;
-        border-radius: 12px;
-        width: fit-content;
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
     }
 
     &__tab {
+        height: 33px;
+        padding: 0 16px;
         border: none;
-        background: #F1F5FB;
+        border-radius: 999px;
+        background: $pill;
         color: $muted;
-        font-size: 12px;
-        font-weight: 400;
-        padding: 8px 18px;
-        border-radius: 20px;
+        font-size: 15px;
+        font-weight: 500;
         cursor: pointer;
-        transition: background 0.15s ease, color 0.15s ease;
 
-        &:hover {
-            color: $text-dark;
-        }
-
-        &--active {
-            background: #1F6DD8;
-            color: #fff;
-
-            &:hover {
-                color: #fff;
-            }
-        }
+        &--active { background: #1d5fd8; color: #fff; }
     }
 
-    // -------------------------------------------------------------
-    // Card list
-    // -------------------------------------------------------------
-    &__list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    &__empty {
-        background: $card-bg;
-        border: 1px dashed $border;
-        border-radius: 14px;
-        padding: 40px;
-        text-align: center;
-        color: $muted;
-        font-size: 14px;
-    }
+    &__list { display: flex; flex-direction: column; gap: 16px; }
 
     &__card {
-        background: $card-bg;
+        background: #fff;
         border: 1px solid $border;
-        border-radius: 16px;
-        padding: 20px 22px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(15, 30, 60, 0.03);
     }
 
     &__card-top {
         display: flex;
-        align-items: flex-start;
         justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: 19px 19px 0 19px;
     }
 
     &__claim-no {
         margin: 0;
-        font-size: 16px;
-        font-weight: 700;
+        font-family: "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace !important;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
         color: $text-dark;
     }
 
     &__claim-sub {
-        margin: 4px 0 0;
-        font-size: 13px;
+        margin: 7px 0 0;
+        font-size: 14px;
+        line-height: 20px;
         color: $muted;
     }
 
     &__badge {
-        font-size: 12px;
-        font-weight: 600;
-        padding: 5px 12px;
+        padding: 0 10px;
+        height: 22px;
+        line-height: 22px;
         border-radius: 999px;
-        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 500;
 
-        &--under-review {
-            background: $orange-bg;
-            color: $orange;
-        }
-
-        &--completed {
-            background: $green-bg;
-            color: $green;
-        }
-
-        &--rejected {
-            background: $red-bg;
-            color: $red;
-        }
+        &--under-review { background: #fff3ea; color: #ff6a00; }
+        &--completed { background: #e7f9ef; color: #16b364; }
+        &--rejected { background: #fdecec; color: #ef4444; }
     }
 
-    // -------------------------------------------------------------
-    // Meta row
-    // -------------------------------------------------------------
     &__meta {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 18px;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 16px;
+        padding: 19px 19px 0;
     }
 
-    &__meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
+    &__meta-item { display: flex; flex-direction: column; gap: 2px; }
 
-    &__meta-label {
-        font-size: 12px;
-        color: $muted;
-    }
+    &__meta-label { font-size: 12.5px; line-height: 18px; color: $muted-light; }
 
-    &__meta-value {
-        font-size: 14px;
-        font-weight: 600;
-        color: $text-dark;
-    }
+    &__meta-value { font-size: 15px; line-height: 22px; font-weight: 600; color: $text-dark; }
 
-    // -------------------------------------------------------------
-    // Stepper
-    // -------------------------------------------------------------
     &__stepper {
-        display: flex;
-        align-items: flex-start;
-        margin-top: 28px;
-        padding: 0 4px;
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin: 14px 19px 0;
+        padding-bottom: 20px;
+    }
+
+    &__stepper-track {
+        position: absolute;
+        top: 13px;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: #e6eaf1;
+        border-radius: 2px;
+    }
+
+    &__stepper-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: $green;
+        border-radius: 2px;
     }
 
     &__stepper-item {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 8px;
-        flex: 0 0 auto;
     }
 
     &__stepper-dot {
@@ -199,103 +150,56 @@ $card-bg: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 12.5px;
-        font-weight: 700;
-        flex-shrink: 0;
+        font-size: 12px;
+        font-weight: 600;
 
-        &--done {
-            background: $green;
-            color: #fff;
-        }
-
-        &--active {
-            background: $orange;
-            color: #fff;
-        }
-
-        &--pending {
-            background: #e9ecf1;
-            color: $muted-light;
-        }
+        &--done { background: $green; color: #fff; }
+        &--active { background: $orange; color: #fff; }
+        &--pending { background: $pill; color: $muted; }
     }
 
     &__stepper-label {
-        font-size: 12px;
-        white-space: nowrap;
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 500;
 
-        &--done {
-            color: $green;
-            font-weight: 600;
-        }
-
-        &--active {
-            color: $orange;
-            font-weight: 600;
-        }
-
-        &--pending {
-            color: $muted-light;
-        }
+        &--done { color: $green; }
+        &--active { color: $orange; }
+        &--pending { color: $muted; }
     }
 
-    &__stepper-line {
-        flex: 1 1 auto;
-        height: 2px;
-        background: #e2e6ec;
-        margin: 13px -1px 0;
-        min-width: 20px;
-
-        &--filled {
-            background: $green;
-        }
-    }
-
-    // -------------------------------------------------------------
-    // Footer links
-    // -------------------------------------------------------------
     &__footer {
         display: flex;
-        align-items: center;
-        gap: 22px;
-        margin-top: 22px;
-        padding-top: 16px;
-        border-top: 1px solid $border;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 13px 19px 12px;
+        background: #fafbfd;
+        border-top: 1px solid #eef1f6;
     }
 
     &__link {
+        height: 26px;
+        padding: 0 13px;
         border: none;
-        background: transparent;
-        color: $blue;
-        font-size: 13.5px;
-        font-weight: 600;
+        border-radius: 999px;
+        background: $pill;
+        color: #4b5565;
+        font-size: 13px;
+        font-weight: 500;
         cursor: pointer;
-        padding: 0;
 
-        &:hover {
-            text-decoration: underline;
-        }
-
-        &:not(:first-child) {
-            color: $muted;
-        }
+        &:first-child { background: #eaf1fd; color: #1d5fd8; }
     }
 
-    // -------------------------------------------------------------
-    // Responsive
-    // -------------------------------------------------------------
-    @media (max-width: 720px) {
-        &__meta {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+    &__empty {
+        padding: 40px 0;
+        text-align: center;
+        color: $muted;
+        font-size: 14px;
+    }
 
-        &__stepper {
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-
-        &__footer {
-            flex-wrap: wrap;
-            gap: 14px;
-        }
+    @media (max-width: 700px) {
+        &__meta { grid-template-columns: repeat(2, 1fr); row-gap: 14px; }
+        &__stepper-label { font-size: 11px; }
     }
 }

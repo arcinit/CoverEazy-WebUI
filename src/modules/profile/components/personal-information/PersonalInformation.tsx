@@ -56,9 +56,10 @@ interface InfoCardProps {
     tone: 'blue' | 'green' | 'orange' | 'red';
     title: string;
     fields: FieldItem[];
+    cols?: 2 | 3;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ icon: Icon, tone, title, fields }) => (
+const InfoCard: React.FC<InfoCardProps> = ({ icon: Icon, tone, title, fields, cols = 3 }) => (
     <section className="personal-info__card">
         <div className="personal-info__card-header">
             <div className="personal-info__card-heading">
@@ -73,7 +74,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon: Icon, tone, title, fields }) 
             </button>
         </div>
 
-        <div className="personal-info__fields">
+        <div className={`personal-info__fields personal-info__fields--${cols}${tone === 'orange' || tone === 'red' ? ' personal-info__fields--tight' : ''}`}>
             {fields.map(({ label, value, verified }) => (
                 <div className="personal-info__field" key={label}>
                     <span className="personal-info__field-label">{label}</span>
@@ -110,17 +111,19 @@ const PersonalInformation: React.FC = () => {
 
             {/* Profile Completion */}
             <section className="personal-info__completion">
-                <div className="personal-info__completion-row">
-                    <span className="personal-info__completion-label">Profile Completion</span>
-                    <span className="personal-info__completion-value">
-                        {PROFILE_COMPLETION.percent}%
-                    </span>
-                </div>
-                <div className="personal-info__completion-track">
-                    <div
-                        className="personal-info__completion-fill"
-                        style={{ width: `${PROFILE_COMPLETION.percent}%` }}
-                    />
+                <div className="personal-info__completion-main">
+                    <div className="personal-info__completion-row">
+                        <span className="personal-info__completion-label">Profile Completion</span>
+                        <span className="personal-info__completion-value">
+                            {PROFILE_COMPLETION.percent}%
+                        </span>
+                    </div>
+                    <div className="personal-info__completion-track">
+                        <div
+                            className="personal-info__completion-fill"
+                            style={{ width: '91.7%' }}
+                        />
+                    </div>
                 </div>
                 <span className="personal-info__completion-hint">
                     {PROFILE_COMPLETION.hint}
@@ -153,6 +156,7 @@ const PersonalInformation: React.FC = () => {
                 tone="red"
                 title="Emergency Contact"
                 fields={EMERGENCY_CONTACT}
+                cols={2}
             />
         </div>
     );

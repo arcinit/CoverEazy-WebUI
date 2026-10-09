@@ -160,7 +160,7 @@ function RoadTaxCard() {
 }
 
 function RenewalPeriod({ value, onChange }: any) {
-    const options = ["12 Months", "6 Months", "3 Months", "Don't Renew"];
+    const options = ["12 Months", "6 Months", "Don't Renew"];
     return (
         <section className="option-section">
             <h3 className="option-section__title">Renewal Period</h3>

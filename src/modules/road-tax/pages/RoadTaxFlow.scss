@@ -435,7 +435,10 @@ $bg: #f1f5fb;
     &__content {
         width: min(1240px, calc(100% - 48px));
         margin: 0 auto;
-        padding: 36px 0 48px;
+        padding: 33px 0 27px;
+        // Figma leaves a slightly different amount of space under each screen
+        &--step-2 { padding-bottom: 18px; }
+        &--step-3 { padding-bottom: 14px; }
 
         @media (max-width: 600px) { width: calc(100% - 24px); }
     }

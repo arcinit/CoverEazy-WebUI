@@ -74,8 +74,8 @@ const CoverageRow: React.FC<CoverageRowProps> = ({ icon: Icon, iconClass, label,
             <span className="vehicles__coverage-label">{label}</span>
             <span className="vehicles__coverage-policy">{coverage.policyNo}</span>
             <span className="vehicles__coverage-dates">
-                Start Date: <strong>{coverage.startDate}</strong> &nbsp;&middot;&nbsp; Expiry Date:{' '}
-                <strong>{coverage.expiryDate}</strong>
+                <span>Start Date: <strong>{coverage.startDate}</strong></span>
+                <span>Expiry Date: <strong>{coverage.expiryDate}</strong></span>
             </span>
         </div>
     </div>
@@ -84,11 +84,11 @@ const CoverageRow: React.FC<CoverageRowProps> = ({ icon: Icon, iconClass, label,
 // ---------------------------------------------------------------------
 // Vehicle card
 // ---------------------------------------------------------------------
-const VehicleCard: React.FC<{ vehicle: Vehicle }> = ({ vehicle }) => (
+const VehicleCard: React.FC<{ vehicle: Vehicle; onOpenRoadTax?: () => void }> = ({ vehicle, onOpenRoadTax }) => (
     <div className="vehicles__card">
         <div className="vehicles__card-top">
             <div className="vehicles__thumb">
-                <img src={carImage} className='carImage'/>
+                <img src={carImage} alt={vehicle.model} />
             </div>
 
             <div className="vehicles__details">
@@ -134,13 +134,13 @@ const VehicleCard: React.FC<{ vehicle: Vehicle }> = ({ vehicle }) => (
             <div className="vehicles__notice">
                 <span className="vehicles__notice-text">
                     <FiAlertTriangle className="vehicles__notice-icon" />
-                    Road tax expires in <strong>{vehicle.roadTaxDueInDays} days</strong>.
+                    <span>Road tax expires in <strong>{vehicle.roadTaxDueInDays} days</strong>.</span>
                 </span>
                 <div className="vehicles__notice-actions">
                     <button type="button" className="vehicles__btn vehicles__btn--navy">
                         View Policy
                     </button>
-                    <button type="button" className="vehicles__btn vehicles__btn--green">
+                    <button type="button" className="vehicles__btn vehicles__btn--green" onClick={onOpenRoadTax}>
                         View Road Tax
                     </button>
                     <button type="button" className="vehicles__btn vehicles__btn--orange">
@@ -155,7 +155,11 @@ const VehicleCard: React.FC<{ vehicle: Vehicle }> = ({ vehicle }) => (
 // ---------------------------------------------------------------------
 // Vehicles — main export
 // ---------------------------------------------------------------------
-const Vehicles: React.FC = () => {
+interface VehiclesProps {
+    onOpenRoadTax?: () => void;
+}
+
+const Vehicles: React.FC<VehiclesProps> = ({ onOpenRoadTax }) => {
     return (
         <section className="vehicles">
             <div className="vehicles__header">
@@ -171,7 +175,7 @@ const Vehicles: React.FC = () => {
 
             <div className="vehicles__list">
                 {VEHICLES.map((vehicle) => (
-                    <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                    <VehicleCard key={vehicle.id} vehicle={vehicle} onOpenRoadTax={onOpenRoadTax} />
                 ))}
             </div>
         </section>
