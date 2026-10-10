@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useSyncExternalStore } from 'react'
 import "./Header.scss"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { tokenService } from '../../services/token.service';
+import { homeTab, type HomeTab } from '../../state/homeTab';
 import headerLogo from "./images/logo-figma.png"
 import avtarImage from "./images/avtar.png"
 import aiIcon from "./images/ai-icon.svg"
@@ -14,9 +15,9 @@ const menusData = [
     { id: 1, menu: "Home", subMenus: [], key: "home", path: "/" },
     {
         id: 2, menu: "Products", subMenus: [
-            { id: 21, menu: "Motor", key: "moter", path: "/moters" },
-            { id: 22, menu: "Travel", key: "travel", path: "/travel" },
-            { id: 23, menu: "Road Tax", key: "road_tax", path: "/road-tax" }
+            { id: 21, menu: "Motor", key: "moter", path: "/moters", tab: "car" as HomeTab },
+            { id: 22, menu: "Travel", key: "travel", path: "/travel", tab: "travel" as HomeTab },
+            { id: 23, menu: "Road Tax", key: "road_tax", path: "/road-tax", tab: "tax" as HomeTab }
         ], key: "products", path: ""
     },
     { id: 3, menu: "Claims", subMenus: [], key: "claims", path: "/claims" }
@@ -31,7 +32,9 @@ const Header = ({ onLoginClick }: HeaderProps) => {
     const { pathname } = useLocation();
     const isLogin = tokenService.isAuthenticated();
     // On a product route the "Products" menu reads as the product itself and is highlighted (as in the Figma logged-in header)
+    const quoteTab = useSyncExternalStore(homeTab.subscribe, homeTab.get)
     const activeProduct = menusData[1].subMenus.find((sub) => pathname.startsWith(sub.path))
+        ?? (pathname === "/" && quoteTab ? menusData[1].subMenus.find((sub) => sub.tab === quoteTab) : undefined)
     const handleLogin = () => (onLoginClick ? onLoginClick() : navigate('/', { state: { openLogin: true } }));
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
@@ -59,7 +62,7 @@ const Header = ({ onLoginClick }: HeaderProps) => {
                                                 <div
                                                     className="header__submenu-row"
                                                     key={sub.id}
-                                                    onClick={() => navigate(sub.path)}
+                                                    onClick={() => homeTab.set(sub.tab)}
                                                 >
                                                     <span className="header__submenu-name">{sub.menu}</span>
                                                 </div>
@@ -138,7 +141,7 @@ const Header = ({ onLoginClick }: HeaderProps) => {
                                                         className="header__mobile-submenu-item"
                                                         key={sub.id}
                                                         onClick={() => {
-                                                            navigate(sub.path)
+                                                            homeTab.set(sub.tab)
                                                             setMobileMenuOpen(false)
                                                         }}
                                                     >

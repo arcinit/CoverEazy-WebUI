@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useSyncExternalStore } from 'react'
 import { useNavigate } from "react-router-dom"
 import { FiCalendar } from "react-icons/fi"
 import { tokenService } from "../../../../shared/services/token.service"
-import { homeTab } from "../../../../shared/state/homeTab"
+import { homeTab, type HomeTab } from "../../../../shared/state/homeTab"
 import VehicleVerificationModal from "../vehicle-verification/VehicleVerificationModal"
 import "./HomeHero.scss"
 
@@ -48,12 +48,12 @@ const CHIPS = [
 
 const QuoteCard = ({ embedded = false }: { embedded?: boolean }) => {
     const navigate = useNavigate()
-    const [tab, setTab] = useState("car")
+    const tab = useSyncExternalStore(homeTab.subscribe, homeTab.get) ?? "car"
+    const setTab = homeTab.set
     React.useEffect(() => {
         if (!embedded) return
-        homeTab.set(tab as "car" | "travel" | "tax")
-        return () => homeTab.set("car")
-    }, [tab, embedded])
+        return () => homeTab.set(null)
+    }, [embedded])
     const [form, setForm] = useState({
         ownership: "Private",
         vehicleReg: "VAB 1234",
@@ -95,7 +95,7 @@ const QuoteCard = ({ embedded = false }: { embedded?: boolean }) => {
                                 type="button"
                                 key={t.id}
                                 className={`h-hero__tab ${tab === t.id ? "is-active" : ""}`}
-                                onClick={() => setTab(t.id)}
+                                onClick={() => setTab(t.id as HomeTab)}
                             >
                                 {!embedded && <img src={t.icon} alt="" />} {t.label}
                             </button>
