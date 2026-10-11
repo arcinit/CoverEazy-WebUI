@@ -139,8 +139,7 @@ export default function EvidenceUpload({ onBack, onContinue }: EvidenceUploadPro
 
     const uploadedCount = Object.values(photos).filter(Boolean).length;
     const totalSlots = PHOTO_SLOTS.length;
-    // Every angle is required except the dashboard / odometer shot (Figma enables Continue with 5 of 6)
-    const canContinue = PHOTO_SLOTS.every((slot) => slot.id === "dashboard" || photos[slot.id]);
+    const canContinue = uploadedCount > 0 || extraFiles.length > 0;
 
     const validateFile = (file: File): string | null => {
         if (!ACCEPTED_TYPES.includes(file.type)) {
